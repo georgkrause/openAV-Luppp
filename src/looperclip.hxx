@@ -24,6 +24,8 @@
 #include "config.hxx"
 #include "gridlogic.hxx"
 
+#include "rubberband/RubberBandStretcher.h"
+
 class AudioBuffer;
 
 /** LooperClip
@@ -56,6 +58,8 @@ public:
 
 	/// audio functionality
 	void getSample(long double playSpeed, float* L, float* R);
+	void
+	getSamples(unsigned int nframes, long double playspeed, float * L, float * R);
 	void record(int count, float* L, float* R);
 
 	/// TimeObserver override
@@ -143,6 +147,8 @@ private:
 
 	unsigned int _barsPlayed;
 	AudioBuffer* _buffer;
+
+	RubberBand::RubberBandStretcher *stretcher;
 };
 
 #endif // LUPPP_LOOPER_CLIP_H
