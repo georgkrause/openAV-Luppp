@@ -1,3 +1,10 @@
+# recent changes
+
+## Improvements
+
+* Improve BPM Dial to avoid jitter
+* Make tempo ramps possible again (without pitch correction)
+
 # 1.2.1 Monday 15th April 2019
 
 ## Features:
