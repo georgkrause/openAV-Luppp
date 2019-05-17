@@ -17,5 +17,8 @@ build:
     - squashfs-root/AppRun build/appdir/usr/share/applications/*.desktop -appimage
 
   artifacts:
-    untracked: true
+    untracked: false
     expire_in: 30 days
+    paths: 
+      - Luppp-*.AppImage*
+      - build/meson-logs
