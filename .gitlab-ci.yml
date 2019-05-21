@@ -1,19 +1,12 @@
-image: python:3.7
+image: gcrkrause/loopp-docker-build-env
 
 build:
-  before_script:
-    - apt-get update && apt-get --assume-yes install ninja-build libjpeg-dev libsndfile1-dev libsigc++-2.0-dev libfontconfig1-dev libxft-dev libcairo-dev liblo-dev libjack-dev libsamplerate0-dev
-    - pip3 install meson
-    - git clone https://github.com/original-male/ntk
-    - cd ntk && ./waf configure build install && cd ..
   script: 
     - meson --prefix /usr build
     - ninja -C build
     - DESTDIR=./appdir ninja -C build install ; find ./build/appdir
-    - wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-    - chmod a+x linuxdeployqt-continuous-x86_64.AppImage
     - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
-    - ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
+    - /linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
     - squashfs-root/AppRun build/appdir/usr/share/applications/*.desktop -appimage
 
   artifacts:
