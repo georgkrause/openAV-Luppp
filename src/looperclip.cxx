@@ -35,7 +35,8 @@ extern Jack* jack;
 LooperClip::LooperClip(int t, int s) :
 	Stately(),
 	track(t),
-	scene(s)
+	scene(s),
+	TimeObserver()
 {
 	_buffer = new AudioBuffer(LOOPER_SAMPLES_UPDATE_SIZE);
 	init();
@@ -66,7 +67,7 @@ void LooperClip::init()
 	_nextPlaybackSpeed = 1;
 	_playbackSpeedChange = false;
 
-	_barsPlayed = 0;
+	_beatsPlayed = 0;
 	updateController();
 }
 
@@ -170,7 +171,7 @@ void LooperClip::resetPlayHead()
 	if (!_recording)
 	{
 		_playhead = 0;
-		_barsPlayed = 0;
+		_beatsPlayed = 0;
 		updateController();
 	}
 }
@@ -255,26 +256,9 @@ long LooperClip::getActualAudioLength()
 
 void LooperClip::bar()
 {
-	// first update the buffer, as time has passed
-	if ( _recording ) {
-		// FIXME: assumes 4 beats in a bar
-		_buffer->setBeats( _buffer->getBeats() + 4 );
-		_buffer->setAudioFrames( jack->getTimeManager()->getFpb() * _buffer->getBeats() );
-	}
-
 	if(_playbackSpeedChange) {
 		_playbackSpeed = _nextPlaybackSpeed;
 		_playbackSpeedChange = false;
-	}
-
-	if ( _playing ) {
-		_barsPlayed++;
-	}
-
-	// FIXME assumes 4 beats in a bar
-	if((_playing && _barsPlayed >= (getBeats() / 4 / _playbackSpeed)) ||
-		(_playing && _playhead >= _recordhead)) {
-		resetPlayHead();
 	}
 
 	if ( _queuePlay ) {
@@ -287,7 +271,23 @@ void LooperClip::bar()
 	else if ( _queueRecord ) 
 	{
 		setRecording();
-	} 
+	}
+
+	if(_recording) {
+		// FIXME: assumes 4 beats in a bar
+		_buffer->setBeats(_buffer->getBeats() + 4);
+		_buffer->setAudioFrames(
+			jack->getTimeManager()->getFpb() * _buffer->getBeats());
+	}
+}
+
+void LooperClip::beat() {
+	if(_playing) {
+		_beatsPlayed++;
+	}
+	if(_playing && _beatsPlayed >= (getBeats() / _playbackSpeed)) {
+		resetPlayHead();
+	}
 }
 
 void LooperClip::resetQueues()
@@ -363,7 +363,7 @@ void LooperClip::setPlaying()
 
 		resetQueues();
 
-		_barsPlayed = 0;
+		_beatsPlayed = 0;
 		_playhead 	= 0;
 	} else {
 		resetQueues();
@@ -379,7 +379,7 @@ void LooperClip::setStopped()
 
 		resetQueues();
 
-		_barsPlayed = 0;
+		_beatsPlayed = 0;
 		_playhead   = 0;
 
 		// set "progress" to zero, as we're stopped!

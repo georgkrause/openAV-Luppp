@@ -44,7 +44,7 @@ class AudioBuffer;
  *
  * This class inherits from Stately to save its state.
 **/
-class LooperClip : public Stately
+class LooperClip : public Stately, public TimeObserver
 {
 public:
 	LooperClip(int track, int scene);
@@ -62,6 +62,8 @@ public:
 
 	/// TimeObserver override
 	void bar();
+	void
+	beat();
 
 	/// Start process of saving the clip
 	void save();
@@ -151,7 +153,7 @@ private:
 	long double _nextPlaybackSpeed;
 	bool _playbackSpeedChange;
 
-	unsigned int _barsPlayed;
+	unsigned int _beatsPlayed;
 	AudioBuffer* _buffer;
 
 	/// Request new internal Buffer
