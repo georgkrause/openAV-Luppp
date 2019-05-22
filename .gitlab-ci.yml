@@ -1,17 +1,48 @@
 image: gcrkrause/loopp-docker-build-env
+stages:
+  - build
+  - test
+  - package
+
+#include:
+#  - template: Code-Quality.gitlab-ci.yml
+
+static-analysis:
+  stage: test
+  allow_failure: true
+  script: 
+    - lizard -C 10 -L 200 -x src/cjson/* src/tests/* src/ >&1 | tee lizard.txt
+  artifacts:
+    paths:
+      - lizard.txt
+    expire_in: 2 days
 
 build:
+  stage: build
   script: 
-    - meson --prefix /usr build
-    - ninja -C build
-    - DESTDIR=./appdir ninja -C build install ; find ./build/appdir
+    - meson --prefix /usr buildDir
+    - ninja -C buildDir
+  artifacts:
+    untracked: true
+    expire_in: 1 days
+  
+test:
+  stage: test
+  dependencies:
+    - build
+  script: ninja -C buildDir test
+
+deploy-AppImage:
+  stage: package
+  dependencies:
+    - build
+  script:
+    - DESTDIR=./appdir ninja -C buildDir install ; find ./buildDir/appdir
     - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
     - /linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
-    - squashfs-root/AppRun build/appdir/usr/share/applications/*.desktop -appimage
-
+    - squashfs-root/AppRun buildDir/appdir/usr/share/applications/*.desktop -appimage
   artifacts:
     untracked: false
     expire_in: 30 days
     paths: 
       - Luppp-*.AppImage*
-      - build/meson-logs
