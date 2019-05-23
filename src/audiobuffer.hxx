@@ -48,7 +48,7 @@ public:
 
 	void setBeats(int b);
 
-	void setAudioFrames(long af);
+	bool setAudioFrames(long af);
 
 	long getAudioFrames();
 
@@ -58,8 +58,6 @@ public:
 	std::vector<float>& getDataR();
 
 	void nonRtSetSample(std::vector<float>& sampleL, std::vector<float>& sampleR);
-
-	void nonRtResize(unsigned long size);
 
 protected:
 	static int privateID;

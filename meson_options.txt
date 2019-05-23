@@ -1,1 +1,2 @@
-option('tests', type : 'boolean', value : true, description : 'Build tests')
+option('tests', type : 'boolean', value : false, description : 'Build tests')
+option('unitTests', type : 'boolean', value : false, description : 'Build unit tests')

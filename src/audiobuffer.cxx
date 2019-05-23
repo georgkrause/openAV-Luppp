@@ -83,12 +83,21 @@ void AudioBuffer::setBeats(int b)
 	numBeats = b;
 }
 
-void AudioBuffer::setAudioFrames(long af)
+bool
+AudioBuffer::setAudioFrames(long af)
 {
-	audioFrames = af;
+	if(af <= getSize()) {
+		audioFrames = af;
 #ifdef DEBUG_BUFFER
-	cout << "AudioBuffer " << ID << " has "  << audioFrames << " audioFrames" << " and " << getSize() << " Buffersize\n" << endl;
+		cout << "AudioBuffer " << ID << " has " << audioFrames
+		     << " audioFrames"
+		     << " and " << getSize() << " Buffersize\n"
+		     << endl;
 #endif
+		return true;
+	} else {
+		return false;
+	}
 }
 
 long AudioBuffer::getAudioFrames()
@@ -117,9 +126,4 @@ void AudioBuffer::nonRtSetSample(std::vector<float>& sampleL, std::vector<float>
 {
 	bufferL.swap(sampleL);
 	bufferR.swap(sampleR);
-}
-void AudioBuffer::nonRtResize(unsigned long size)
-{
-	bufferL.resize(size);
-	bufferR.resize(size);
 }

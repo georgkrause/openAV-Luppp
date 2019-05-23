@@ -8,6 +8,8 @@ stages:
 #  - template: Code-Quality.gitlab-ci.yml
 
 static-analysis:
+  tags: 
+    - docker
   stage: test
   allow_failure: true
   script: 
@@ -16,8 +18,23 @@ static-analysis:
     paths:
       - lizard.txt
     expire_in: 2 days
+  dependencies: []
 
-build:
+build-test:
+  tags: 
+    - docker
+  stage: build
+  script:
+    - meson buildDir -DunitTests=true -Db_coverage=true
+    - ninja -C buildDir
+  artifacts:
+    untracked: true
+    expire_in: 1 days
+  dependencies: []
+
+build-publish:
+  tags: 
+    - docker
   stage: build
   script: 
     - meson --prefix /usr buildDir
@@ -27,15 +44,27 @@ build:
     expire_in: 1 days
   
 test:
+  tags: 
+    - docker
   stage: test
   dependencies:
-    - build
-  script: ninja -C buildDir test
+    - build-test
+  script: 
+    - ninja -C buildDir test
+    - gcovr -b -e buildDir/luppp@exe/catch.hpp -e buildDir/luppp@exe/test_ <&1 | tee buildDir/coverage.txt
+  artifacts:
+    paths:
+      - buildDir/coverage.txt
+    reports:
+      junit: buildDir/junit.xml
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
-deploy-AppImage:
+package-AppImage:
+  tags: 
+    - docker
   stage: package
   dependencies:
-    - build
+    - build-publish
   script:
     - DESTDIR=./appdir ninja -C buildDir install ; find ./buildDir/appdir
     - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH

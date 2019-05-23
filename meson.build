@@ -38,9 +38,13 @@ foreach dep : dep_names
 endforeach
 
 # compile the main project
-executable('luppp', luppp_src + [version_hxx],
+exe = executable('luppp', luppp_src + [version_hxx],
     install: true,
     dependencies: deps)
+
+if get_option('unitTests')
+  test('Unit Tests', exe, args : ['-r junit', '-o junit.xml'])
+endif
 
 install_data('resources/metadata/luppp.desktop', install_dir: 'share/applications')
 install_data('resources/metadata/luppp.appdata.xml', install_dir: 'share/appdata')
