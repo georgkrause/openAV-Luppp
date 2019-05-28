@@ -1,4 +1,4 @@
-image: gcrkrause/loopp-docker-build-env
+image: $CI_REGISTRY/soundship/loopp-docker-build-env:stable
 stages:
   - build
   - test
@@ -6,6 +6,9 @@ stages:
 
 #include:
 #  - template: Code-Quality.gitlab-ci.yml
+
+before_script:
+  - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
 
 static-analysis:
   tags: 
