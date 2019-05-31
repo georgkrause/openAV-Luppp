@@ -117,9 +117,9 @@ void AudioEditor::show( AudioBuffer* buf, bool modal )
 	for( int i = 0; i < 7; i++ ) {
 		int beat = beats[i];
 		int fpb = size / beat;
-		int bpm = (gui->samplerate / fpb) * 60;
+		float bpm = (gui->samplerate / fpb) * 60;
 
-		if ( bpm < 60 || bpm > 220 ) {
+		if ( bpm < MIN_TEMPO || bpm > MAX_TEMPO ) {
 			// disable option: not valid
 			beatButtons[i]->setGreyOut( true );
 			beatButtons[i]->setColor( 0.4, 0.4, 0.4 );

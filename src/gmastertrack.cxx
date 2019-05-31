@@ -24,7 +24,7 @@
 static void gmastertrack_tempoDial_callback(Fl_Widget *w, void *data)
 {
 	Avtk::Dial* b = (Avtk::Dial*)w;
-	float bpm = (int)(b->value() * (float)(MAX_TEMPO - MIN_TEMPO) + MIN_TEMPO);
+	float bpm = (b->value() * (float)(MAX_TEMPO - MIN_TEMPO) + MIN_TEMPO);
 	if(std::fabs(bpm-round(bpm))) {
 		LUPPP_WARN("%f",bpm);
 	}
@@ -173,7 +173,7 @@ static void gmastertrack_button_callback(Fl_Widget *w, void *data)
 		if ( Fl::event_button() == FL_RIGHT_MOUSE ) {
 			const char* answer = fl_input("Enter BPM value (range %d and %d):", 0, MIN_TEMPO, MAX_TEMPO);
 			if(answer) {
-				int bpm = atoi(answer);
+				float bpm = atof(answer);
 				
 				if ( bpm >= MIN_TEMPO && bpm <= MAX_TEMPO) {
 					EventTimeBPM e = EventTimeBPM( bpm );
@@ -316,7 +316,7 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	end(); // close the group
 }
 
-void GMasterTrack::setBpm( int b )
+void GMasterTrack::setBpm( float b )
 {
 	bpm = b;
 	if(!tempoDial.mouseClicked) {
@@ -324,7 +324,7 @@ void GMasterTrack::setBpm( int b )
 			(bpm - MIN_TEMPO) / (float)(MAX_TEMPO - MIN_TEMPO));
 	}
 	std::stringstream s;
-	s << bpm;
+	s << round(bpm*10)/10;
 	tempoDial.copy_label( s.str().c_str() );
 }
 
@@ -381,7 +381,7 @@ GMasterTrack::setClipLength(int l)
 	autoStopRecButton.copy_label(str);
 }
 
-int GMasterTrack::getBpm()
+float GMasterTrack::getBpm()
 {
 	return bpm;
 }

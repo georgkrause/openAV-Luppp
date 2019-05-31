@@ -48,8 +48,8 @@ class GMasterTrack : public Fl_Group
 public:
 	GMasterTrack(int x, int y, int w, int h, const char* l = 0 );
 
-	int  getBpm();
-	void setBpm( int bpm );
+	float  getBpm();
+	void setBpm( float bpm );
 	void setTapTempo( bool b );
 	void setBarBeat(int b, int beat);
 
@@ -81,7 +81,7 @@ private:
 	char* title;
 
 	int bar;
-	int bpm;
+	float bpm;
 
 	Avtk::Background bg;
 

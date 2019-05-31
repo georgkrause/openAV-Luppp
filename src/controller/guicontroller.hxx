@@ -48,7 +48,7 @@ public:
 	virtual void trackJackSend(int t, float v);
 	virtual void trackJackSendActivate(int t, bool a);
 
-	void bpm(int bpm);
+	void bpm(float bpm);
 	void tapTempo( bool b );
 
 	void specialScene(int t, int scene);

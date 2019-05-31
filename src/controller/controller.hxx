@@ -77,7 +77,7 @@ public:
 	virtual void trackJackSendActivate(int t, bool a) {}
 
 	/// Time
-	virtual void bpm(int bpm) {}
+	virtual void bpm(float bpm) {}
 	virtual void tapTempo(bool b) {}
 
 	/// Special

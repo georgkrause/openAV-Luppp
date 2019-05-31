@@ -130,7 +130,7 @@ void LupppGUI::tapTempo( bool b )
 	writeToGuiRingbuffer( &e );
 }
 
-void LupppGUI::bpm(int bpm)
+void LupppGUI::bpm(float bpm)
 {
 	EventTimeBPM e(bpm);
 	writeToGuiRingbuffer( &e );

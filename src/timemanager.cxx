@@ -89,8 +89,8 @@ void TimeManager::queueFpbChange( double f )
 	float bpm = (samplerate * 60.f) / f;
 	if(bpm < MIN_TEMPO || bpm > MAX_TEMPO) {
 		char buffer[128];
-		snprintf(buffer, sizeof(buffer), "drop TM::qfpb() %d bpm = %d",
-			 (int)f, (int)bpm);
+		snprintf(buffer, sizeof(buffer), "drop TM::qfpb() %d bpm = %f",
+			 (int)f, bpm);
 		EventGuiPrint e( buffer );
 		writeToGuiRingbuffer( &e );
 		return;
@@ -107,11 +107,11 @@ void TimeManager::setFpb(double f)
 	beatFrameCountdown = beatFrameCountdown * ratio;
 
 	_fpb = f;
-	int bpm = ( samplerate * 60) / f;
+	float bpm = ( samplerate * 60) / f;
 
 	char buffer [50];
-	snprintf(buffer, sizeof(buffer), "TM, setFpb() %i, bpm = %i",
-		  int(f), int(bpm) );
+	snprintf(buffer, sizeof(buffer), "TM, setFpb() %i, bpm = %f",
+		  int(f), bpm );
 	EventGuiPrint e( buffer );
 	writeToGuiRingbuffer( &e );
 
@@ -129,7 +129,7 @@ void TimeManager::registerObserver(TimeObserver* o)
 	observers.push_back(o);
 	o->setFpb( _fpb );
 
-	int bpm = ( samplerate * 60) / _fpb;
+	float bpm = ( samplerate * 60) / _fpb;
 	EventTimeBPM e2( bpm );
 	writeToGuiRingbuffer( &e2 );
 }
@@ -280,7 +280,7 @@ void TimeManager::process(Buffers* buffers)
 	totalFrameCounter += nframes;
 
 	// write BPM / transport info to JACK
-	int bpm = ( samplerate * 60) / _fpb;
+	float bpm = ( samplerate * 60) / _fpb;
 	if ( buffers->transportPosition ) {
 		buffers->transportPosition->valid = (jack_position_bits_t)(JackPositionBBT | JackTransportPosition);
 
