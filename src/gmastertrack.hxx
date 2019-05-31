@@ -59,6 +59,8 @@ public:
 	void setInputToActive(int to, bool f);
 
 	void metronomeEnable( bool b );
+	void
+	setClipLength(int l);
 
 	Avtk::Volume* getInputVolume();
 	Avtk::Volume* getVolume();
@@ -91,7 +93,8 @@ private:
 	Avtk::Button transport;
 	Avtk::Button tapTempo;
 	Avtk::LightButton metronomeButton;
-	Avtk::Dial   tempoDial;
+	Avtk::LightButton autoStopRecButton;
+	Avtk::Dial tempoDial;
 
 	Avtk::Dial   returnVol;
 

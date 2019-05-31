@@ -68,6 +68,8 @@ void LooperClip::init()
 	_playbackSpeedChange = false;
 
 	_beatsPlayed = 0;
+	_barsPlayed = 0;
+	_barsRecorded = 0;
 	updateController();
 }
 
@@ -172,6 +174,13 @@ void LooperClip::resetPlayHead()
 	{
 		_playhead = 0;
 		_beatsPlayed = 0;
+		_barsPlayed = 0;
+
+		if(_playbackSpeedChange) {
+			_playbackSpeed = _nextPlaybackSpeed;
+			_playbackSpeedChange = false;
+		}
+
 		updateController();
 	}
 }
@@ -254,25 +263,28 @@ long LooperClip::getActualAudioLength()
 	return _buffer->getAudioFrames();
 }
 
-void LooperClip::bar()
+void
+LooperClip::bar()
 {
-	if(_playbackSpeedChange) {
-		_playbackSpeed = _nextPlaybackSpeed;
-		_playbackSpeedChange = false;
+	if(_playing) {
+		_barsPlayed++;
+	}
+	if(_recording) {
+		_barsRecorded++;
 	}
 
-	if ( _queuePlay ) {
+	if(_queuePlay) {
 		setPlaying();
-	}
-	else if (_queueStop && _loaded)
-	{
+	} else if(_queueStop && _loaded) {
 		setStopped();
-	} 
-	else if ( _queueRecord ) 
-	{
+	} else if(_queueRecord) {
 		setRecording();
 	}
 
+	if(jack->getClipLength() > 0 &&
+		_barsRecorded == jack->getClipLength() - 1) {
+		queuePlay();
+	}
 	if(_recording) {
 		// FIXME: assumes 4 beats in a bar
 		_buffer->setBeats(_buffer->getBeats() + 4);
@@ -281,7 +293,9 @@ void LooperClip::bar()
 	}
 }
 
-void LooperClip::beat() {
+void
+LooperClip::beat()
+{
 	if(_playing) {
 		_beatsPlayed++;
 	}

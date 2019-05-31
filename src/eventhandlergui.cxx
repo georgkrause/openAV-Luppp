@@ -124,6 +124,17 @@ void handleGuiEvents()
 				}
 				break;
 			}
+			case Event::AUTO_STOP_REC_CLIP_LENGTH: {
+				if(availableRead >= sizeof(EventAutoStopRecClipLength)) {
+					EventAutoStopRecClipLength e;
+					jack_ringbuffer_read(rbToGui,
+						(char *)&e,
+						sizeof(EventAutoStopRecClipLength));
+					gui->getMasterTrack()->setClipLength(e.clipLength);
+
+				}
+				break;
+			}
 			case Event::LOOPER_STATE: {
 				if ( availableRead >= sizeof(EventLooperState) ) {
 					EventLooperState ev;

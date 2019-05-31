@@ -19,6 +19,7 @@
 #include "gmastertrack.hxx"
 
 #include <FL/Fl_Menu_Item.H>
+#include <stdlib.h>
 
 static void gmastertrack_tempoDial_callback(Fl_Widget *w, void *data)
 {
@@ -188,37 +189,81 @@ static void gmastertrack_button_callback(Fl_Widget *w, void *data)
 	}
 }
 
-#define OFST 33
-GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char* l ) :
-	Fl_Group(x, y, w, h),
-	title( strdup(l) ),
-	bg( x, y , w, h, title ),
+static void gmastertrack_autoStopRec_callback(Fl_Widget *w, void *data) {
+	int clipLength = -1;
 
-	// with "true" master flag: launches scenes instead of clips on tracks
-	clipSel(x + 5, y + 26 + 102, 140, 294,"", true),
+	if(Fl::event_button() == FL_LEFT_MOUSE) {
+		Fl_Menu_Item rclick_menu[] = { { "1" }, { "2" }, { "4" },
+			{ "8" }, { "16" }, { "∞" }, { "Custom" }, { 0 } };
 
-	source(x+5, y+26, 140, 100, ""),
-	volBox(x+5, y+422, 140, 232, ""),
+		Fl_Menu_Item *m = (Fl_Menu_Item *)rclick_menu->popup(
+			Fl::event_x(), Fl::event_y(), 0, 0, 0);
 
-	transport      ( x + w * 2/4.f - 18, y + 436 + OFST * 0, 44,28, "Stop" ),
-	tapTempo       ( x + w * 2/4.f - 18, y + 436 + OFST * 1, 44,28, "Tap" ),
-	metronomeButton( x + w * 2/4.f - 18, y + 436 + OFST * 2, 44,28,"Metro"),
+		if(!m) {
+			return;
+		} else if(strcmp(m->label(), "Custom") == 0) {
+			const char *answer = fl_input(
+				// TODO magic number
+				"Enter Clip Length (range 1 and 64):", 0);
 
-	tempoDial      ( x + w * 2/4.f - 18, y + 436 + OFST * 3.5, 45, 38,"BPM"),
-	returnVol      ( x + w * 2/4.f - 18, y + 436 + OFST * 5, 45, 38,"Return"),
+			if(answer) {
+				clipLength = atoi(answer);
 
-	inputVolume(x + 9,y + 26 + 4, w - 18, 30,""),
+				// TODO magic number
+				if(clipLength < 1 || clipLength > 64) {
+					// do not accept invalid input
+					clipLength = -1;
+				}
+			}
+		} else if(strcmp(m->label(), "∞") == 0) {
+			clipLength = 0;
+		} else {
+			clipLength = atoi(m->label());
+		}
 
-	inputToSend   (x + 10,y + 28 + 68, 40, 26,"Snd"),
-	inputToSendVol(x + w*0.2-15,y + 28 + 36, 30, 30,""),
+	} else {
+		clipLength = 0;
+	}
 
-	inputToSidechainKey      (x + w*0.5-20,y + 28 + 68, 40, 26,"Key"),
-	inputToSidechainSignalVol(x + w*0.5-15,y + 28 + 36, 30, 30,""),
+	if(clipLength >= 0) {
+		EventAutoStopRecClipLength e = EventAutoStopRecClipLength(clipLength);
+		writeToDspRingbuffer(&e);
+	}
+}
 
-	inputToMix   (x + w*0.8-20,y + 28 + 68, 40, 26,"Mix"),
-	inputToMixVol(x + w*0.8-15,y + 28 + 36, 30, 30,""),
+#define OFST 30
+GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
+	: Fl_Group(x, y, w, h), title(strdup(l)), bg(x, y, w, h, title),
 
-	volume(x+106, y +425, 36, 216, "")
+	  // with "true" master flag: launches scenes instead of clips on tracks
+	  clipSel(x + 5, y + 26 + 102, 140, 294, "", true),
+
+	  source(x + 5, y + 26, 140, 100, ""),
+	  volBox(x + 5, y + 422, 140, 232, ""),
+
+	  transport(x + w * 2 / 4.f - 18, y + 436 + OFST * 0, 44, 22, "Stop"),
+	  tapTempo(x + w * 2 / 4.f - 18, y + 436 + OFST * 1, 44, 22, "Tap"),
+	  metronomeButton(
+		  x + w * 2 / 4.f - 18, y + 436 + OFST * 2, 44, 22, "Metro"),
+	  autoStopRecButton(
+		  x + w * 2 / 4.f - 18, y + 436 + OFST * 3, 44, 22, "∞"),
+
+	  tempoDial(x + w * 2 / 4.f - 18, y + 436 + OFST * 4, 45, 38, "BPM"),
+	  returnVol(
+		  x + w * 2 / 4.f - 18, y + 436 + OFST * 5.5, 45, 38, "Return"),
+
+	  inputVolume(x + 9, y + 26 + 4, w - 18, 30, ""),
+
+	  inputToSend(x + 10, y + 28 + 68, 40, 26, "Snd"),
+	  inputToSendVol(x + w * 0.2 - 15, y + 28 + 36, 30, 30, ""),
+
+	  inputToSidechainKey(x + w * 0.5 - 20, y + 28 + 68, 40, 26, "Key"),
+	  inputToSidechainSignalVol(x + w * 0.5 - 15, y + 28 + 36, 30, 30, ""),
+
+	  inputToMix(x + w * 0.8 - 20, y + 28 + 68, 40, 26, "Mix"),
+	  inputToMixVol(x + w * 0.8 - 15, y + 28 + 36, 30, 30, ""),
+
+	  volume(x + 106, y + 425, 36, 216, "")
 {
 	ID = privateID++;
 
@@ -234,6 +279,8 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char* l ) :
 	tapTempo.callback( gmastertrack_button_callback, &ID );
 
 	metronomeButton.callback( gmastertrack_button_callback, 0 );
+
+	autoStopRecButton.callback(gmastertrack_autoStopRec_callback, &ID);
 
 	tempoDial.callback( gmastertrack_tempoDial_callback, 0 );
 
@@ -319,6 +366,19 @@ void GMasterTrack::setInputToActive(int to, bool f)
 void GMasterTrack::metronomeEnable( bool b )
 {
 	metronomeButton.value( b );
+}
+
+void
+GMasterTrack::setClipLength(int l)
+{
+	const char *str;
+	if(l == 0) {
+		str = "∞";
+	} else {
+		std::string tmp = std::to_string(l);
+		str = tmp.c_str();
+	}
+	autoStopRecButton.copy_label(str);
 }
 
 int GMasterTrack::getBpm()

@@ -154,7 +154,9 @@ private:
 	bool _playbackSpeedChange;
 
 	unsigned int _beatsPlayed;
-	AudioBuffer* _buffer;
+	unsigned int _barsPlayed;
+	unsigned int _barsRecorded;
+	AudioBuffer *_buffer;
 
 	/// Request new internal Buffer
 	void requestNewBuffer();

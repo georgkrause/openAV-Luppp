@@ -1,5 +1,9 @@
 # recent changes
 
+## Features:
+
+* Auto Stop Record of Clips after a defined number of bars
+
 ## Improvements
 
 * Improve BPM Dial to avoid jitter

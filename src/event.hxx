@@ -99,6 +99,11 @@ enum EVENT_TYPE {
 	LOOPER_LOOP_LENGTH,
 	LOOPER_LOOP_USE_AS_TEMPO,
 
+	// Set the clip length for auto stop recording
+	AUTO_STOP_REC_CLIP_LENGTH,
+	AUTO_STOP_REC_CLIP_LENGTH_UP,
+	AUTO_STOP_REC_CLIP_LENGTH_DOWN,
+
 	/// Transport etc
 	METRONOME_ACTIVE,
 	METRONOME_VOLUME,
@@ -862,6 +867,65 @@ public:
 	int beats;
 	EventLooperUseAsTempo() {}
 	EventLooperUseAsTempo(int t, int s) : track(t), scene(s) {}
+};
+
+class EventAutoStopRecClipLength : public EventBase {
+public:
+	static const char *prettyName;
+	int clipLength;
+
+	const char *name() {
+		return prettyName;
+	}
+
+	int type() {
+		return int(AUTO_STOP_REC_CLIP_LENGTH);
+	}
+
+	uint32_t size() {
+		return sizeof(EventAutoStopRecClipLength);
+	}
+
+	EventAutoStopRecClipLength() {}
+	EventAutoStopRecClipLength(int l) : clipLength(l) {}
+};
+
+class EventAutoStopRecClipLengthUp : public EventBase {
+public:
+	static const char *prettyName;
+
+	const char *name() {
+		return prettyName;
+	}
+
+	int type() {
+		return int(AUTO_STOP_REC_CLIP_LENGTH_UP);
+	}
+
+	uint32_t size() {
+		return sizeof(EventAutoStopRecClipLengthUp);
+	}
+
+	EventAutoStopRecClipLengthUp() {}
+};
+
+class EventAutoStopRecClipLengthDown : public EventBase {
+public:
+	static const char *prettyName;
+
+	const char *name() {
+		return prettyName;
+	}
+
+	int type() {
+		return int(AUTO_STOP_REC_CLIP_LENGTH_DOWN);
+	}
+
+	uint32_t size() {
+		return sizeof(EventAutoStopRecClipLengthDown);
+	}
+
+	EventAutoStopRecClipLengthDown() {}
 };
 
 class EventLooperLoad : public EventBase

@@ -41,6 +41,13 @@ const char* EventMetronomeVolume::prettyName = "metronome:volume";
 const char* EventGridEvent::prettyName = "grid:event";
 const char* EventGridLaunchScene::prettyName = "grid:launch_scene";
 
+const char *EventAutoStopRecClipLength::prettyName =
+	"auto_stop_rec:clip_length";
+const char *EventAutoStopRecClipLengthUp::prettyName =
+	"auto_stop_rec:clip_length_up";
+const char *EventAutoStopRecClipLengthDown::prettyName =
+	"auto_stop_rec:clip_length_down";
+
 EVENT_TYPE Event::getTypeFromName(const char* name)
 {
 	for(int i = 0; i < EVENT_TYPE_FINAL; i++) {
@@ -115,6 +122,15 @@ const char* Event::getPrettyName( int type )
 	}
 	case METRONOME_VOLUME: {
 		return EventMetronomeVolume::prettyName;
+	}
+	case AUTO_STOP_REC_CLIP_LENGTH: {
+		return EventAutoStopRecClipLength::prettyName;
+	}
+	case AUTO_STOP_REC_CLIP_LENGTH_UP: {
+		return EventAutoStopRecClipLengthUp::prettyName;
+	}
+	case AUTO_STOP_REC_CLIP_LENGTH_DOWN: {
+		return EventAutoStopRecClipLengthDown::prettyName;
 	}
 
 	default:

@@ -168,3 +168,15 @@ void Logic::looperUseAsTempo(int t, int s)
 	}
 
 }
+
+void Logic::setClipLength(float l) {
+	jack->setClipLength((int)(l * 16));
+}
+
+void Logic::setClipLengthUp() {
+	jack->setClipLength(jack->getClipLength() * 2);
+}
+
+void Logic::setClipLengthDown() {
+	jack->setClipLength(jack->getClipLength() / 2);
+}

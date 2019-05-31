@@ -771,3 +771,15 @@ int Jack::static_timebase(jack_transport_state_t state,
 {
 	return static_cast<Jack*>(instance)->timebase(state,nframes, pos, newPos );
 }
+
+void
+Jack::setClipLength(int l)
+{
+	// TODO magic numbers
+	if(l >= 0 && l <= 16) {
+		clipLength = l;
+	}
+
+	EventAutoStopRecClipLength e = EventAutoStopRecClipLength(clipLength);
+	writeToGuiRingbuffer(&e);
+}

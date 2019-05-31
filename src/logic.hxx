@@ -63,6 +63,10 @@ public:
 	void trackJackSend(int t, float vol);
 	void looperUseAsTempo(int track, int scene);
 	void looperClipLenght(int track, int scene, int lenght);
+
+	void setClipLength(float f);
+	void setClipLengthUp();
+	void setClipLengthDown();
 };
 
 #endif // LUPPP_LOGIC_H

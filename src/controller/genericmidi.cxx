@@ -329,6 +329,15 @@ void GenericMIDI::midi(unsigned char* midi)
 			case Event::MASTER_VOL:
 				jack->getLogic()->trackVolume( -1     , value );
 				break;
+			case Event::AUTO_STOP_REC_CLIP_LENGTH:
+				jack->getLogic()->setClipLength(value);
+				break;
+			case Event::AUTO_STOP_REC_CLIP_LENGTH_UP:
+				jack->getLogic()->setClipLengthUp();
+				break;
+			case Event::AUTO_STOP_REC_CLIP_LENGTH_DOWN:
+				jack->getLogic()->setClipLengthDown();
+				break;
 			}
 		}
 

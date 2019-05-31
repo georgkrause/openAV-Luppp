@@ -272,7 +272,17 @@ void handleDspEvents()
 				break;
 			}
 
-
+			// Set Clip Length for Auto Stop Record
+			case Event::AUTO_STOP_REC_CLIP_LENGTH: {
+				if(availableRead >=
+					sizeof(EventAutoStopRecClipLength)) {
+					EventAutoStopRecClipLength e;
+					jack_ringbuffer_read(rbToDsp, (char*)&e,
+						sizeof(EventAutoStopRecClipLength));
+					jack->setClipLength(e.clipLength);
+				}
+				break;
+			}
 
 			case Event::TIME_BPM: {
 				if ( availableRead >= sizeof(EventTimeBPM) ) {

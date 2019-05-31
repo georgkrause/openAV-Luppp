@@ -89,6 +89,10 @@ public:
 	{
 		return metronome;
 	}
+	int 				getClipLength()
+	{
+		return clipLength;
+	}
 	GridLogic*          getGridLogic()
 	{
 		return gridLogic;
@@ -120,6 +124,9 @@ public:
 	void inputTo(INPUT_TO to, float v);
 	void inputToActive(INPUT_TO to, bool a);
 
+	void
+	setClipLength(int l);
+
 	jack_client_t* getJackClientPointer()
 	{
 		return client;
@@ -150,6 +157,7 @@ private:
 	GridLogic*          gridLogic;
 	ControllerUpdater*  controllerUpdater;
 
+	int clipLength;
 	vector<Looper*>         loopers;
 	vector<JackSendReturn*> tracksendreturns;
 	vector<TrackOutput*>    trackOutputs;
