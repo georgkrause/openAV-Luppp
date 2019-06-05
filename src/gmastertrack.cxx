@@ -247,6 +247,8 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 		  x + w * 2 / 4.f - 18, y + 436 + OFST * 2, 44, 22, "Metro"),
 	  autoStopRecButton(
 		  x + w * 2 / 4.f - 18, y + 436 + OFST * 3, 44, 22, "∞"),
+	  beatLight(
+		  x + 10, y + 437 + 54 * 3, 40, 42, ""),
 
 	  tempoDial(x + w * 2 / 4.f - 18, y + 436 + OFST * 4, 45, 38, "BPM"),
 	  returnVol(
@@ -302,9 +304,7 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	returnVol.align( FL_ALIGN_CENTER );
 	returnVol.callback( gmastertrack_returnVol_callback, 0 );
 
-	beatLight   = new Avtk::LightButton( x + 10, y + 437 + 54 * 3, 40, 42, "" );
-	beatLight->setColor( 1.0, 0.0 , 0.0 );
-	beatLight->value(1);
+	beatLight.value(1);
 
 	volume.amplitude( 0.0, 0.0 );
 	volume.callback( gmastertrack_volume_callback, 0 );
@@ -394,19 +394,19 @@ void GMasterTrack::setBarBeat(int b, int beat)
 	switch (beat_num)
 	{
 	case 0:
-		beatLight->setColor(1.0, 0.0, 0.0);
+		beatLight.setColor(1.0, 0.0, 0.0);
 		cout << "first " << beat_num << "\n";
 		break;
 	case 1:
-		beatLight->setColor(1.0, 0.48, 0.0);
+		beatLight.setColor(1.0, 0.48, 0.0);
 		cout << "second " << beat_num << "\n";
 		break;
 	case 2:
-		beatLight->setColor(1.0, 1.0, 0.0);
+		beatLight.setColor(1.0, 1.0, 0.0);
 		cout << "third " << beat_num << "\n";
 		break;
 	case 3:
-		beatLight->setColor(0.0, 1.0, 0.0);
+		beatLight.setColor(0.0, 1.0, 0.0);
 		cout << "fuerthes " << beat_num << "\n";
 		break;
 	default:
@@ -415,8 +415,8 @@ void GMasterTrack::setBarBeat(int b, int beat)
 
 	char buf[2];
 	sprintf(buf, "%d", beat_num+1);
-	beatLight->copy_label(buf);
-	beatLight->redraw();
+	beatLight.copy_label(buf);
+	beatLight.redraw();
 }
 
 Avtk::Volume* GMasterTrack::getInputVolume()
