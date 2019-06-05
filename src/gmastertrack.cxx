@@ -302,13 +302,9 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	returnVol.align( FL_ALIGN_CENTER );
 	returnVol.callback( gmastertrack_returnVol_callback, 0 );
 
-	for(int i = 0; i < 4; i++) {
-		beatLights[i]   = new Avtk::LightButton( x + 10, y + 437 + 54 * i, 40, 42, "" );
-	}
-	beatLights[0]->setColor( 1.0, 0.0 , 0.0 );
-	beatLights[1]->setColor( 1.0, 0.48, 0.0 );
-	beatLights[2]->setColor( 1.0, 1.0 , 0.0 );
-	beatLights[3]->setColor( 0.0, 1.0 , 0.0 );
+	beatLight   = new Avtk::LightButton( x + 10, y + 437 + 54 * 3, 40, 42, "" );
+	beatLight->setColor( 1.0, 0.0 , 0.0 );
+	beatLight->value(1);
 
 	volume.amplitude( 0.0, 0.0 );
 	volume.callback( gmastertrack_volume_callback, 0 );
@@ -393,18 +389,34 @@ void GMasterTrack::setTapTempo( bool b )
 
 void GMasterTrack::setBarBeat(int b, int beat)
 {
-	// FIXME: hard coded 4/4 time here
-	if ( beat % 4 == 0 ) {
-		bar = bar % 4 + 1;
+	// FIXME hard coded beat number
+	int beat_num = beat % 4;
+	switch (beat_num)
+	{
+	case 0:
+		beatLight->setColor(1.0, 0.0, 0.0);
+		cout << "first " << beat_num << "\n";
+		break;
+	case 1:
+		beatLight->setColor(1.0, 0.48, 0.0);
+		cout << "second " << beat_num << "\n";
+		break;
+	case 2:
+		beatLight->setColor(1.0, 1.0, 0.0);
+		cout << "third " << beat_num << "\n";
+		break;
+	case 3:
+		beatLight->setColor(0.0, 1.0, 0.0);
+		cout << "fuerthes " << beat_num << "\n";
+		break;
+	default:
+		break;
 	}
 
-	// turn all off
-	for( int i = 0; i < 4; i++)
-		beatLights[i]->value( 0 );
-
-	// beat starts at 4
-	// FIXME: hard coded 4/4 time
-	beatLights[ 3 - beat%4 ]->value( 1 );
+	char buf[2];
+	sprintf(buf, "%d", beat_num+1);
+	beatLight->copy_label(buf);
+	beatLight->redraw();
 }
 
 Avtk::Volume* GMasterTrack::getInputVolume()

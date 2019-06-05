@@ -98,7 +98,7 @@ private:
 
 	Avtk::Dial   returnVol;
 
-	Avtk::LightButton* beatLights[4];
+	Avtk::LightButton* beatLight;
 
 	Avtk::Volume        inputVolume;
 
