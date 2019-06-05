@@ -231,7 +231,10 @@ static void gmastertrack_autoStopRec_callback(Fl_Widget *w, void *data) {
 	}
 }
 
-#define OFST 30
+#define OFST 55
+#define COLUMN_RIGHT x + w * 2 / 4.f - 15
+#define COLUMN_LEFT x + w * 1 / 4.f - 26
+#define ROW y + 436
 GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	: Fl_Group(x, y, w, h), title(strdup(l)), bg(x, y, w, h, title),
 
@@ -241,18 +244,15 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	  source(x + 5, y + 26, 140, 100, ""),
 	  volBox(x + 5, y + 422, 140, 232, ""),
 
-	  transport(x + w * 2 / 4.f - 18, y + 436 + OFST * 0, 44, 22, "Stop"),
-	  tapTempo(x + w * 2 / 4.f - 18, y + 436 + OFST * 1, 44, 22, "Tap"),
-	  metronomeButton(
-		  x + w * 2 / 4.f - 18, y + 436 + OFST * 2, 44, 22, "Metro"),
-	  autoStopRecButton(
-		  x + w * 2 / 4.f - 18, y + 436 + OFST * 3, 44, 22, "∞"),
-	  beatLight(
-		  x + 10, y + 437 + 54 * 3, 40, 42, ""),
+	  freeRec(COLUMN_LEFT, ROW + OFST * 0, 40, 40, "Free"),
+	  transport(COLUMN_LEFT, ROW + OFST * 1, 40, 40, "Stop"),
+	  tapTempo(COLUMN_RIGHT, ROW + OFST * 2, 40, 40, "Tap"),
+	  metronomeButton(COLUMN_RIGHT, ROW + OFST * 1, 40, 40, "Metro"),
+	  autoStopRecButton(COLUMN_RIGHT, ROW + OFST * 0, 40, 40, "∞"),
+	  beatLight(COLUMN_LEFT, ROW + OFST * 2, 40, 40, ""),
 
-	  tempoDial(x + w * 2 / 4.f - 18, y + 436 + OFST * 4, 45, 38, "BPM"),
-	  returnVol(
-		  x + w * 2 / 4.f - 18, y + 436 + OFST * 5.5, 45, 38, "Return"),
+	  tempoDial(COLUMN_RIGHT, ROW + OFST * 3, 40, 40, "BPM"),
+	  returnVol(COLUMN_LEFT, ROW + OFST * 3, 40, 40, "Return"),
 
 	  inputVolume(x + 9, y + 26 + 4, w - 18, 30, ""),
 
@@ -395,19 +395,15 @@ void GMasterTrack::setBarBeat(int b, int beat)
 	{
 	case 0:
 		beatLight.setColor(1.0, 0.0, 0.0);
-		cout << "first " << beat_num << "\n";
 		break;
 	case 1:
 		beatLight.setColor(1.0, 0.48, 0.0);
-		cout << "second " << beat_num << "\n";
 		break;
 	case 2:
 		beatLight.setColor(1.0, 1.0, 0.0);
-		cout << "third " << beat_num << "\n";
 		break;
 	case 3:
 		beatLight.setColor(0.0, 1.0, 0.0);
-		cout << "fuerthes " << beat_num << "\n";
 		break;
 	default:
 		break;

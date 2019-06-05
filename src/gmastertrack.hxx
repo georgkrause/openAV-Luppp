@@ -90,6 +90,7 @@ private:
 	Avtk::Box  source;
 	Avtk::Box  volBox;
 
+	Avtk::LightButton freeRec;
 	Avtk::Button transport;
 	Avtk::Button tapTempo;
 	Avtk::LightButton metronomeButton;
