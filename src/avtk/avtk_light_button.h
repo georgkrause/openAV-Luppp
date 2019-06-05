@@ -101,9 +101,14 @@ public:
 			}
 
 			float alpha = 0.7;
-			if (mouseOver)
+			if (mouseOver && active())
 				alpha = 1;
-			cairo_set_source_rgba(cr, _r, _g, _b, alpha);
+
+			if(active()) {
+				cairo_set_source_rgba(cr, _r, _g, _b, alpha);
+			} else {
+				cairo_set_source_rgba(cr, _r, _g, _b, 0.4);
+			}
 			cairo_stroke(cr);
 
 			cairo_restore( cr );
