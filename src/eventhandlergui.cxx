@@ -141,9 +141,12 @@ void handleGuiEvents()
 					jack_ringbuffer_read(rbToGui,
 						(char *)&e,
 						sizeof(EventFreeRecordMode));
-					gui->getMasterTrack()->setFreeRecMode(
+					GMasterTrack *gm =
+						gui->getMasterTrack();
+					gm->setFreeRecMode(
 						e.enable);
-					gui->getMasterTrack()->metronomeEnable(!e.enable);
+					gm->metronomeEnable(!e.enable);
+					gm->tapEnable(!e.enable);
 				}
 				break;
 			}

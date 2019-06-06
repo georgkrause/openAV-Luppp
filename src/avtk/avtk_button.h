@@ -111,7 +111,7 @@ public:
 			}
 
 			float alpha = 0.6;
-			if (mouseOver)
+			if (mouseOver && active())
 				alpha = 1;
 
 			if ( !greyedOut )
@@ -119,6 +119,12 @@ public:
 			else {
 				float grey = (_r + _g + _b) / 3;
 				cairo_set_source_rgb( cr, grey, grey, grey );
+			}
+
+			if(active()) {
+				cairo_set_source_rgba(cr, _r, _g, _b, alpha);
+			} else {
+				cairo_set_source_rgba(cr, _r, _g, _b, 0.4);
 			}
 
 			if ( highlight && !greyedOut )

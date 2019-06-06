@@ -311,7 +311,8 @@ void handleDspEvents()
 				if ( availableRead >= sizeof(EventTimeTempoTap) ) {
 					EventTimeTempoTap ev;
 					jack_ringbuffer_read( rbToDsp, (char*)&ev, sizeof(EventTimeTempoTap) );
-					jack->getTimeManager()->tap();
+					if(!jack->getFreeRecMode())
+						jack->getTimeManager()->tap();
 				}
 				break;
 			}

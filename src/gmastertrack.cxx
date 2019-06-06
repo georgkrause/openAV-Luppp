@@ -377,6 +377,13 @@ void GMasterTrack::metronomeActivate(bool b) {
 	metronomeButton.value(b);
 }
 
+void GMasterTrack::tapEnable(bool b) {
+	if(b)
+		tapTempo.activate();
+	else
+		tapTempo.deactivate();
+}
+
 void
 GMasterTrack::setClipLength(int l)
 {

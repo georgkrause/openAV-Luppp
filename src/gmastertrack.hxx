@@ -63,6 +63,7 @@ public:
 	void
 	setClipLength(int l);
 	void setFreeRecMode(bool e);
+	void tapEnable(bool b);
 
 	Avtk::Volume* getInputVolume();
 	Avtk::Volume* getVolume();
