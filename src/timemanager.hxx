@@ -59,6 +59,10 @@ public:
 	/// TRANSPORT_STATE is defined in transport.hxx
 	void setTransportState( TRANSPORT_STATE s );
 
+	int getBeatCounter() {
+		return beatCounter;
+	}
+
 private:
 	int samplerate;
 

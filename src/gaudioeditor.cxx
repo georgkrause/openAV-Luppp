@@ -108,6 +108,7 @@ void AudioEditor::show( AudioBuffer* buf, bool modal )
 	const auto size = tmp.size();
 	waveform->setData( tmp );
 
+	// TODO 4 beats/bar
 	const int beats[]= {1,2,4,8,16,32,64};
 
 	int iBeatOne = -1;

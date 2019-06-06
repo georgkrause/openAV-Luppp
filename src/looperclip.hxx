@@ -123,6 +123,13 @@ public:
 	/// reset the play head to zero. Does nothing when recording
 	void resetPlayHead();
 
+	/// Change State to Recording
+	void setRecording();
+	/// Change State to Playing
+	void setPlaying();
+
+	void processFreeRec();
+
 #ifdef BUILD_TESTS
 	// used only in test cases
 	void setState( bool load, bool play, bool rec, bool qPlay, bool qStop, bool qRec );
@@ -165,10 +172,6 @@ private:
 	/// Get available Space to record
 	unsigned long recordSpaceAvailable();
 
-	/// Change State to Playing
-	void setPlaying();
-	/// Change State to Recording
-	void setRecording();
 	/// Change State to Stopped
 	void setStopped();
 

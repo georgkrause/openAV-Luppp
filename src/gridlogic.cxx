@@ -152,8 +152,14 @@ void GridLogic::pressed( int track, int scene )
 		to->recordArm(false);
 		jack->getControllerUpdater()->recordArm( track, false );
 	} else {
-		if ( s == STATE_EMPTY )
-			lc->queueRecord();
+		if(s == STATE_EMPTY) {
+			if(!jack->getFreeRecMode()) {
+				lc->queueRecord();
+			} else {
+				cout << "Instant Rec!!\n";
+				lc->setRecording();
+			}
+		}
 
 		if ( s == STATE_STOPPED ) {
 			// hack, stop all scenes, then launch proper one
@@ -170,8 +176,14 @@ void GridLogic::pressed( int track, int scene )
 		if ( s == STATE_PLAYING )
 			lc->queueStop();
 
-		if ( s == STATE_RECORDING )
-			lc->queuePlay();
+		if(s == STATE_RECORDING) {
+			if(!jack->getFreeRecMode()) {
+				lc->queuePlay();
+			} else {
+				lc->processFreeRec();
+				// lc->setPlaying();
+			}
+		}
 
 		if ( s == STATE_PLAY_QUEUED )
 			lc->queueStop();

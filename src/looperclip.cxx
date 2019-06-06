@@ -217,7 +217,9 @@ void LooperClip::record(int count, float* L, float* R)
 	}
 
 	_loaded = true;
-	_recFpb = jack->getTimeManager()->getFpb();
+	if(!jack->getFreeRecMode()) {
+		_recFpb = jack->getTimeManager()->getFpb();
+	}
 }
 
 unsigned long LooperClip::recordSpaceAvailable()
@@ -269,7 +271,7 @@ LooperClip::bar()
 	if(_playing) {
 		_barsPlayed++;
 	}
-	if(_recording) {
+	if(_recording && !jack->getFreeRecMode()) {
 		_barsRecorded++;
 	}
 
@@ -285,7 +287,7 @@ LooperClip::bar()
 		_barsRecorded == jack->getClipLength() - 1) {
 		queuePlay();
 	}
-	if(_recording) {
+	if(_recording && !jack->getFreeRecMode()) {
 		// FIXME: assumes 4 beats in a bar
 		_buffer->setBeats(_buffer->getBeats() + 4);
 		_buffer->setAudioFrames(
@@ -298,8 +300,11 @@ LooperClip::beat()
 {
 	if(_playing) {
 		_beatsPlayed++;
+		cout << "Beat Num: "
+		     << jack->getTimeManager()->getBeatCounter() % 4 << "\n";
 	}
 	if(_playing && _beatsPlayed >= (getBeats() / _playbackSpeed)) {
+		cout << "Beats Played: " << _beatsPlayed << "\n";
 		resetPlayHead();
 	}
 }
@@ -503,6 +508,23 @@ float LooperClip::getProgress()
 float LooperClip::getPlayhead()
 {
 	return _playhead;
+}
+
+void LooperClip::processFreeRec() {
+	setStopped();
+	int max_beats =
+		(MAX_TEMPO * _recordhead) / (jack->getSamplerate() * 60);
+	// calculate lower multiple of 4
+	int beats = (int)(max_beats/4)*4; // TODO 4 beats/bar
+	cout << _recordhead << " " << beats << "\n";
+	_buffer->setBeats(beats);
+	_buffer->setAudioFrames(
+		_recordhead);
+	_barsRecorded = beats / 4; // TODO 4 beats/bar
+	_recFpb = _recordhead / beats;
+	jack->getTimeManager()->setFpb(_recFpb);
+	jack->getTimeManager()->setTransportState(TRANSPORT_ROLLING);
+	queuePlay();
 }
 
 #ifdef BUILD_TESTS
