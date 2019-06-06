@@ -513,7 +513,8 @@ void LooperClip::processFreeRec() {
 		(MAX_TEMPO * _recordhead) / (jack->getSamplerate() * 60);
 	// calculate lower multiple of 4
 	int beats = (int)(max_beats/4)*4; // TODO 4 beats/bar
-	cout << _recordhead << " " << beats << "\n";
+	if (beats < 1)
+		beats = 1;
 	_buffer->setBeats(beats);
 	_buffer->setAudioFrames(
 		_recordhead);
