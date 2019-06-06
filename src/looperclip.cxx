@@ -524,6 +524,8 @@ void LooperClip::processFreeRec() {
 	jack->getTimeManager()->setTransportState(TRANSPORT_ROLLING);
 	queuePlay();
 
+	jack->setFreeRecMode(false);
+
 	EventFreeRecordMode e = EventFreeRecordMode(false);
 	writeToGuiRingbuffer(&e);
 }
