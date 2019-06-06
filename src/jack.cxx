@@ -783,3 +783,11 @@ Jack::setClipLength(int l)
 	EventAutoStopRecClipLength e = EventAutoStopRecClipLength(clipLength);
 	writeToGuiRingbuffer(&e);
 }
+
+void Jack::setFreeRecMode(bool e)
+{
+	freeRecMode = e;
+
+	EventFreeRecordMode ev = EventFreeRecordMode(e);
+	writeToGuiRingbuffer(&ev);
+}

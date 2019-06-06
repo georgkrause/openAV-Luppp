@@ -61,6 +61,7 @@ public:
 	void metronomeEnable( bool b );
 	void
 	setClipLength(int l);
+	void setFreeRecMode(bool e);
 
 	Avtk::Volume* getInputVolume();
 	Avtk::Volume* getVolume();

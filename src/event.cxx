@@ -47,6 +47,7 @@ const char *EventAutoStopRecClipLengthUp::prettyName =
 	"auto_stop_rec:clip_length_up";
 const char *EventAutoStopRecClipLengthDown::prettyName =
 	"auto_stop_rec:clip_length_down";
+const char *EventFreeRecordMode::prettyName = "master:free_rec_mode";
 
 EVENT_TYPE Event::getTypeFromName(const char* name)
 {

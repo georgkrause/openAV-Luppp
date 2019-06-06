@@ -65,11 +65,11 @@ enum EVENT_TYPE {
 	MASTER_RETURN,
 	RECORD,
 
-	SESSION_SAVE,       // save hole session
-	CLIP_SAVE,	 // save single clip
+	SESSION_SAVE, // save hole session
+	CLIP_SAVE, // save single clip
 	STATE_RESET, // reset all state
-	STATE_SAVE_FINISH,// save action finished, flush metadata to disk
-	STATE_SAVE_BUFFER,// save an individual AudioBuffer* to disk
+	STATE_SAVE_FINISH, // save action finished, flush metadata to disk
+	STATE_SAVE_BUFFER, // save an individual AudioBuffer* to disk
 
 	REQUEST_SAVE_BUFFER, // gets an audioBuffer of a certain size
 
@@ -103,6 +103,9 @@ enum EVENT_TYPE {
 	AUTO_STOP_REC_CLIP_LENGTH,
 	AUTO_STOP_REC_CLIP_LENGTH_UP,
 	AUTO_STOP_REC_CLIP_LENGTH_DOWN,
+
+	//
+	FREE_REC_MODE,
 
 	/// Transport etc
 	METRONOME_ACTIVE,
@@ -888,6 +891,32 @@ public:
 
 	EventAutoStopRecClipLength() {}
 	EventAutoStopRecClipLength(int l) : clipLength(l) {}
+};
+
+class EventFreeRecordMode : public EventBase {
+public:
+	static const char *prettyName;
+	bool enable;
+
+	const char *name() {
+		return prettyName;
+	}
+
+	int type() {
+		return int(FREE_REC_MODE);
+	}
+
+	uint32_t size() {
+		return sizeof(EventFreeRecordMode);
+	}
+
+	EventFreeRecordMode() {
+		enable = true;
+	}
+
+	EventFreeRecordMode(bool e) {
+		enable = e;
+	}
 };
 
 class EventAutoStopRecClipLengthUp : public EventBase {

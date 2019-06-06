@@ -93,6 +93,9 @@ public:
 	{
 		return clipLength;
 	}
+	bool getFreeRecMode() {
+		return freeRecMode;
+	}
 	GridLogic*          getGridLogic()
 	{
 		return gridLogic;
@@ -126,6 +129,7 @@ public:
 
 	void
 	setClipLength(int l);
+	void setFreeRecMode(bool e);
 
 	jack_client_t* getJackClientPointer()
 	{
@@ -158,6 +162,8 @@ private:
 	ControllerUpdater*  controllerUpdater;
 
 	int clipLength;
+	bool freeRecMode;
+
 	vector<Looper*>         loopers;
 	vector<JackSendReturn*> tracksendreturns;
 	vector<TrackOutput*>    trackOutputs;

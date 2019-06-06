@@ -231,6 +231,12 @@ static void gmastertrack_autoStopRec_callback(Fl_Widget *w, void *data) {
 	}
 }
 
+static void gmastertrack_freeRecMode_callback(Fl_Widget *w, void *data) {
+	Avtk::LightButton *b = (Avtk::LightButton *)w;
+	EventFreeRecordMode e = EventFreeRecordMode(!b->value());
+	writeToDspRingbuffer(&e);
+}
+
 #define OFST 55
 #define COLUMN_RIGHT x + w * 2 / 4.f - 15
 #define COLUMN_LEFT x + w * 1 / 4.f - 26
@@ -283,6 +289,8 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	metronomeButton.callback( gmastertrack_button_callback, 0 );
 
 	autoStopRecButton.callback(gmastertrack_autoStopRec_callback, &ID);
+	freeRec.callback(gmastertrack_freeRecMode_callback, &ID);
+	freeRec.value(0);
 
 	tempoDial.callback( gmastertrack_tempoDial_callback, 0 );
 
@@ -375,6 +383,10 @@ GMasterTrack::setClipLength(int l)
 		str = tmp.c_str();
 	}
 	autoStopRecButton.copy_label(str);
+}
+
+void GMasterTrack::setFreeRecMode(bool e) {
+	freeRec.value(e);
 }
 
 float GMasterTrack::getBpm()

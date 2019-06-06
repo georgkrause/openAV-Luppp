@@ -135,6 +135,17 @@ void handleGuiEvents()
 				}
 				break;
 			}
+			case Event::FREE_REC_MODE: {
+				if(availableRead >= sizeof(EventFreeRecordMode)) {
+					EventFreeRecordMode e;
+					jack_ringbuffer_read(rbToGui,
+						(char *)&e,
+						sizeof(EventFreeRecordMode));
+					gui->getMasterTrack()->setFreeRecMode(
+						e.enable);
+				}
+				break;
+			}
 			case Event::LOOPER_STATE: {
 				if ( availableRead >= sizeof(EventLooperState) ) {
 					EventLooperState ev;

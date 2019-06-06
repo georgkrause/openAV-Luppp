@@ -284,6 +284,17 @@ void handleDspEvents()
 				break;
 			}
 
+			case Event::FREE_REC_MODE: {
+				if(availableRead >= sizeof(EventFreeRecordMode)) {
+					EventFreeRecordMode e;
+					jack_ringbuffer_read(rbToDsp,
+						(char *)&e,
+						sizeof(EventFreeRecordMode));
+					jack->setFreeRecMode(e.enable);
+				}
+				break;
+			}
+
 			case Event::TIME_BPM: {
 				if ( availableRead >= sizeof(EventTimeBPM) ) {
 					EventTimeBPM ev;
