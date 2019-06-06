@@ -162,8 +162,7 @@ static void gmastertrack_button_callback(Fl_Widget *w, void *data)
 			writeToDspRingbuffer( &e );
 		} else {
 			Avtk::LightButton* b = (Avtk::LightButton*)w;
-			b->value( !b->value() );
-			EventMetronomeActive e = EventMetronomeActive( b->value() );
+			EventMetronomeActive e = EventMetronomeActive( !b->value() );
 			writeToDspRingbuffer( &e );
 		}
 
@@ -367,9 +366,15 @@ void GMasterTrack::setInputToActive(int to, bool f)
 		inputToSidechainKey.value( f );
 }
 
-void GMasterTrack::metronomeEnable( bool b )
-{
-	metronomeButton.value( b );
+void GMasterTrack::metronomeEnable(bool b) {
+	if(b)
+		metronomeButton.activate();
+	else
+		metronomeButton.deactivate();
+}
+
+void GMasterTrack::metronomeActivate(bool b) {
+	metronomeButton.value(b);
 }
 
 void

@@ -120,7 +120,7 @@ void handleGuiEvents()
 				if ( availableRead >= sizeof(EventMetronomeActive) ) {
 					EventMetronomeActive ev(false);
 					jack_ringbuffer_read( rbToGui, (char*)&ev, sizeof(EventMetronomeActive) );
-					gui->getMasterTrack()->metronomeEnable(ev.active);
+					gui->getMasterTrack()->metronomeActivate(ev.active);
 				}
 				break;
 			}
@@ -143,6 +143,7 @@ void handleGuiEvents()
 						sizeof(EventFreeRecordMode));
 					gui->getMasterTrack()->setFreeRecMode(
 						e.enable);
+					gui->getMasterTrack()->metronomeEnable(!e.enable);
 				}
 				break;
 			}

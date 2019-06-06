@@ -232,7 +232,11 @@ void handleDspEvents()
 				if ( availableRead >= sizeof(EventMetronomeActive) ) {
 					EventMetronomeActive ev(false);
 					jack_ringbuffer_read( rbToDsp, (char*)&ev, sizeof(EventMetronomeActive) );
-					jack->getLogic()->metronomeEnable(ev.active);
+					if(!jack->getFreeRecMode()) {
+						jack->getLogic()
+							->metronomeEnable(
+								ev.active);
+					}
 				}
 				break;
 			}

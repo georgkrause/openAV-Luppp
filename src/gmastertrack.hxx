@@ -59,6 +59,7 @@ public:
 	void setInputToActive(int to, bool f);
 
 	void metronomeEnable( bool b );
+	void metronomeActivate(bool b);
 	void
 	setClipLength(int l);
 	void setFreeRecMode(bool e);
