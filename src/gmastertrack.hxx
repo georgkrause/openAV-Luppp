@@ -65,6 +65,7 @@ public:
 	void setFreeRecMode(bool e);
 	void tapEnable(bool b);
 	void beatLightEnable(bool b);
+	void tempoDialEnable(bool b);
 
 	Avtk::Volume *getInputVolume();
 	Avtk::Volume* getVolume();

@@ -396,6 +396,13 @@ void GMasterTrack::beatLightEnable(bool b) {
 	}
 }
 
+void GMasterTrack::tempoDialEnable(bool b) {
+	if(b)
+		tempoDial.activate();
+	else
+		tempoDial.deactivate();
+}
+
 void
 GMasterTrack::setClipLength(int l)
 {

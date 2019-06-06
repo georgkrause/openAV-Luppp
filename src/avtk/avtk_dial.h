@@ -110,7 +110,10 @@ public:
 			}
 			cairo_line_to(cr, x+w/2,y+h/2);
 			cairo_set_line_width(cr, lineWidth);
-			cairo_set_source_rgba(cr, 1.0, 0.48,   0, 0.8);
+			if(active())
+				cairo_set_source_rgba(cr, 1.0, 0.48,   0, 0.8);
+			else
+				cairo_set_source_rgba(cr, 1.0, 0.48, 0, 0.4);
 			cairo_stroke(cr);
 
 			cairo_restore( cr );
