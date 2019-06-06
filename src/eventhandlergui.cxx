@@ -147,6 +147,7 @@ void handleGuiEvents()
 						e.enable);
 					gm->metronomeEnable(!e.enable);
 					gm->tapEnable(!e.enable);
+					gm->beatLightEnable(!e.enable);
 				}
 				break;
 			}

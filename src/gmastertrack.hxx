@@ -64,8 +64,9 @@ public:
 	setClipLength(int l);
 	void setFreeRecMode(bool e);
 	void tapEnable(bool b);
+	void beatLightEnable(bool b);
 
-	Avtk::Volume* getInputVolume();
+	Avtk::Volume *getInputVolume();
 	Avtk::Volume* getVolume();
 	Avtk::ClipSelector* getClipSelector();
 

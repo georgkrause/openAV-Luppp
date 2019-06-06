@@ -311,7 +311,7 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	returnVol.align( FL_ALIGN_CENTER );
 	returnVol.callback( gmastertrack_returnVol_callback, 0 );
 
-	beatLight.value(1);
+	beatLightEnable(true);
 
 	volume.amplitude( 0.0, 0.0 );
 	volume.callback( gmastertrack_volume_callback, 0 );
@@ -384,6 +384,18 @@ void GMasterTrack::tapEnable(bool b) {
 		tapTempo.deactivate();
 }
 
+void GMasterTrack::beatLightEnable(bool b) {
+	if(b) {
+		beatLight.activate();
+		beatLight.value(1);
+	} else {
+		beatLight.deactivate();
+		beatLight.value(0);
+		beatLight.copy_label("");
+		beatLight.redraw();
+	}
+}
+
 void
 GMasterTrack::setClipLength(int l)
 {
@@ -413,30 +425,30 @@ void GMasterTrack::setTapTempo( bool b )
 
 void GMasterTrack::setBarBeat(int b, int beat)
 {
-	// FIXME hard coded beat number
-	int beat_num = beat % 4;
-	switch (beat_num)
-	{
-	case 0:
-		beatLight.setColor(1.0, 0.0, 0.0);
-		break;
-	case 1:
-		beatLight.setColor(1.0, 0.48, 0.0);
-		break;
-	case 2:
-		beatLight.setColor(1.0, 1.0, 0.0);
-		break;
-	case 3:
-		beatLight.setColor(0.0, 1.0, 0.0);
-		break;
-	default:
-		break;
-	}
+	if(beatLight.active()) { // FIXME hard coded beat number
+		int beat_num = beat % 4;
+		switch(beat_num) {
+		case 0:
+			beatLight.setColor(1.0, 0.0, 0.0);
+			break;
+		case 1:
+			beatLight.setColor(1.0, 0.48, 0.0);
+			break;
+		case 2:
+			beatLight.setColor(1.0, 1.0, 0.0);
+			break;
+		case 3:
+			beatLight.setColor(0.0, 1.0, 0.0);
+			break;
+		default:
+			break;
+		}
 
-	char buf[2];
-	sprintf(buf, "%d", beat_num+1);
-	beatLight.copy_label(buf);
-	beatLight.redraw();
+		char buf[2];
+		sprintf(buf, "%d", beat_num + 1);
+		beatLight.copy_label(buf);
+		beatLight.redraw();
+	}
 }
 
 Avtk::Volume* GMasterTrack::getInputVolume()
