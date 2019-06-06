@@ -300,11 +300,8 @@ LooperClip::beat()
 {
 	if(_playing) {
 		_beatsPlayed++;
-		cout << "Beat Num: "
-		     << jack->getTimeManager()->getBeatCounter() % 4 << "\n";
 	}
 	if(_playing && _beatsPlayed >= (getBeats() / _playbackSpeed)) {
-		cout << "Beats Played: " << _beatsPlayed << "\n";
 		resetPlayHead();
 	}
 }
