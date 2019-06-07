@@ -790,5 +790,6 @@ void Jack::setFreeRecMode(bool e)
 
 	EventFreeRecordMode ev = EventFreeRecordMode(e);
 	writeToGuiRingbuffer(&ev);
-	getLogic()->metronomeEnable(false);
+	if(e)
+		getLogic()->metronomeEnable(false);
 }
