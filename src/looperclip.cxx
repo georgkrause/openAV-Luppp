@@ -283,7 +283,7 @@ LooperClip::bar()
 		setRecording();
 	}
 
-	if(jack->getClipLength() > 0 &&
+	if(_recording && jack->getClipLength() > 0 &&
 		_barsRecorded == jack->getClipLength() - 1) {
 		queuePlay();
 	}
