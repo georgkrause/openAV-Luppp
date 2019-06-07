@@ -249,7 +249,7 @@ Jack::Jack( std::string name ) :
 		buffers.audio[Buffers::RETURN_TRACK_0_L+trackoffset]=new float[buffers.nframes];
 		buffers.audio[Buffers::RETURN_TRACK_0_R+trackoffset]=new float[buffers.nframes];
 
-		timeManager->registerObserver( loopers.back() );
+		// timeManager->registerObserver( loopers.back() );
 		if(gui->enablePerTrackOutput) {
 			char name[50];
 			// Left channel
