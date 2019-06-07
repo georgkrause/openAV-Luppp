@@ -174,9 +174,6 @@ private:
 
 	/// Change State to Stopped
 	void setStopped();
-
-	/// Updates all the controllers with the current state
-	void updateController();
 };
 
 #endif // LUPPP_LOOPER_CLIP_H

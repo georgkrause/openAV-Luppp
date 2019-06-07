@@ -95,11 +95,9 @@ void GridLogic::launchScene( int scene )
 			LooperClip* lc = jack->getLooper( t )->getClip( s );
 			if ( s == scene ) {
 				lc->queuePlay();
-				jack->getControllerUpdater()->setSceneState( t, s, lc->getState() );
 			} else {
 				if ( lc->playing() ) {
 					lc->queueStop();
-					jack->getControllerUpdater()->setSceneState( t, s, lc->getState() );
 				} else if ( lc->somethingQueued() ) {
 					lc->resetQueues();
 					jack->getControllerUpdater()->setSceneState( t, s, lc->getState() );
@@ -210,37 +208,31 @@ void GridLogic::pressed( int track, int scene )
 
 				ilc->resetQueues();
 				ilc->queueStop();
-				jack->getControllerUpdater()->setSceneState(track, i, ilc->getState() );
 			}
 		}
 	}
 
 
-	s = lc->getState();
+	
 #ifdef DEBUG_CLIP
+	s = lc->getState();
 	printf("GridLogic::pressed() after press state = %s\n", StateString[ int(s) ] );
 #endif
-	jack->getControllerUpdater()->setSceneState(track, scene, s );
 }
 
 void GridLogic::clear( int track, int scene )
 {
 	jack->getLooper( track )->getClip( scene )->init();
-	jack->getControllerUpdater()->setTrackSceneProgress(track, scene, 0 );
-	jack->getControllerUpdater()->setSceneState( track, scene, GridLogic::STATE_EMPTY );
 }
 
 void GridLogic::released( int track, int scene )
 {
-	GridLogic::State s = jack->getLooper( track )->getClip( scene )->getState();
-	jack->getControllerUpdater()->setSceneState(track, scene, s );
+	// TODO needed?
 }
 
 void GridLogic::load(int track, int scene, AudioBuffer* ab)
 {
 	jack->getLooper( track )->getClip( scene )->load( ab );
-	GridLogic::State s = jack->getLooper( track )->getClip( scene )->getState();
-	jack->getControllerUpdater()->setSceneState(track, scene, s );
 }
 
 
@@ -252,7 +244,6 @@ void GridLogic::updateState()
 			GridLogic::State st = jack->getLooper( t )->getClip( s )->getState();
 			EventGuiPrint e( GridLogic::StateString[st] );
 			writeToGuiRingbuffer( &e );
-			jack->getControllerUpdater()->setSceneState(t, s, st );
 		}
 	}
 }
