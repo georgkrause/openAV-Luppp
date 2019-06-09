@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef OPENAV_DSP_SIDECHAIN_GAIN_H
-#define OPENAV_DSP_SIDECHAIN_GAIN_H
+#ifndef LOOPP_DSP_SIDECHAIN_GAIN_H
+#define LOOPP_DSP_SIDECHAIN_GAIN_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,4 +72,4 @@ private:
 	float currentTarget;
 };
 
-#endif // OPENAV_DSP_SIDECHAIN_GAIN_H
+#endif // LOOPP_DSP_SIDECHAIN_GAIN_H

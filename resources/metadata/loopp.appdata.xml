@@ -2,7 +2,7 @@
 <application>
   <id type="desktop">loopp.desktop</id>
   <licence>CC0</licence>
-  <name>OpenAV Loopp</name>
+  <name>Loopp</name>
   <description>
     <p>
       Loopp is a music creation tool, intended for live use. It
@@ -22,8 +22,8 @@
   </description>
   <screenshots>
     <!-- the width and height are optional, but suggested -->
-    <screenshot type="default" width="1110" height="650">https://raw.github.com/harryhaaren/openAV-Loopp/master/resources/screenshots/1.0.png</screenshot>
+    <screenshot type="default" width="1110" height="650">https://git.netzspielplatz.de/soundship/loopp/raw/master/resources/screenshots/1.2.png</screenshot>
   </screenshots>
-  <url type="homepage">http://openavproductions.com/loopp</url>
+  <url type="homepage">http://loopp.soundship.de/</url>
   <updatecontact>zbyszek@in.waw.pl</updatecontact>
 </application>

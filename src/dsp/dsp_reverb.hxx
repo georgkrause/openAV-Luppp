@@ -17,8 +17,8 @@
  */
 
 
-#ifndef OPENAV_DSP_REVERB_H
-#define OPENAV_DSP_REVERB_H
+#ifndef LOOPP_DSP_REVERB_H
+#define LOOPP_DSP_REVERB_H
 
 #include <math.h>
 #include <cmath>
@@ -499,4 +499,4 @@ private:
 	}
 };
 
-#endif // OPENAV_DSP_REVERB_H
+#endif // LOOPP_DSP_REVERB_H

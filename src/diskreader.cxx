@@ -52,7 +52,7 @@ DiskReader::DiskReader()
 int DiskReader::loadPreferences()
 {
 	stringstream s;
-	s << getenv("HOME") << "/.config/openAV/loopp/loopp.prfs";
+	s << getenv("HOME") << "/.config/soundship/loopp/loopp.prfs";
 	std::ifstream sampleFile( s.str().c_str(), std::ios_base::in|std::ios_base::ate);
 
 	long file_length = sampleFile.tellg();
@@ -73,7 +73,7 @@ int DiskReader::loadPreferences()
 		if ( resample ) {
 			resampleQuality = resample->valueint;
 			if ( resampleQuality == 0 ) {
-				LOOPP_NOTE("Using Linear resampling, may reduce quality. Check .config/openAV/loopp/loopp.prfs");
+				LOOPP_NOTE("Using Linear resampling, may reduce quality. Check .config/soundship/loopp/loopp.prfs");
 			}
 		}
 		cJSON* ctlrs = cJSON_GetObjectItem( preferencesJson, "defaultControllers" );
@@ -85,7 +85,7 @@ int DiskReader::loadPreferences()
 				if( ctlr ) {
 					LOOPP_NOTE("Loading controller %s", ctlr->valuestring);
 					stringstream s;
-					s << getenv("HOME") << "/.config/openAV/loopp/controllers/" << ctlr->valuestring;
+					s << getenv("HOME") << "/.config/soundship/loopp/controllers/" << ctlr->valuestring;
 					gui->addMidiControllerToSetup( s.str() );
 				}
 			}
@@ -131,7 +131,7 @@ int DiskReader::loadPreferences()
 		delete[] sampleString;
 	} else {
 		// empty file / file no exists:
-		LOOPP_WARN("Preferences, file doesn't exist: ~/.config/openAV/loopp/loopp.prefs");
+		LOOPP_WARN("Preferences, file doesn't exist: ~/.config/soundship/loopp/loopp.prefs");
 
 		// so write default file
 		gui->getDiskWriter()->writeDefaultConfigToUserHome();

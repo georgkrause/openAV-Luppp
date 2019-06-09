@@ -1,6 +1,6 @@
 
 Thanks for looking into packaging Loopp:
-OpenAV couldn't possibly package for every distro,
+We couldn't possibly package for every distro,
 your work is apprecatied!
 
 CMake is used as the build system, checkout the compile.sh

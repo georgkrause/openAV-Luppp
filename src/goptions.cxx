@@ -153,7 +153,7 @@ static void selectLoadController(Fl_Widget* w, void* data)
 	fnfc.filter("Controllers\t*.ctlr");
 
 	stringstream s;
-	s << getenv("HOME") << "/.config/openAV/loopp/controllers/";
+	s << getenv("HOME") << "/.config/soundship/loopp/controllers/";
 	fnfc.directory( s.str().c_str() ); // default directory to use
 	// Show native chooser
 	switch ( fnfc.show() ) {

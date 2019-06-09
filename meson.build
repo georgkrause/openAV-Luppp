@@ -1,4 +1,4 @@
-project( 'openav_loopp', ['c','cpp'],
+project( 'loopp', ['c','cpp'],
   default_options : [
     'cpp_std=c++11',
     ])

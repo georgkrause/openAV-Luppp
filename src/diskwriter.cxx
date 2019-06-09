@@ -55,38 +55,38 @@ DiskWriter::DiskWriter()
 	sessionName = "session";
 	foldersCreated = false;
 
-	// create .config/openAV/loopp/ directory
+	// create .config/soundship/loopp/ directory
 	stringstream dotConfig;
-	dotConfig << getenv("HOME") << "/.config/openAV/";
+	dotConfig << getenv("HOME") << "/.config/sounudship/";
 	int dotConfigDir  = mkdir( dotConfig.str().c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( errno == EEXIST ) {
 		//LOOPP_NOTE("dotConfigDir exists");
 	} else if ( dotConfigDir ) {
 		LOOPP_WARN("Error creating dotConfigDir: %s",  strerror(errno));
 	} else {
-		LOOPP_NOTE("Creating .config/openAV/ directory");
+		LOOPP_NOTE("Creating .config/soundship/ directory");
 	}
 
 	stringstream dotConfigLoopp;
-	dotConfigLoopp << getenv("HOME") << "/.config/openAV/loopp";
+	dotConfigLoopp << getenv("HOME") << "/.config/soundship/loopp";
 	int dotConfigLooppDir  = mkdir( dotConfigLoopp.str().c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( errno == EEXIST ) {
 		//LOOPP_NOTE("dotConfigLooppDir exists");
 	} else if ( dotConfigLooppDir ) {
 		LOOPP_WARN("Error creating dotConfigLooppDir: %s",  strerror(errno));
 	} else {
-		LOOPP_NOTE("Creating .config/openAV/loopp directory");
+		LOOPP_NOTE("Creating .config/soundship/loopp directory");
 	}
 
 	stringstream dotConfigCtlr;
-	dotConfigCtlr << getenv("HOME") << "/.config/openAV/loopp/controllers/";
+	dotConfigCtlr << getenv("HOME") << "/.config/soundship/loopp/controllers/";
 	int dotConfigCtlrDir  = mkdir( dotConfigCtlr.str().c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( errno == EEXIST ) {
 		//LOOPP_NOTE("dotConfigCtlrDir exists");
 	} else if ( dotConfigCtlrDir ) {
 		LOOPP_WARN("Error creating dotConfigCtlrDir: %s",  strerror(errno));
 	} else {
-		LOOPP_NOTE("Creating .config/openAV/loopp directory");
+		LOOPP_NOTE("Creating .config/soundship/loopp directory");
 	}
 }
 
@@ -220,7 +220,7 @@ int DiskWriter::writeControllerFile( Controller* c )
 
 		// write the sample JSON node to <samplePath>/sample.cfg
 		stringstream controllerCfgPath;
-		controllerCfgPath << getenv("HOME") << "/.config/openAV/loopp/controllers/" << g->getName() << ".ctlr";
+		controllerCfgPath << getenv("HOME") << "/.config/soundship/loopp/controllers/" << g->getName() << ".ctlr";
 
 		ifstream infile( controllerCfgPath.str().c_str() );
 		if ( infile.good() ) {
@@ -236,7 +236,7 @@ int DiskWriter::writeControllerFile( Controller* c )
 				if ( name ) {
 					// clear the filename
 					controllerCfgPath.str( "" );
-					controllerCfgPath << getenv("HOME") << "/.config/openAV/loopp/controllers/" << name << ".ctlr";
+					controllerCfgPath << getenv("HOME") << "/.config/soundship/loopp/controllers/" << name << ".ctlr";
 					LOOPP_NOTE( "New .ctlr filename %s", controllerCfgPath.str().c_str() );
 				} else {
 					LOOPP_NOTE("No name entered for .ctlr file, canceling!");
@@ -478,9 +478,9 @@ void DiskWriter::writeDefaultConfigToUserHome()
 	// cout << endl << cJSON_Print( prfs ) << endl << endl;
 
 
-	// write JSON to .config/openAV/loopp/loopp.prfs
+	// write JSON to .config/soundship/loopp/loopp.prfs
 	stringstream f;
-	f << getenv("HOME") << "/.config/openAV/loopp/loopp.prfs";
+	f << getenv("HOME") << "/.config/soundship/loopp/loopp.prfs";
 
 	ofstream outFile;
 	outFile.open ( f.str().c_str() );

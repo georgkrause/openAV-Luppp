@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef OPENAV_DSP_DBMETER_H
-#define OPENAV_DSP_DBMETER_H
+#ifndef LOOPP_DSP_DBMETER_H
+#define LOOPP_DSP_DBMETER_H
 
 
 #include <math.h>
@@ -90,5 +90,5 @@ private:
 	float fvbargraph1;
 };
 
-#endif // OPENAV_DSP_DBMETER_H
+#endif // LOOPP_DSP_DBMETER_H
 
