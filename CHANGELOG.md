@@ -3,6 +3,7 @@
 ## Features:
 
 * Auto Stop Record of Clips after a defined number of bars
+* Free Record Mode to set tempo with the first recorded loop
 
 ## Improvements
 
@@ -10,6 +11,12 @@
 * Make tempo ramps possible again (without pitch correction)
 * Refactor some parts (LooperClip & AudioBuffer)
 * Add some Unit Tests
+
+## Attention
+
+Because of the fork and the renamed application, the Jack Client has another name.
+If you have configured Jack connections and can't or don't want to change them, please
+run Loopp in legacy mode, with `loopp --legacy` or `loopp -l`.
 
 # 1.2.1 Monday 15th April 2019
 
