@@ -61,6 +61,8 @@ static void gui_static_loadSession_cb(void* inst)
 int main(int argc, char** argv)
 {
 	bool runTests = false;
+	bool legacy = false;
+
 	if ( runTests ) {} // remove unused warning if not built with BUILD_TESTS
 
 	for(int i = 0; i < argc; i++) {
@@ -69,6 +71,9 @@ int main(int argc, char** argv)
 		} else if ( strcmp(argv[i], "--version" ) == 0  || strcmp(argv[i], "-v" ) == 0 ) {
 			printf("%s\n", GIT_VERSION);
 			return 0;
+		} else if ( strcmp ( argv[i], "--legacy" ) == 0 ||
+			    strcmp ( argv[i], "-l" ) == 0 ) {
+			legacy = true;
 		} else if ( i != 0 ) { // don't try load with the program name!
 			// assume filename, try load it
 			Fl::repeat_timeout( 1 / 30.f, &gui_static_loadSession_cb, argv[i] );
@@ -127,7 +132,11 @@ int main(int argc, char** argv)
 		// the NSM OSC Open message will trigger Jack initialization: necessary
 		// to use the right name to create the JACK client.
 	} else {
-		Jack::setup("Loopp");
+		if ( legacy )
+			Jack::setup ( "Luppp" );
+		else
+			Jack::setup ( "Loopp" );
+
 		jack->activate();
 	}
 
