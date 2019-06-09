@@ -1,4 +1,4 @@
-project( 'openav_luppp', ['c','cpp'],
+project( 'openav_loopp', ['c','cpp'],
   default_options : [
     'cpp_std=c++11',
     ])
@@ -18,7 +18,7 @@ add_project_arguments('-Wno-sign-compare', language : 'cpp')
 cc  = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
 
-luppp_src = []
+loopp_src = []
 subdir('src')
 
 
@@ -38,7 +38,7 @@ foreach dep : dep_names
 endforeach
 
 # compile the main project
-exe = executable('luppp', luppp_src + [version_hxx],
+exe = executable('loopp', loopp_src + [version_hxx],
     install: true,
     dependencies: deps)
 
@@ -46,6 +46,6 @@ if get_option('unitTests')
   test('Unit Tests', exe, args : ['-r junit', '-o junit.xml'])
 endif
 
-install_data('resources/metadata/luppp.desktop', install_dir: 'share/applications')
-install_data('resources/metadata/luppp.appdata.xml', install_dir: 'share/appdata')
-install_data('resources/icons/luppp.png', install_dir: 'share/pixmaps')
+install_data('resources/metadata/loopp.desktop', install_dir: 'share/applications')
+install_data('resources/metadata/loopp.appdata.xml', install_dir: 'share/appdata')
+install_data('resources/icons/loopp.png', install_dir: 'share/pixmaps')

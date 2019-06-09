@@ -203,7 +203,7 @@ void GridLogic::pressed( int track, int scene )
 		for(int i = 0; i < NSCENES; i++) {
 			// exclude current scene
 			if ( i != scene ) {
-				//LUPPP_NOTE("netralizing & qStop on scene %i due to press on %i", i, scene );
+				//LOOPP_NOTE("netralizing & qStop on scene %i due to press on %i", i, scene );
 				LooperClip* ilc = jack->getLooper( track )->getClip( i );
 
 				ilc->resetQueues();

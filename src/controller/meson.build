@@ -1,4 +1,4 @@
-luppp_src += files(
+loopp_src += files(
   'controller.cxx',
   'genericmidi.cxx',
   'guicontroller.cxx',

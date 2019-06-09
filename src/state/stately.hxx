@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_STATELY_H
-#define LUPPP_STATELY_H
+#ifndef LOOPP_STATELY_H
+#define LOOPP_STATELY_H
 
 /** Stately
  * This class is inherited from by all classes that have state.
@@ -59,5 +59,5 @@ private:
 	static void checkCompletedSave();
 };
 
-#endif // LUPPP_STATELY_H
+#endif // LOOPP_STATELY_H
 

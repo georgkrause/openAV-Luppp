@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_STATE_H
-#define LUPPP_STATE_H
+#ifndef LOOPP_STATE_H
+#define LOOPP_STATE_H
 
 #include <vector>
 
@@ -49,4 +49,4 @@ private:
 	std::vector<Stately*> statelys;
 };
 
-#endif // LUPPP_STATE_H
+#endif // LOOPP_STATE_H

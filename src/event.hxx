@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_EVENT_H
-#define LUPPP_EVENT_H
+#ifndef LOOPP_EVENT_H
+#define LOOPP_EVENT_H
 
 #include <iostream>
 #include <stdint.h>
@@ -1264,5 +1264,5 @@ public:
 };
 
 
-#endif // LUPPP_EVENT_H
+#endif // LOOPP_EVENT_H
 

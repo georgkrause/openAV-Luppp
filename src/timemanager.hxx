@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_TIME_H
-#define LUPPP_TIME_H
+#ifndef LOOPP_TIME_H
+#define LOOPP_TIME_H
 
 #include <iostream>
 #include <cstdio>
@@ -93,4 +93,4 @@ private:
 	std::vector<TimeObserver*> observers;
 };
 
-#endif // LUPPP_TIME_H
+#endif // LOOPP_TIME_H

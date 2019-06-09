@@ -1,1 +1,1 @@
-luppp_src += files( 'bindings.cxx', 'volume.cxx', 'clipselector.cxx')
+loopp_src += files( 'bindings.cxx', 'volume.cxx', 'clipselector.cxx')

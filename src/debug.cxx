@@ -21,7 +21,7 @@
 
 #include <cassert>
 
-void luppp_debug( int warnLevel, const char* name, const char* file, const char* func, int line,
+void loopp_debug( int warnLevel, const char* name, const char* file, const char* func, int line,
                   const char* format, ... )
 {
 	if ( warnLevel == DEBUG_LEVEL_ERROR ) {

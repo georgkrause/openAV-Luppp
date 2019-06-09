@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_EVENT_HANDLER_DSP_H
-#define LUPPP_EVENT_HANDLER_DSP_H
+#ifndef LOOPP_EVENT_HANDLER_DSP_H
+#define LOOPP_EVENT_HANDLER_DSP_H
 
 
 // Library
@@ -244,7 +244,7 @@ void handleDspEvents()
 				if ( availableRead >= sizeof(EventMetronomeVolume) ) {
 					EventMetronomeVolume ev(false);
 					jack_ringbuffer_read( rbToDsp, (char*)&ev, sizeof(EventMetronomeVolume) );
-					LUPPP_NOTE("EventDSP: MetroVol %f", ev.vol );
+					LOOPP_NOTE("EventDSP: MetroVol %f", ev.vol );
 					jack->getMetronome()->setVolume(ev.vol);
 				}
 				break;
@@ -398,7 +398,7 @@ void handleDspEvents()
 			}
 
 
-			// ========= LUPPP INTERNAL =====
+			// ========= LOOPP INTERNAL =====
 			case Event::LOOPER_REQUEST_BUFFER: {
 				if ( availableRead >= sizeof(EventLooperClipRequestBuffer) ) {
 					EventLooperClipRequestBuffer ev;
@@ -506,5 +506,5 @@ void writeToDspRingbuffer(EventBase* e)
 	}
 }
 
-#endif // LUPPP_EVENT_HANDLER_DSP_H
+#endif // LOOPP_EVENT_HANDLER_DSP_H
 

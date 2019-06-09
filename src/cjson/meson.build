@@ -1,1 +1,1 @@
-luppp_src += files('cJSON.c')
+loopp_src += files('cJSON.c')

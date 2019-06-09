@@ -16,12 +16,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_CONFIG_H
-#define LUPPP_CONFIG_H
+#ifndef LOOPP_CONFIG_H
+#define LOOPP_CONFIG_H
 
 
 ///     PROGAM WIDE DEFINES
-#define NAME "Luppp"
+#define NAME "Loopp"
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
@@ -65,9 +65,9 @@
 #define LOOPER_SAMPLES_BEFORE_REQUEST 44100
 #define LOOPER_SAMPLES_UPDATE_SIZE    44100
 
-#define LUPPP_RETURN_OK       0
-#define LUPPP_RETURN_WARNING  1
-#define LUPPP_RETURN_ERROR    2
+#define LOOPP_RETURN_OK       0
+#define LOOPP_RETURN_WARNING  1
+#define LOOPP_RETURN_ERROR    2
 
 // Smoothing value
 #define SMOOTHING_CONST 0.005
@@ -76,5 +76,5 @@
 #include "debug.hxx"
 
 
-#endif // LUPPP_CONFIG_H
+#endif // LOOPP_CONFIG_H
 

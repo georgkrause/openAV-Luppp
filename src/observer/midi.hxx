@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_MIDI_IO_H
-#define LUPPP_MIDI_IO_H
+#ifndef LOOPP_MIDI_IO_H
+#define LOOPP_MIDI_IO_H
 
 #include <iostream>
 #include <string>
@@ -60,4 +60,4 @@ private:
 
 };
 
-#endif // LUPPP_MIDI_IO_H
+#endif // LOOPP_MIDI_IO_H

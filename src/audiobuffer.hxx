@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_AUDIOBUFFER_H
-#define LUPPP_AUDIOBUFFER_H
+#ifndef LOOPP_AUDIOBUFFER_H
+#define LOOPP_AUDIOBUFFER_H
 
 #include <vector>
 #include <string>

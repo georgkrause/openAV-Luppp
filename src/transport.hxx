@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_TRANSPORT_H
-#define LUPPP_TRANSPORT_H
+#ifndef LOOPP_TRANSPORT_H
+#define LOOPP_TRANSPORT_H
 
 enum TRANSPORT_STATE {
 	TRANSPORT_STOPPED = 0,

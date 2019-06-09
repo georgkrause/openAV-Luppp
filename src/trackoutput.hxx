@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_TRACK_OUTPUT_H
-#define LUPPP_TRACK_OUTPUT_H
+#ifndef LOOPP_TRACK_OUTPUT_H
+#define LOOPP_TRACK_OUTPUT_H
 
 #include <iostream>
 #include <stdio.h>
@@ -97,5 +97,5 @@ private:
 
 };
 
-#endif // LUPPP_TRACK_OUTPUT_H
+#endif // LOOPP_TRACK_OUTPUT_H
 

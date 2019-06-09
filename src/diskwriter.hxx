@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_DISK_WRITER_H
-#define LUPPP_DISK_WRITER_H
+#ifndef LOOPP_DISK_WRITER_H
+#define LOOPP_DISK_WRITER_H
 
 #include <string>
 #include <vector>
@@ -48,7 +48,7 @@ public:
 /** DiskWriter
  * This class writes soundfiles to disk, and keeps track of which filename was
  * in which track/scene combo in the grid. This metadata is then written to the
- * <sessionName>.luppp file.
+ * <sessionName>.loopp file.
 **/
 class DiskWriter
 {
@@ -100,4 +100,4 @@ private:
 	std::string controllerInfo[CONTROLLER_INFO_SIZE];
 };
 
-#endif // LUPPP_DISK_WRITER_H
+#endif // LOOPP_DISK_WRITER_H

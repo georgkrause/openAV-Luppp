@@ -59,7 +59,7 @@ void Jack::setup(std::string name)
 		jack->activate();
 		return;
 	} else {
-		LUPPP_WARN("JACK instance already exists!");
+		LOOPP_WARN("JACK instance already exists!");
 	}
 }
 
@@ -233,7 +233,7 @@ Jack::Jack( std::string name ) :
 		 *  The TrackOutput gets a pointer to the next AudioProcessor to call:
 		 * This is either a JackSendReturn (providing send and return ports)
 		 *  or the track's Looper instance.
-		 * This is an option in luppp.prfs
+		 * This is an option in loopp.prfs
 		**/
 		loopers.push_back( new Looper(track) );
 
@@ -285,14 +285,14 @@ Jack::Jack( std::string name ) :
 	if ( jack_set_process_callback( client,
 	                                static_process,
 	                                static_cast<void*>(this)) ) {
-		LUPPP_ERROR("%s","Error setting process callback");
+		LOOPP_ERROR("%s","Error setting process callback");
 	}
 
 	if ( jack_set_timebase_callback(client,
 	                                0, //0, 0 == must be master, 1 == conditional
 	                                (JackTimebaseCallback)static_timebase,
 	                                static_cast<void*>(this)) ) {
-		LUPPP_ERROR("%s","Error setting timebase callback");
+		LOOPP_ERROR("%s","Error setting timebase callback");
 	}
 
 	//Controller* m = new AkaiAPC();
@@ -301,11 +301,11 @@ Jack::Jack( std::string name ) :
 	// Watch out for RT stuff, loading file, registering ports etc: before activate?!
 	//Controller* m = new GenericMIDI("akai_apc.ctlr","apc");
 
-	Controller* g = new LupppGUI();
+	Controller* g = new LooppGUI();
 	controllerUpdater->registerController( g );
 
 	if ( !g ) {
-		LUPPP_ERROR("%s","Error creating LupppGUI Controller instance");
+		LOOPP_ERROR("%s","Error creating LooppGUI Controller instance");
 	}
 
 	// call into the GUI, telling it to register default controllers
@@ -358,7 +358,7 @@ void Jack::quit()
 {
 	//jack_deactivate( client );
 	jack_client_close( client );
-	LUPPP_NOTE("%s","Quit JACK.");
+	LOOPP_NOTE("%s","Quit JACK.");
 }
 
 TrackOutput* Jack::getTrackOutput(int t)
@@ -404,7 +404,7 @@ Looper* Jack::getLooper(int t)
 
 void Jack::registerMidiIO( MidiIO* mo )
 {
-	//LUPPP_NOTE("Jack::registerMidiIO()" );
+	//LOOPP_NOTE("Jack::registerMidiIO()" );
 
 	// CAREFUL : this could need to resize and cause malloc() in RT thread
 	midiIO.push_back( mo );
@@ -412,7 +412,7 @@ void Jack::registerMidiIO( MidiIO* mo )
 
 void Jack::unregisterMidiIO( MidiIO* mo )
 {
-	LUPPP_NOTE("Jack::unregisterMidiIO()");
+	LOOPP_NOTE("Jack::unregisterMidiIO()");
 
 	// unregister the observer
 	for(unsigned int i = 0; i < midiIO.size(); i++) {
@@ -519,7 +519,7 @@ int Jack::process (jack_nframes_t nframes)
 void Jack::processFrames(int nframes)
 {
 	if ( nframes < 0 ) {
-		LUPPP_WARN("Jack processFrames got nframes < 0");
+		LOOPP_WARN("Jack processFrames got nframes < 0");
 		return;
 	}
 
@@ -629,7 +629,7 @@ void Jack::processFrames(int nframes)
 	*/
 
 	// move buffer pointers up nframes: allows processing of one "nframes" from
-	// JACK in multiple parts internally in Luppp: used for processing bar() / beat()
+	// JACK in multiple parts internally in Loopp: used for processing bar() / beat()
 	// if a full JACK nframes has been processed, this is extra work: its not that expensive
 	/// update buffers by nframes
 	if(lastnframes+nframes<buffers.nframes) {

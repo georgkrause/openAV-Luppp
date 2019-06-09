@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_LOOPER_H
-#define LUPPP_LOOPER_H
+#ifndef LOOPP_LOOPER_H
+#define LOOPP_LOOPER_H
 
 #include <vector>
 #include <iostream>
@@ -88,4 +88,4 @@ private:
 	int uiUpdateCounter;
 };
 
-#endif // LUPPP_LOOPER_H
+#endif // LOOPP_LOOPER_H

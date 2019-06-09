@@ -45,8 +45,8 @@ int DiskWriter::runTests()
 	AudioBuffer ab(440);
 	gui->getDiskWriter()->initialize(path, session);
 
-	QUNIT_IS_TRUE( gui->getDiskWriter()->writeAudioBuffer(0, 0, &ab) == LUPPP_RETURN_OK );
-	QUNIT_IS_TRUE( gui->getDiskWriter()->writeSession() == LUPPP_RETURN_OK );
+	QUNIT_IS_TRUE( gui->getDiskWriter()->writeAudioBuffer(0, 0, &ab) == LOOPP_RETURN_OK );
+	QUNIT_IS_TRUE( gui->getDiskWriter()->writeSession() == LOOPP_RETURN_OK );
 
 	QUNIT_IS_TRUE( strcmp( gui->getDiskWriter()->getLastSavePath().c_str(), path.c_str() ) == 0 );
 	QUNIT_IS_TRUE( strcmp( gui->getDiskWriter()->getLastSaveName().c_str(), session.c_str() ) == 0 );
@@ -63,21 +63,21 @@ int DiskWriter::runTests()
 	std::string link = "www.dummylink.com";
 
 	int d = gui->getDiskWriter()->writeControllerFile( dummy );
-	QUNIT_IS_TRUE( d == LUPPP_RETURN_OK );
+	QUNIT_IS_TRUE( d == LOOPP_RETURN_OK );
 
 	dummy->setupBinding( Event::TRACK_VOLUME, 176, 7, 0, 0, 0, 0 );
 	dummy->setupBinding( Event::GRID_LAUNCH_SCENE, 144, 60, 0, 2, 0, 0 );
 
 	int d1 = gui->getDiskWriter()->writeControllerFile( dummy );
-	QUNIT_IS_TRUE( d1 == LUPPP_RETURN_OK );
+	QUNIT_IS_TRUE( d1 == LOOPP_RETURN_OK );
 
 	/// test dynamic cast, null, and invalid Controller* type
 	int r1 = gui->getDiskWriter()->writeControllerFile( 0 );
-	QUNIT_IS_TRUE( r1 == LUPPP_RETURN_ERROR );
+	QUNIT_IS_TRUE( r1 == LOOPP_RETURN_ERROR );
 
 	Controller* non = new NonSeq();
 	int r2 = gui->getDiskWriter()->writeControllerFile( non);
-	QUNIT_IS_TRUE( r2 == LUPPP_RETURN_ERROR );
+	QUNIT_IS_TRUE( r2 == LOOPP_RETURN_ERROR );
 
 	return qunit.errors();
 }

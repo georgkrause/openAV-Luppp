@@ -3,7 +3,7 @@
 OUTPUT output;
 
 void
-luppp_debug(int warnLevel, const char *name, const char *file, const char *func,
+loopp_debug(int warnLevel, const char *name, const char *file, const char *func,
 	int line, const char *format, ...)
 {
 	output.warnLevel = warnLevel;

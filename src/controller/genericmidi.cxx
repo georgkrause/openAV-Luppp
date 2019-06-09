@@ -38,7 +38,7 @@ GenericMIDI::GenericMIDI(int waste, std::string n) :
 	Controller(),
 	MidiIO()
 {
-	LUPPP_NOTE("Adding GenericMIDI %s", n.c_str() );
+	LOOPP_NOTE("Adding GenericMIDI %s", n.c_str() );
 	name = n;
 	registerMidiPorts( name );
 	stat = CONTROLLER_OK;
@@ -49,7 +49,7 @@ GenericMIDI::GenericMIDI(int waste, std::string n) :
 
 void GenericMIDI::setFootswitchToNextScene(int v)
 {
-	LUPPP_NOTE("Set Footswitch to %i", v );
+	LOOPP_NOTE("Set Footswitch to %i", v );
 	if ( v == 0 ) {
 		footswitchNextScene = false;
 		footswitchPrevScene = false;
@@ -77,12 +77,12 @@ GenericMIDI::GenericMIDI(std::string file) :
 	// load the JSON config file
 	int result = loadController( file );
 
-	if ( result == LUPPP_RETURN_OK ) {
-		LUPPP_NOTE("GenericMIDI registering ports: %s", name.c_str() );
+	if ( result == LOOPP_RETURN_OK ) {
+		LOOPP_NOTE("GenericMIDI registering ports: %s", name.c_str() );
 		registerMidiPorts( name );
 		stat = CONTROLLER_OK;
 	} else {
-		LUPPP_ERROR("Error in loading controller map!" );
+		LOOPP_ERROR("Error in loading controller map!" );
 		stat = CONTROLLER_ERROR;
 	}
 }
@@ -106,7 +106,7 @@ int GenericMIDI::registerComponents()
 
 	jack->registerMidiIO( m );
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 std::string GenericMIDI::getName()
@@ -212,7 +212,7 @@ void GenericMIDI::midi(unsigned char* midi)
 
 	// create new MIDI binding?
 	if ( jack->bindingEventRecordEnable ) {
-		//LUPPP_NOTE("making binding from: %i %i %f", status, data, value );
+		//LOOPP_NOTE("making binding from: %i %i %f", status, data, value );
 		setupBinding( jack->bindingEventType, status, data,
 		              jack->bindingTrack,
 		              jack->bindingScene,
@@ -247,7 +247,7 @@ void GenericMIDI::midi(unsigned char* midi)
 		Binding* b = midiToAction.at(i);
 
 		if ( b->status == status && b->data == data ) {
-			//LUPPP_NOTE("Executing action %s, send %i value %f, b->active %i", Event::getPrettyName(b->action), b->send, value, int(b->active) );
+			//LOOPP_NOTE("Executing action %s, send %i value %f, b->active %i", Event::getPrettyName(b->action), b->send, value, int(b->active) );
 
 			switch( b->action ) {
 			case Event::TRACK_VOLUME:
@@ -308,11 +308,11 @@ void GenericMIDI::midi(unsigned char* midi)
 				jack->getLogic()->masterInputVol( value );
 				break;
 			case Event::MASTER_INPUT_TO:
-				//LUPPP_NOTE("GenMidi event INPUT_TO %i", b->send );
+				//LOOPP_NOTE("GenMidi event INPUT_TO %i", b->send );
 				jack->getLogic()->masterInputTo( b->send, value );
 				break;
 			case Event::MASTER_INPUT_TO_ACTIVE:
-				//LUPPP_NOTE("GenMidi event INPUT_TO_ACTIVE %i", b->send );
+				//LOOPP_NOTE("GenMidi event INPUT_TO_ACTIVE %i", b->send );
 				jack->getLogic()->masterInputToActive( b->send, b->active );
 				break;
 
@@ -360,7 +360,7 @@ void GenericMIDI::setSceneState(int t, int scene, GridLogic::State s)
 					data[1] = b->data;
 					data[2] = it->second;
 
-					//LUPPP_NOTE("GenericMIDI::sceneState() writing event %i, %i, %i", data[0],data[1],data[2] );
+					//LOOPP_NOTE("GenericMIDI::sceneState() writing event %i, %i, %i", data[0],data[1],data[2] );
 					writeMidi( data );
 				}
 			}
@@ -396,7 +396,7 @@ void GenericMIDI::launchScene( int scene )
 			data[1] = b->data;
 			data[2] = (i == scene) * 127;
 			
-			//LUPPP_NOTE("this = %i GenericMIDI::launchScene()", this );
+			//LOOPP_NOTE("this = %i GenericMIDI::launchScene()", this );
 			writeMidi( data );
 		}
 	}
@@ -409,7 +409,7 @@ int GenericMIDI::loadController( std::string file )
 
 	/// open and read whole file
 #ifdef DEBUG_CONTROLLER
-	LUPPP_NOTE("%s%s","Loading controller : ", file.c_str() );
+	LOOPP_NOTE("%s%s","Loading controller : ", file.c_str() );
 #endif
 	std::ifstream sampleFile( file.c_str(), std::ios_base::in|std::ios_base::ate);
 	long file_length = sampleFile.tellg();
@@ -427,37 +427,37 @@ int GenericMIDI::loadController( std::string file )
 
 			std::string line;
 			std::getline( ss, line );
-			LUPPP_ERROR("%s %s","Error in JSON *before*: ", line.c_str() );
+			LOOPP_ERROR("%s %s","Error in JSON *before*: ", line.c_str() );
 
 			for(int i = 0; i < 5; i++) {
 				std::getline( ss, line );
-				LUPPP_ERROR("%s %s","Error in JSON         : ", line.c_str() );
+				LOOPP_ERROR("%s %s","Error in JSON         : ", line.c_str() );
 			}
-			return LUPPP_RETURN_ERROR;
+			return LOOPP_RETURN_ERROR;
 		}
 
 		cJSON* nameJson = cJSON_GetObjectItem( controllerJson, "name" );
 		if ( nameJson ) {
 			name = nameJson->valuestring;
-			LUPPP_NOTE("Device %s", name.c_str() );
+			LOOPP_NOTE("Device %s", name.c_str() );
 		} else {
-			LUPPP_NOTE("Has no name field");
+			LOOPP_NOTE("Has no name field");
 		}
 
 		cJSON* authorJson = cJSON_GetObjectItem( controllerJson, "author" );
 		if ( authorJson ) {
 			author = authorJson->valuestring;
-			LUPPP_NOTE("Author %s", author.c_str() );
+			LOOPP_NOTE("Author %s", author.c_str() );
 		} else {
-			LUPPP_NOTE("Has no author field");
+			LOOPP_NOTE("Has no author field");
 		}
 
 		cJSON* linkJson = cJSON_GetObjectItem( controllerJson, "link" );
 		if ( linkJson ) {
 			email = linkJson->valuestring;
-			LUPPP_NOTE("Link %s", email.c_str() );
+			LOOPP_NOTE("Link %s", email.c_str() );
 		} else {
-			LUPPP_NOTE("Has no link field");
+			LOOPP_NOTE("Has no link field");
 		}
 
 
@@ -474,12 +474,12 @@ int GenericMIDI::loadController( std::string file )
 				nInputBindings++;
 			}
 		} else {
-			LUPPP_WARN("No input bindings array in .ctlr map." );
+			LOOPP_WARN("No input bindings array in .ctlr map." );
 			nInputBindings++; // hack to avoid 2 prints
 		}
 
 		if ( nInputBindings == 0 ) {
-			LUPPP_NOTE("Zero input bindings present in .ctlr map.");
+			LOOPP_NOTE("Zero input bindings present in .ctlr map.");
 		}
 
 
@@ -494,35 +494,35 @@ int GenericMIDI::loadController( std::string file )
 					actionToMidi.push_back( tmp );
 
 				nOutputBindings++;
-				//LUPPP_NOTE("Binding from %s to %i %i", actionJ->valuestring, statusJson->valueint, dataJson->valueint );
+				//LOOPP_NOTE("Binding from %s to %i %i", actionJ->valuestring, statusJson->valueint, dataJson->valueint );
 			}
 		} else {
-			LUPPP_NOTE("No output bindings array in .ctlr map." );
+			LOOPP_NOTE("No output bindings array in .ctlr map." );
 			nOutputBindings++; // hack to avoid 2 prints
 		}
 		if ( nOutputBindings == 0 ) {
-			LUPPP_NOTE("Zero output bindings present in .ctlr map." );
+			LOOPP_NOTE("Zero output bindings present in .ctlr map." );
 		}
 
 
 		cJSON_Delete( controllerJson );
 		delete[] sampleString;
 	} else {
-		LUPPP_WARN("%s %s","No controller file found at ", file.c_str() );
-		return LUPPP_RETURN_WARNING;
+		LOOPP_WARN("%s %s","No controller file found at ", file.c_str() );
+		return LOOPP_RETURN_WARNING;
 	}
 
 
-	LUPPP_NOTE("Controller loading complete." );
+	LOOPP_NOTE("Controller loading complete." );
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 void GenericMIDI::removeBinding( int bindingID )
 {
 	for(unsigned int i = 0; i < midiToAction.size(); i++) {
 		if ( midiToAction.at(i)->ID == bindingID ) {
-			//LUPPP_NOTE("MIDI binding REMOVED with bindingID %i\n", bindingID );
+			//LOOPP_NOTE("MIDI binding REMOVED with bindingID %i\n", bindingID );
 			Binding* tmp = midiToAction.at(i);
 			midiToAction.erase( midiToAction.begin()+i );
 
@@ -534,9 +534,9 @@ void GenericMIDI::removeBinding( int bindingID )
 	}
 }
 
-void GenericMIDI::setupBinding( LupppAction eventType, int midiStatus, int midiData, int track, int scene, int send, int active )
+void GenericMIDI::setupBinding( LooppAction eventType, int midiStatus, int midiData, int track, int scene, int send, int active )
 {
-	LUPPP_NOTE("MIDI binding, track %d, send %d from eventType %d to %d, %d", track, send, eventType, midiStatus, midiData );
+	LOOPP_NOTE("MIDI binding, track %d, send %d from eventType %d to %d, %d", track, send, eventType, midiStatus, midiData );
 
 	// FIXME: NON-RT Have stack of Bindings() available, or push in GUI thread?
 	Binding* tmp = new Binding();
@@ -564,7 +564,7 @@ Binding* GenericMIDI::setupBinding( cJSON* binding )
 
 	cJSON* actionJson = cJSON_GetObjectItem( binding, "action" );
 	if ( !actionJson ) {
-		LUPPP_WARN("Binding doesn't have action field: fix .ctlr file");
+		LOOPP_WARN("Binding doesn't have action field: fix .ctlr file");
 		delete tmp;
 		return 0;
 	}
@@ -572,7 +572,7 @@ Binding* GenericMIDI::setupBinding( cJSON* binding )
 	cJSON* statusJson = cJSON_GetObjectItem( binding, "status" );
 	cJSON* dataJson   = cJSON_GetObjectItem( binding, "data"   );
 	if ( !statusJson || !dataJson ) {
-		LUPPP_WARN("Binding w Action:%s doesn't have status / data field: fix .ctlr file", actionJson->valuestring);
+		LOOPP_WARN("Binding w Action:%s doesn't have status / data field: fix .ctlr file", actionJson->valuestring);
 		delete tmp;
 		return 0;
 	}
@@ -645,12 +645,12 @@ Binding* GenericMIDI::setupBinding( cJSON* binding )
 		tmp->action = Event::MASTER_VOL;
 	} else if ( strcmp( actionJson->valuestring, "metronome:active" ) == 0 ) {
 		tmp->action = Event::METRONOME_ACTIVE;
-		LUPPP_NOTE("binding metro active event, tmp->active == %i", tmp->active );
+		LOOPP_NOTE("binding metro active event, tmp->active == %i", tmp->active );
 	}
 
 	// check for valid event: otherwise pass
 	if ( tmp->action != Event::EVENT_NULL ) {
-		//LUPPP_NOTE("Binding from %i %i  %s", statusJson->valueint, dataJson->valueint, actionJson->valuestring);
+		//LOOPP_NOTE("Binding from %i %i  %s", statusJson->valueint, dataJson->valueint, actionJson->valuestring);
 
 		cJSON* track      = cJSON_GetObjectItem( binding, "track"  );
 		cJSON* scene      = cJSON_GetObjectItem( binding, "scene"  );
@@ -665,7 +665,7 @@ Binding* GenericMIDI::setupBinding( cJSON* binding )
 
 		return tmp;
 	} else {
-		LUPPP_WARN("Binding action not recognized: %s", actionJson->valuestring );
+		LOOPP_WARN("Binding action not recognized: %s", actionJson->valuestring );
 	}
 
 	delete tmp;

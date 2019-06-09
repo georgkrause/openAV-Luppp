@@ -17,21 +17,21 @@
  */
 
 
-#ifndef LUPPP_CONTROLLER_GUI_H
-#define LUPPP_CONTROLLER_GUI_H
+#ifndef LOOPP_CONTROLLER_GUI_H
+#define LOOPP_CONTROLLER_GUI_H
 
 #include "controller.hxx"
 
 #include "../observer/midi.hxx"
 
-class LupppGUI : public Controller
+class LooppGUI : public Controller
 {
 public:
-	LupppGUI();
+	LooppGUI();
 
 	std::string getName()
 	{
-		return "Luppp GUI";
+		return "Loopp GUI";
 	}
 
 	void masterVolume(float f);
@@ -63,5 +63,5 @@ public:
 
 };
 
-#endif // LUPPP_CONTROLLER_GUI_H
+#endif // LOOPP_CONTROLLER_GUI_H
 

@@ -16,15 +16,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_LOGIC_H
-#define LUPPP_LOGIC_H
+#ifndef LOOPP_LOGIC_H
+#define LOOPP_LOGIC_H
 
 #include "event.hxx"
 
 /** Logic
- *  This class contains an interface exposing most functionality in Luppp. The
+ *  This class contains an interface exposing most functionality in Loopp. The
  *  interface is used to have one central place from where each controller can
- *  interact with Luppp using the same function calls.
+ *  interact with Loopp using the same function calls.
  *
  *  This class should be used for input from any device. The interface is
  *  deliberatly specific with regards to scheduling events: controllers should
@@ -69,4 +69,4 @@ public:
 	void setClipLengthDown();
 };
 
-#endif // LUPPP_LOGIC_H
+#endif // LOOPP_LOGIC_H

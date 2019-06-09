@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_DISK_READER_H
-#define LUPPP_DISK_READER_H
+#ifndef LOOPP_DISK_READER_H
+#define LOOPP_DISK_READER_H
 
 #include <string>
 
@@ -26,11 +26,11 @@
 class AudioBuffer;
 
 /** DiskReader
- * This class reads a previously saved session from disk, restoring Luppp's
+ * This class reads a previously saved session from disk, restoring Loopp's
  * internal state to that of when the save took place.
  *
  * The directory <sessionDir> is the main point of loading. The user selects
- * that directory to load the session from. <sessionDir>.luppp is the name of
+ * that directory to load the session from. <sessionDir>.loopp is the name of
  * the session file: it contains all info about the session: Volumes, loaded
  * samples etc.
  *
@@ -42,7 +42,7 @@ class DiskReader
 public:
 	DiskReader();
 
-	/// loads default settings for Luppp: controller instances etc
+	/// loads default settings for Loopp: controller instances etc
 	int loadPreferences();
 
 	/// loads a sample into a new AudioBuffer, returning the buffer
@@ -75,4 +75,4 @@ private:
 	std::string lastLoadedSamplePath;
 };
 
-#endif // LUPPP_DISK_READER_H
+#endif // LOOPP_DISK_READER_H

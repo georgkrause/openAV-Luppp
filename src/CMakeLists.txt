@@ -68,29 +68,29 @@ endif()
 FILE(GLOB sources *.cxx  avtk/*.cxx cjson/*.c controller/*.cxx dsp/*.cxx observer/*.cxx state/*.cxx tests/*.cxx)
 
 # Compile binary
-add_executable (luppp version.hxx ${sources} )
+add_executable (loopp version.hxx ${sources} )
 
 # require a C++11 compiler
-set_target_properties(luppp PROPERTIES 
+set_target_properties(loopp PROPERTIES 
     CXX_STANDARD 11 
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )
 
 # Linking
-target_link_libraries( luppp ${JACK_LIBRARIES}       )
-target_link_libraries( luppp ${LIBLO_LIBRARIES}      )
-target_link_libraries( luppp ${NTK_LIBRARIES}        )
-target_link_libraries( luppp ${CAIRO_LIBRARIES}      )
-target_link_libraries( luppp ${SNDFILE_LIBRARIES}    )
-target_link_libraries( luppp ${SAMPLERATE_LIBRARIES} )
-target_link_libraries( luppp ${X11_LIBRARIES}        )
+target_link_libraries( loopp ${JACK_LIBRARIES}       )
+target_link_libraries( loopp ${LIBLO_LIBRARIES}      )
+target_link_libraries( loopp ${NTK_LIBRARIES}        )
+target_link_libraries( loopp ${CAIRO_LIBRARIES}      )
+target_link_libraries( loopp ${SNDFILE_LIBRARIES}    )
+target_link_libraries( loopp ${SAMPLERATE_LIBRARIES} )
+target_link_libraries( loopp ${X11_LIBRARIES}        )
 
 # Check build type, linking with gcov for code analysis if needed
 IF(BUILD_TESTS)
-  target_link_libraries(luppp gcov)
+  target_link_libraries(loopp gcov)
 ENDIF(BUILD_TESTS)
 
 # add the install targets
-install (TARGETS luppp DESTINATION bin)
+install (TARGETS loopp DESTINATION bin)
 

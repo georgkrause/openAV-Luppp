@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_AUDIO_PROCESSOR_H
-#define LUPPP_AUDIO_PROCESSOR_H
+#ifndef LOOPP_AUDIO_PROCESSOR_H
+#define LOOPP_AUDIO_PROCESSOR_H
 
 #include <stdio.h>
 
@@ -49,5 +49,5 @@ public:
 	virtual ~AudioProcessor() {};
 };
 
-#endif // LUPPP_AUDIO_PROCESSOR_H
+#endif // LOOPP_AUDIO_PROCESSOR_H
 

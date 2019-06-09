@@ -5,7 +5,7 @@ version_hxx = vcs_tag(
 
 if not get_option('unitTests')
   message('Create build config for publishing')
-  luppp_src = files(
+  loopp_src = files(
     'audiobuffer.cxx',
     'controllerupdater.cxx',
     'debug.cxx',

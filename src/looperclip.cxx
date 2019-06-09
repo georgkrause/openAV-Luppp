@@ -210,7 +210,7 @@ void LooperClip::record(int count, float* L, float* R)
 				EventGuiPrint e( buffer );
 				writeToGuiRingbuffer( &e );
 #ifdef BUILD_TESTS
-				LUPPP_WARN("%s","buffer has no space");
+				LOOPP_WARN("%s","buffer has no space");
 #endif
 
 				break;

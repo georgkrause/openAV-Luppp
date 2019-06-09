@@ -55,38 +55,38 @@ DiskWriter::DiskWriter()
 	sessionName = "session";
 	foldersCreated = false;
 
-	// create .config/openAV/luppp/ directory
+	// create .config/openAV/loopp/ directory
 	stringstream dotConfig;
 	dotConfig << getenv("HOME") << "/.config/openAV/";
 	int dotConfigDir  = mkdir( dotConfig.str().c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( errno == EEXIST ) {
-		//LUPPP_NOTE("dotConfigDir exists");
+		//LOOPP_NOTE("dotConfigDir exists");
 	} else if ( dotConfigDir ) {
-		LUPPP_WARN("Error creating dotConfigDir: %s",  strerror(errno));
+		LOOPP_WARN("Error creating dotConfigDir: %s",  strerror(errno));
 	} else {
-		LUPPP_NOTE("Creating .config/openAV/ directory");
+		LOOPP_NOTE("Creating .config/openAV/ directory");
 	}
 
-	stringstream dotConfigLuppp;
-	dotConfigLuppp << getenv("HOME") << "/.config/openAV/luppp";
-	int dotConfigLupppDir  = mkdir( dotConfigLuppp.str().c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
+	stringstream dotConfigLoopp;
+	dotConfigLoopp << getenv("HOME") << "/.config/openAV/loopp";
+	int dotConfigLooppDir  = mkdir( dotConfigLoopp.str().c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( errno == EEXIST ) {
-		//LUPPP_NOTE("dotConfigLupppDir exists");
-	} else if ( dotConfigLupppDir ) {
-		LUPPP_WARN("Error creating dotConfigLupppDir: %s",  strerror(errno));
+		//LOOPP_NOTE("dotConfigLooppDir exists");
+	} else if ( dotConfigLooppDir ) {
+		LOOPP_WARN("Error creating dotConfigLooppDir: %s",  strerror(errno));
 	} else {
-		LUPPP_NOTE("Creating .config/openAV/luppp directory");
+		LOOPP_NOTE("Creating .config/openAV/loopp directory");
 	}
 
 	stringstream dotConfigCtlr;
-	dotConfigCtlr << getenv("HOME") << "/.config/openAV/luppp/controllers/";
+	dotConfigCtlr << getenv("HOME") << "/.config/openAV/loopp/controllers/";
 	int dotConfigCtlrDir  = mkdir( dotConfigCtlr.str().c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( errno == EEXIST ) {
-		//LUPPP_NOTE("dotConfigCtlrDir exists");
+		//LOOPP_NOTE("dotConfigCtlrDir exists");
 	} else if ( dotConfigCtlrDir ) {
-		LUPPP_WARN("Error creating dotConfigCtlrDir: %s",  strerror(errno));
+		LOOPP_WARN("Error creating dotConfigCtlrDir: %s",  strerror(errno));
 	} else {
-		LUPPP_NOTE("Creating .config/openAV/luppp directory");
+		LOOPP_NOTE("Creating .config/openAV/loopp directory");
 	}
 }
 
@@ -106,39 +106,39 @@ void DiskWriter::initialize(std::string path, std::string name )
 	int projectDir  = mkdir( path.c_str(),
 	                         S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( errno == EEXIST ) {
-		//LUPPP_NOTE("project dir %s exists, this is good", path.c_str());
+		//LOOPP_NOTE("project dir %s exists, this is good", path.c_str());
 	} else if ( projectDir ) {
-		LUPPP_WARN("Error creating projectDir: %s", strerror(errno));
+		LOOPP_WARN("Error creating projectDir: %s", strerror(errno));
 	} else {
-		LUPPP_NOTE("Creating %s directory", path.c_str());
+		LOOPP_NOTE("Creating %s directory", path.c_str());
 	}
 
-	// write session.luppp JSON node to <path>/<sessionName>.luppp
+	// write session.loopp JSON node to <path>/<sessionName>.loopp
 	stringstream sessionDirStream;
 
 	sessionDirStream << path;
 
 	if ( !gui->getNsm() )
-		sessionDirStream << "/" << sessionName << ".luppp";
+		sessionDirStream << "/" << sessionName << ".loopp";
 
 	sessionDir = sessionDirStream.str();
 
-	LUPPP_NOTE( "Creating session dir %s", sessionDir.c_str() );
+	LOOPP_NOTE( "Creating session dir %s", sessionDir.c_str() );
 
 	int sessionDirError = mkdir( sessionDir.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( sessionDirError ) {
 		// handle by using different filename?
-		LUPPP_WARN("Error creating session directory. Does the path: %s exist?",path.c_str());
+		LOOPP_WARN("Error creating session directory. Does the path: %s exist?",path.c_str());
 	}
 
 	stringstream audioDirStream;
 	audioDirStream << sessionDir << "/audio";
 	audioDir = audioDirStream.str();
-	LUPPP_NOTE("Creating audio dir %s", audioDir.c_str() );
+	LOOPP_NOTE("Creating audio dir %s", audioDir.c_str() );
 
 	int audioDirError  = mkdir( audioDir.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( audioDirError ) {
-		LUPPP_WARN("Error creating sample directory");
+		LOOPP_WARN("Error creating sample directory");
 	}
 
 	foldersCreated = true;
@@ -162,17 +162,17 @@ void DiskWriter::writeControllerInfo( CONTROLLER_INFO c, std::string s )
 int DiskWriter::writeControllerFile( Controller* c )
 {
 	if ( c ) {
-		LUPPP_NOTE("DiskWriter Controller* id: %i", c->getID() );
+		LOOPP_NOTE("DiskWriter Controller* id: %i", c->getID() );
 	} else {
-		LUPPP_ERROR("DiskWriter Controller* passed NULL" );
-		return LUPPP_RETURN_ERROR;
+		LOOPP_ERROR("DiskWriter Controller* passed NULL" );
+		return LOOPP_RETURN_ERROR;
 	}
 
 	// check if controller of ID is actually a GenericMIDI controller
 	GenericMIDI* g = dynamic_cast<GenericMIDI*>( c );
 
 	if ( g ) {
-		LUPPP_NOTE("Creating JSON for .ctlr file...");
+		LOOPP_NOTE("Creating JSON for .ctlr file...");
 
 		cJSON* controllerJson = cJSON_CreateObject();
 
@@ -212,35 +212,35 @@ int DiskWriter::writeControllerFile( Controller* c )
 				if ( b.at(i)->active!= -1 )
 					cJSON_AddNumberToObject( binding, "active", b.at(i)->active );
 
-				LUPPP_NOTE("Creating Binding: action %i == %s!", b.at(i)->action, actionName );
+				LOOPP_NOTE("Creating Binding: action %i == %s!", b.at(i)->action, actionName );
 			} else {
-				LUPPP_WARN("Binding action %i has no prettyName!", b.at(i)->action );
+				LOOPP_WARN("Binding action %i has no prettyName!", b.at(i)->action );
 			}
 		}
 
 		// write the sample JSON node to <samplePath>/sample.cfg
 		stringstream controllerCfgPath;
-		controllerCfgPath << getenv("HOME") << "/.config/openAV/luppp/controllers/" << g->getName() << ".ctlr";
+		controllerCfgPath << getenv("HOME") << "/.config/openAV/loopp/controllers/" << g->getName() << ".ctlr";
 
 		ifstream infile( controllerCfgPath.str().c_str() );
 		if ( infile.good() ) {
 			// file exists: ask user overwrite or rename?
-			//LUPPP_WARN("Controller filename exists: prompting user to overwrite y/n?");
+			//LOOPP_WARN("Controller filename exists: prompting user to overwrite y/n?");
 			int action = fl_choice("Controller exists, action?", "Cancel", "Rename", "Overwrite");
 			if ( action == 0 ) {
 				// return OK, as user has chosen to cancel writing the file
-				return LUPPP_RETURN_OK;
+				return LOOPP_RETURN_OK;
 			} else if ( action == 1 ) {
 				// rename here
 				const char* name = fl_input("New name for .ctlr file:");
 				if ( name ) {
 					// clear the filename
 					controllerCfgPath.str( "" );
-					controllerCfgPath << getenv("HOME") << "/.config/openAV/luppp/controllers/" << name << ".ctlr";
-					LUPPP_NOTE( "New .ctlr filename %s", controllerCfgPath.str().c_str() );
+					controllerCfgPath << getenv("HOME") << "/.config/openAV/loopp/controllers/" << name << ".ctlr";
+					LOOPP_NOTE( "New .ctlr filename %s", controllerCfgPath.str().c_str() );
 				} else {
-					LUPPP_NOTE("No name entered for .ctlr file, canceling!");
-					return LUPPP_RETURN_ERROR;
+					LOOPP_NOTE("No name entered for .ctlr file, canceling!");
+					return LOOPP_RETURN_ERROR;
 				}
 			} else {
 				// just overwrite the file, no action
@@ -249,18 +249,18 @@ int DiskWriter::writeControllerFile( Controller* c )
 
 		}
 
-		LUPPP_NOTE("Writing %s.ctlr file to disk", g->getName().c_str() );
+		LOOPP_NOTE("Writing %s.ctlr file to disk", g->getName().c_str() );
 
 		ofstream controllerCfgFile;
 		controllerCfgFile.open ( controllerCfgPath.str().c_str() );
 		controllerCfgFile << cJSON_Print( controllerJson );
 		controllerCfgFile.close();
 	} else {
-		LUPPP_WARN("Invalid Controller pointer: cannot write %s as is not a GenericMIDI controller!", c->getName().c_str() );
-		return LUPPP_RETURN_ERROR;
+		LOOPP_WARN("Invalid Controller pointer: cannot write %s as is not a GenericMIDI controller!", c->getName().c_str() );
+		return LOOPP_RETURN_ERROR;
 	}
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 int DiskWriter::writeAudioBuffer(int track, int scene, AudioBuffer* ab,
@@ -291,8 +291,8 @@ int DiskWriter::writeAudioBuffer(int track, int scene, AudioBuffer* ab,
 
 		path << audioDir << "/" << filename.str();
 	} else {
-		LUPPP_WARN("%s", "Session folders not created yet, while trying to write audioBuffers.");
-		return LUPPP_RETURN_ERROR;
+		LOOPP_WARN("%s", "Session folders not created yet, while trying to write audioBuffers.");
+		return LOOPP_RETURN_ERROR;
 	}
 
 
@@ -308,10 +308,10 @@ int DiskWriter::writeAudioBuffer(int track, int scene, AudioBuffer* ab,
 			outfile.writef( frameBuf, 1);
 		}
 	} else {
-		LUPPP_WARN("%s","Sample has zero samples");
+		LOOPP_WARN("%s","Sample has zero samples");
 	}
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 void DiskWriter::writeMaster()
@@ -350,8 +350,8 @@ void DiskWriter::writeMaster()
 int DiskWriter::writeSession()
 {
 	if ( !foldersCreated ) {
-		LUPPP_WARN("%s", "Session folders not created yet, while trying to write session.");
-		return LUPPP_RETURN_ERROR;
+		LOOPP_WARN("%s", "Session folders not created yet, while trying to write session.");
+		return LOOPP_RETURN_ERROR;
 	}
 
 	// add session metadata
@@ -416,11 +416,11 @@ int DiskWriter::writeSession()
 
 
 
-	stringstream sessionLuppp;
-	sessionLuppp << sessionDir << "/session.luppp";
+	stringstream sessionLoopp;
+	sessionLoopp << sessionDir << "/session.loopp";
 	//c out << "Session dir: " << sessionDir.str() << "\n" << "Sample dir : " << audioDir.str() << endl;
 	ofstream sessionFile;
-	sessionFile.open ( sessionLuppp.str().c_str() );
+	sessionFile.open ( sessionLoopp.str().c_str() );
 	sessionFile << cJSON_Print( sessionJson );
 	sessionFile.close();
 
@@ -445,21 +445,21 @@ int DiskWriter::writeSession()
 	audioJson   = cJSON_CreateObject();
 
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 
 void DiskWriter::writeDefaultConfigToUserHome()
 {
-	LUPPP_NOTE("Writing default preferences file.");
+	LOOPP_NOTE("Writing default preferences file.");
 
 	cJSON* prfs = cJSON_CreateObject();
 
 	// "__COMMENT__"         : "users home + <whatever it says here>"
-	// "saveDirectory"       : "luppp"
+	// "saveDirectory"       : "loopp"
 	cJSON_AddItemToObject  ( prfs, "__COMMENT__",
 	                         cJSON_CreateString("users home + <whatever it says here>") );
-	cJSON_AddItemToObject  ( prfs, "saveDirectory", cJSON_CreateString( "luppp" ));
+	cJSON_AddItemToObject  ( prfs, "saveDirectory", cJSON_CreateString( "loopp" ));
 
 
 	// "__COMMENT__"         : "0 = LINEAR, 1 = SINC_FASTEST, 2 = SINC_BEST",
@@ -478,9 +478,9 @@ void DiskWriter::writeDefaultConfigToUserHome()
 	// cout << endl << cJSON_Print( prfs ) << endl << endl;
 
 
-	// write JSON to .config/openAV/luppp/luppp.prfs
+	// write JSON to .config/openAV/loopp/loopp.prfs
 	stringstream f;
-	f << getenv("HOME") << "/.config/openAV/luppp/luppp.prfs";
+	f << getenv("HOME") << "/.config/openAV/loopp/loopp.prfs";
 
 	ofstream outFile;
 	outFile.open ( f.str().c_str() );

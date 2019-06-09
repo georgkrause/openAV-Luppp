@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_METRONOME_H
-#define LUPPP_METRONOME_H
+#ifndef LOOPP_METRONOME_H
+#define LOOPP_METRONOME_H
 
 #include <cmath>
 #include <iostream>
@@ -56,4 +56,4 @@ private:
 
 };
 
-#endif // LUPPP_METRONOME_H
+#endif // LOOPP_METRONOME_H

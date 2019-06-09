@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_LOOPER_CLIP_H
-#define LUPPP_LOOPER_CLIP_H
+#ifndef LOOPP_LOOPER_CLIP_H
+#define LOOPP_LOOPER_CLIP_H
 
 #include <stdio.h>
 #include "state/stately.hxx"
@@ -138,7 +138,7 @@ public:
 private:
 	int track, scene;
 
-	/** Luppp needs more than the current state of the clip to accuratly handle
+	/** Loopp needs more than the current state of the clip to accuratly handle
 	 *  it. The current state of the grid is kept up-to-date by GridLogic
 	 *  abstracting detail away, sending GridLogic::State to Controllers.
 	**/
@@ -176,5 +176,5 @@ private:
 	void setStopped();
 };
 
-#endif // LUPPP_LOOPER_CLIP_H
+#endif // LOOPP_LOOPER_CLIP_H
 

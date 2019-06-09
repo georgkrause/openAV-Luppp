@@ -26,7 +26,7 @@ static void gmastertrack_tempoDial_callback(Fl_Widget *w, void *data)
 	Avtk::Dial* b = (Avtk::Dial*)w;
 	float bpm = (b->value() * (float)(MAX_TEMPO - MIN_TEMPO) + MIN_TEMPO);
 	if(std::fabs(bpm-round(bpm))) {
-		LUPPP_WARN("%f",bpm);
+		LOOPP_WARN("%f",bpm);
 	}
 	EventTimeBPM e = EventTimeBPM( bpm );
 	writeToDspRingbuffer( &e );
@@ -156,7 +156,7 @@ static void gmastertrack_button_callback(Fl_Widget *w, void *data)
 			} else
 				v = 0.25;
 
-			LUPPP_NOTE("metro vol = %f", v );
+			LOOPP_NOTE("metro vol = %f", v );
 
 			EventMetronomeVolume e( v );
 			writeToDspRingbuffer( &e );
@@ -184,7 +184,7 @@ static void gmastertrack_button_callback(Fl_Widget *w, void *data)
 			writeToDspRingbuffer( &e );
 		}
 	} else {
-		LUPPP_WARN("Error: unknown command string");
+		LOOPP_WARN("Error: unknown command string");
 	}
 }
 
@@ -333,19 +333,19 @@ void GMasterTrack::setBpm( float b )
 
 void GMasterTrack::setInputVol(float f)
 {
-	//LUPPP_NOTE(" gmtrck, inputVol %f", f );
+	//LOOPP_NOTE(" gmtrck, inputVol %f", f );
 	inputVolume.value( f );
 }
 
 void GMasterTrack::setReturnVol(float f)
 {
-	LUPPP_NOTE(" gmtrck, returnVol %f", f );
+	LOOPP_NOTE(" gmtrck, returnVol %f", f );
 	returnVol.value( f );
 }
 
 void GMasterTrack::setInputTo(int to, float f)
 {
-	//LUPPP_NOTE(" gmtrck, inputTO %i, %f", to, f );
+	//LOOPP_NOTE(" gmtrck, inputTO %i, %f", to, f );
 	if ( to == Event::INPUT_TO_MIX )
 		inputToMixVol.value( f );
 	else if ( to == Event::INPUT_TO_SEND )
@@ -356,7 +356,7 @@ void GMasterTrack::setInputTo(int to, float f)
 
 void GMasterTrack::setInputToActive(int to, bool f)
 {
-	//LUPPP_NOTE(" gmtrck, inputToActive %i, %i", to, int(f) );
+	//LOOPP_NOTE(" gmtrck, inputToActive %i, %i", to, int(f) );
 
 	if ( to == Event::INPUT_TO_MIX )
 		inputToMix.value( f );

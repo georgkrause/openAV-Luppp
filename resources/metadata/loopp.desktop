@@ -1,13 +1,13 @@
 [Desktop Entry]
-Name=Luppp
+Name=Loopp
 GenericName=Live performance mixing tool
 GenericName[fr]=Outil de mixage pour performance live
 Comment=Create music by recording, playing, and mixing samples
 Comment[fr]=Créer de la musique en enregistrant, jouant, et mixant des échantillons
 Type=Application
 Categories=Audio;AudioVideo;
-Exec=luppp
+Exec=loopp
 Terminal=false
 StartupNotify=true
-Icon=luppp
+Icon=loopp
 X-NSM-capable=true

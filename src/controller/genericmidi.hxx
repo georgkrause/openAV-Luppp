@@ -17,8 +17,8 @@
  */
 
 
-#ifndef LUPPP_GENERIC_MIDI_H
-#define LUPPP_GENERIC_MIDI_H
+#ifndef LOOPP_GENERIC_MIDI_H
+#define LOOPP_GENERIC_MIDI_H
 
 #include "controller.hxx"
 
@@ -83,7 +83,7 @@ public:
 	const std::vector<Binding*>& getMidiToAction();
 
 	// for adding bindings from MIDI / GUI event pair
-	void setupBinding( LupppAction eventType, int midiStatus, int midiData, int track, int scene, int send, int active );
+	void setupBinding( LooppAction eventType, int midiStatus, int midiData, int track, int scene, int send, int active );
 	void removeBinding( int bindingID );
 
 private:
@@ -117,5 +117,5 @@ private:
 	*/
 };
 
-#endif // LUPPP_GENERIC_MIDI_H
+#endif // LOOPP_GENERIC_MIDI_H
 

@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_JACK_H
-#define LUPPP_JACK_H
+#ifndef LOOPP_JACK_H
+#define LOOPP_JACK_H
 
 // Library
 #include <vector>
@@ -61,13 +61,13 @@ public:
 	static void setup(std::string name);
 
 	void activate();
-	/// quits the JACK client, destroying ports etc. Call only on exit of Luppp.
+	/// quits the JACK client, destroying ports etc. Call only on exit of Loopp.
 	void quit();
 
 	int getBuffersize();
 	int getSamplerate();
 
-	// Luppp process callback: bar() events can occur between these
+	// Loopp process callback: bar() events can occur between these
 	void processFrames(int nframes);
 
 	//Sets the first nframes of all the internal output buffers to zero. NO LIMIT CHECKS
@@ -251,5 +251,5 @@ private:
 
 };
 
-#endif // LUPPP_JACK_H
+#endif // LOOPP_JACK_H
 

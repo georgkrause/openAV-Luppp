@@ -40,7 +40,7 @@ void NonSeq::launchScene( int scene )
 	data[1] = 20;
 	data[2] = scene;
 
-	//LUPPP_NOTE("NonSeq::launchScene() %i, %i, %i\n", data[0],data[1],data[2] );
+	//LOOPP_NOTE("NonSeq::launchScene() %i, %i, %i\n", data[0],data[1],data[2] );
 	writeMidi( data );
 }
 
@@ -58,13 +58,13 @@ void NonSeq::setSceneState(int track, int scene, GridLogic::State s)
 
 	// check *actual* value of playing: *NOT* GridState::s, because it could be queued
 	// for something else, but we want the *actual* here, not "queued". This is a unique
-	// use case because were trying to control non-seq as if it were part of Luppp.
+	// use case because were trying to control non-seq as if it were part of Loopp.
 	if( jack->getLooper( track )->getClip( scene )->playing() )
 		data[1] = 21;
 
 	data[2] = track;
 
-	//LUPPP_NOTE("NonSeq::setSceneState() %i, %i, %i\n", data[0],data[1],data[2] );
+	//LOOPP_NOTE("NonSeq::setSceneState() %i, %i, %i\n", data[0],data[1],data[2] );
 	writeMidi( data );
 }
 
@@ -77,5 +77,5 @@ int NonSeq::registerComponents()
 
 	jack->registerMidiIO( m );
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }

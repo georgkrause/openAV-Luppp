@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_GRID_LOGIC_H
-#define LUPPP_GRID_LOGIC_H
+#ifndef LOOPP_GRID_LOGIC_H
+#define LOOPP_GRID_LOGIC_H
 
 #include "config.hxx"
 #include "observer/time.hxx"
@@ -25,7 +25,7 @@
 class AudioBuffer;
 
 /** GridLogic
- *  The logic code for the luppp tracks / grid resides here. This logic is
+ *  The logic code for the loopp tracks / grid resides here. This logic is
  *  separtated from the Looper class so it can be repurposed by different
  *  controllers and input devices. The UI and eg. APC / Launchpad all have a
  *  similar grid style interface: the logic is implemented here once.
@@ -115,4 +115,4 @@ private:
 
 
 
-#endif // LUPPP_GRID_LOGIC_H
+#endif // LOOPP_GRID_LOGIC_H

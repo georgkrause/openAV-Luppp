@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_GUI
-#define LUPPP_GUI
+#ifndef LOOPP_GUI
+#define LOOPP_GUI
 
 #include <vector>
 #include <string>
@@ -125,11 +125,11 @@ private:
 
 	Fl_Double_Window window;
 
-	Fl_Group* lupppGroup;
+	Fl_Group* looppGroup;
 
 	OptionsWindow*    optionWindow;
 
-	std::string         lupppProjectsDir;
+	std::string         looppProjectsDir;
 
 	AudioEditor*        audioEditor;
 
@@ -150,4 +150,4 @@ private:
 	static int keyboardHandler(int event);
 };
 
-#endif // LUPPP_GUI
+#endif // LOOPP_GUI

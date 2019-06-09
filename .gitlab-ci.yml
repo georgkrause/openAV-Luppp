@@ -51,7 +51,7 @@ test:
     - build-test
   script: 
     - ninja -C buildDir test
-    - gcovr -b -e buildDir/luppp@exe/catch.hpp -e buildDir/luppp@exe/test_ <&1 | tee buildDir/coverage.txt
+    - gcovr -b -e buildDir/loopp@exe/catch.hpp -e buildDir/loopp@exe/test_ <&1 | tee buildDir/coverage.txt
   artifacts:
     paths:
       - buildDir/coverage.txt
@@ -74,4 +74,4 @@ package-AppImage:
     untracked: false
     expire_in: 30 days
     paths: 
-      - Luppp-*.AppImage*
+      - Loopp-*.AppImage*

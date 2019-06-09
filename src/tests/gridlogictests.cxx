@@ -38,7 +38,7 @@ int GridLogic::runTests()
 	LooperClip* lc  = jack->getLooper( t )->getClip( s );
 
 	// "pretty" prints the state of the clip
-	//LUPPP_NOTE("%s", GridLogic::StateString[ lc->getState() ] );
+	//LOOPP_NOTE("%s", GridLogic::StateString[ lc->getState() ] );
 
 	/// SCENE LAUNCH
 	lc->init();
@@ -49,28 +49,28 @@ int GridLogic::runTests()
 	int launchScene = s + 1;
 	lc->init();
 	lc->setState( true, false, false, true, false, false ); // loaded + qplay
-	LUPPP_NOTE("state before = %s", GridLogic::StateString[ lc->getState() ] );
+	LOOPP_NOTE("state before = %s", GridLogic::StateString[ lc->getState() ] );
 	jack->getGridLogic()->launchScene( launchScene ); // launch different clip
 
 	QUNIT_IS_TRUE( jack->getGridLogic()->getLaunchedScene() == launchScene );
-	LUPPP_NOTE("state after launch before bar = %s", GridLogic::StateString[ lc->getState() ] );
+	LOOPP_NOTE("state after launch before bar = %s", GridLogic::StateString[ lc->getState() ] );
 	QUNIT_IS_TRUE( lc->getState() == GridLogic::STATE_STOPPED );
 
 	jack->getGridLogic()->bar();
 
-	LUPPP_NOTE("state after bar = %s", GridLogic::StateString[ lc->getState() ] );
+	LOOPP_NOTE("state after bar = %s", GridLogic::StateString[ lc->getState() ] );
 	QUNIT_IS_TRUE( lc->getState() == GridLogic::STATE_STOPPED );
 
 	/// s1 playing, then launch s2, s1
 	lc->init();
 	lc->setState( true, true, false, false, false, false ); // playing
-	//LUPPP_NOTE("state before = %s", GridLogic::StateString[ lc->getState() ] );
+	//LOOPP_NOTE("state before = %s", GridLogic::StateString[ lc->getState() ] );
 	jack->getGridLogic()->launchScene( launchScene ); // launch different clip
 	QUNIT_IS_TRUE( jack->getGridLogic()->getLaunchedScene() == launchScene );
-	//LUPPP_NOTE("state after before bar = %s", GridLogic::StateString[ lc->getState() ] );
+	//LOOPP_NOTE("state after before bar = %s", GridLogic::StateString[ lc->getState() ] );
 	QUNIT_IS_TRUE( lc->getState() == GridLogic::STATE_STOP_QUEUED );
 	jack->getGridLogic()->bar();
-	//LUPPP_NOTE("state after bar = %s", GridLogic::StateString[ lc->getState() ] );
+	//LOOPP_NOTE("state after bar = %s", GridLogic::StateString[ lc->getState() ] );
 	QUNIT_IS_TRUE( lc->getState() == GridLogic::STATE_STOPPED );
 
 

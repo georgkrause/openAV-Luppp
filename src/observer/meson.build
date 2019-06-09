@@ -1,1 +1,1 @@
-luppp_src += files('midi.cxx', 'time.cxx')
+loopp_src += files('midi.cxx', 'time.cxx')

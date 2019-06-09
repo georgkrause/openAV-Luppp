@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_TIME_OBSERVER_H
-#define LUPPP_TIME_OBSERVER_H
+#ifndef LOOPP_TIME_OBSERVER_H
+#define LOOPP_TIME_OBSERVER_H
 
 #include "../config.hxx"
 
@@ -42,4 +42,4 @@ public:
 
 };
 
-#endif // LUPPP_TIME_OBSERVER_H
+#endif // LOOPP_TIME_OBSERVER_H

@@ -1,4 +1,4 @@
-luppp_src += files(
+loopp_src += files(
   'diskreadertest.cxx',
   'diskwritertest.cxx',
   'goptionstest.cxx',

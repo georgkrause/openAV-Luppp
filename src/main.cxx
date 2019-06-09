@@ -52,8 +52,8 @@ static void gui_static_loadSession_cb(void* inst)
 {
 	char* tmp = (char*) inst;
 	int sess = gui->getDiskReader()->readSession( tmp );
-	if ( sess != LUPPP_RETURN_OK )
-		LUPPP_ERROR( "Error loading session" );
+	if ( sess != LOOPP_RETURN_OK )
+		LOOPP_ERROR( "Error loading session" );
 }
 
 
@@ -75,7 +75,7 @@ int main(int argc, char** argv)
 		}
 	}
 
-	LUPPP_NOTE("Git: %s", GIT_VERSION   );
+	LOOPP_NOTE("Git: %s", GIT_VERSION   );
 
 	// setup the environment
 	AVOIDDENORMALS();
@@ -91,14 +91,14 @@ int main(int argc, char** argv)
 
 
 #ifdef BUILD_TESTS
-	LUPPP_NOTE("Built with BUILD_TESTS enabled");
+	LOOPP_NOTE("Built with BUILD_TESTS enabled");
 	if ( runTests ) {
 		// counts failures
 		int testResult = 0;
 
 		// setup the testing Gui / JACK: Jack first, then GUI
 		gui = new Gui( argv[0] );
-		Jack::setup("LupppTEST");
+		Jack::setup("LooppTEST");
 
 		// test offline functionality
 		testResult += gui->getDiskReader()->runTests();
@@ -127,7 +127,7 @@ int main(int argc, char** argv)
 		// the NSM OSC Open message will trigger Jack initialization: necessary
 		// to use the right name to create the JACK client.
 	} else {
-		Jack::setup("Luppp");
+		Jack::setup("Loopp");
 		jack->activate();
 	}
 

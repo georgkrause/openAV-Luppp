@@ -1,1 +1,1 @@
-luppp_src += files('dsp_sidechain_gain.cxx')
+loopp_src += files('dsp_sidechain_gain.cxx')

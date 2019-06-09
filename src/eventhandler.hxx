@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_EVENT_HANDLER_H
-#define LUPPP_EVENT_HANDLER_H
+#ifndef LOOPP_EVENT_HANDLER_H
+#define LOOPP_EVENT_HANDLER_H
 
 #include "event.hxx"
 #include <jack/ringbuffer.h>
@@ -36,5 +36,5 @@ extern void handleGuiEvents();
 extern void writeToDspRingbuffer(EventBase* e);
 extern void writeToGuiRingbuffer(EventBase* e);
 
-#endif // LUPPP_EVENT_HANDLER_H
+#endif // LOOPP_EVENT_HANDLER_H
 

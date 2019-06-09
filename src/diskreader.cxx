@@ -52,7 +52,7 @@ DiskReader::DiskReader()
 int DiskReader::loadPreferences()
 {
 	stringstream s;
-	s << getenv("HOME") << "/.config/openAV/luppp/luppp.prfs";
+	s << getenv("HOME") << "/.config/openAV/loopp/loopp.prfs";
 	std::ifstream sampleFile( s.str().c_str(), std::ios_base::in|std::ios_base::ate);
 
 	long file_length = sampleFile.tellg();
@@ -64,8 +64,8 @@ int DiskReader::loadPreferences()
 
 		cJSON* preferencesJson = cJSON_Parse( sampleString );
 		if (!preferencesJson) {
-			LUPPP_WARN("Preferences JSON not valid");
-			return LUPPP_RETURN_ERROR;
+			LOOPP_WARN("Preferences JSON not valid");
+			return LOOPP_RETURN_ERROR;
 		}
 
 
@@ -73,7 +73,7 @@ int DiskReader::loadPreferences()
 		if ( resample ) {
 			resampleQuality = resample->valueint;
 			if ( resampleQuality == 0 ) {
-				LUPPP_NOTE("Using Linear resampling, may reduce quality. Check .config/openAV/luppp/luppp.prfs");
+				LOOPP_NOTE("Using Linear resampling, may reduce quality. Check .config/openAV/loopp/loopp.prfs");
 			}
 		}
 		cJSON* ctlrs = cJSON_GetObjectItem( preferencesJson, "defaultControllers" );
@@ -83,14 +83,14 @@ int DiskReader::loadPreferences()
 			for(int i = 0; i < nCtlrs; i++ ) {
 				cJSON* ctlr = cJSON_GetArrayItem( ctlrs, i );
 				if( ctlr ) {
-					LUPPP_NOTE("Loading controller %s", ctlr->valuestring);
+					LOOPP_NOTE("Loading controller %s", ctlr->valuestring);
 					stringstream s;
-					s << getenv("HOME") << "/.config/openAV/luppp/controllers/" << ctlr->valuestring;
+					s << getenv("HOME") << "/.config/openAV/loopp/controllers/" << ctlr->valuestring;
 					gui->addMidiControllerToSetup( s.str() );
 				}
 			}
 		} else {
-			LUPPP_NOTE("No default controllers active.");
+			LOOPP_NOTE("No default controllers active.");
 		}
 
 
@@ -108,7 +108,7 @@ int DiskReader::loadPreferences()
 		if(jackPerTrackOutput) {
 			gui->enablePerTrackOutput=jackPerTrackOutput->valueint;
 			if(gui->enablePerTrackOutput)
-				LUPPP_NOTE("Enabling per track output ports");
+				LOOPP_NOTE("Enabling per track output ports");
 		}
 
 		//Metronome on by default?
@@ -131,15 +131,15 @@ int DiskReader::loadPreferences()
 		delete[] sampleString;
 	} else {
 		// empty file / file no exists:
-		LUPPP_WARN("Preferences, file doesn't exist: ~/.config/openAV/luppp/luppp.prefs");
+		LOOPP_WARN("Preferences, file doesn't exist: ~/.config/openAV/loopp/loopp.prefs");
 
 		// so write default file
 		gui->getDiskWriter()->writeDefaultConfigToUserHome();
 
-		return LUPPP_RETURN_OK;
+		return LOOPP_RETURN_OK;
 	}
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 int DiskReader::showAudioEditor(AudioBuffer* ab)
@@ -152,11 +152,11 @@ int DiskReader::showAudioEditor(AudioBuffer* ab)
 
 		// handle "cancel" return
 		if ( ab->getBeats() == -1 ) {
-			return LUPPP_RETURN_ERROR;
+			return LOOPP_RETURN_ERROR;
 		}
 	}
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 
@@ -170,11 +170,11 @@ int DiskReader::loadSample( int track, int scene, string path )
 	float frameBuf[ chnls ];
 
 	if ( infile.error() ) {
-		LUPPP_ERROR("File %s, Error %s", path.c_str(), infile.strError() );
-		return LUPPP_RETURN_ERROR;
+		LOOPP_ERROR("File %s, Error %s", path.c_str(), infile.strError() );
+		return LOOPP_RETURN_ERROR;
 	}
 
-	LUPPP_NOTE("Loading file with  %i chnls, frames %i, bufferL size %i bufferR size %i", infile.channels(), infile.frames(), bufL.size(), bufR.size() );
+	LOOPP_NOTE("Loading file with  %i chnls, frames %i, bufferL size %i bufferR size %i", infile.channels(), infile.frames(), bufL.size(), bufR.size() );
 
 	// Read data
 	for(int f=0; f<infile.frames(); f++) {
@@ -196,7 +196,7 @@ int DiskReader::loadSample( int track, int scene, string path )
 
 	/// resample?
 	if ( infile.samplerate() != gui->samplerate ) {
-		LUPPP_NOTE("%s%i%s%i", "Resampling from ", infile.samplerate(), " to ", gui->samplerate);
+		LOOPP_NOTE("%s%i%s%i", "Resampling from ", infile.samplerate(), " to ", gui->samplerate);
 
 		float resampleRatio = float(gui->samplerate) / infile.samplerate();
 		std::vector<float> resampledL( infile.frames() / chnls * resampleRatio );
@@ -237,14 +237,14 @@ int DiskReader::loadSample( int track, int scene, string path )
 		// resample quality taken from config file,
 		int ret = src_simple ( &dataL, q, 1 );
 		if ( ret == 0 )
-			LUPPP_NOTE("%s%i%s%i", "Resampling L finished, from ", dataL.input_frames_used, " to ", dataL.output_frames_gen );
+			LOOPP_NOTE("%s%i%s%i", "Resampling L finished, from ", dataL.input_frames_used, " to ", dataL.output_frames_gen );
 		else
-			LUPPP_ERROR("%s%i%s%i", "Resampling L finished, from ", dataL.input_frames_used, " to ", dataL.output_frames_gen );
+			LOOPP_ERROR("%s%i%s%i", "Resampling L finished, from ", dataL.input_frames_used, " to ", dataL.output_frames_gen );
 		ret = src_simple ( &dataR, q, 1 );
 		if ( ret == 0 )
-			LUPPP_NOTE("%s%i%s%i", "Resampling R finished, from ", dataR.input_frames_used, " to ", dataR.output_frames_gen );
+			LOOPP_NOTE("%s%i%s%i", "Resampling R finished, from ", dataR.input_frames_used, " to ", dataR.output_frames_gen );
 		else
-			LUPPP_ERROR("%s%i%s%i", "Resampling R finished, from ", dataR.input_frames_used, " to ", dataR.output_frames_gen );
+			LOOPP_ERROR("%s%i%s%i", "Resampling R finished, from ", dataR.input_frames_used, " to ", dataR.output_frames_gen );
 
 		/// exchange buffers, so buf contains the resampled audio
 		bufL.swap( resampledL );
@@ -291,8 +291,8 @@ int DiskReader::loadSample( int track, int scene, string path )
 
 			cJSON* audioJson = cJSON_Parse( sampleString.data() );
 			if (!audioJson) {
-				LUPPP_ERROR("%s %s","Error in Sample JSON before: ", cJSON_GetErrorPtr() );
-				return LUPPP_RETURN_ERROR;
+				LOOPP_ERROR("%s %s","Error in Sample JSON before: ", cJSON_GetErrorPtr() );
+				return LOOPP_RETURN_ERROR;
 			}
 
 			cJSON* sample = cJSON_GetObjectItem( audioJson, baseName.c_str() );
@@ -312,10 +312,10 @@ int DiskReader::loadSample( int track, int scene, string path )
 
 			// if we don't find the beats from audio.cfg, show dialog
 			if ( loadableBuffer == false ) {
-				LUPPP_NOTE("Warning: audio.cfg has no entry for beats.");
+				LOOPP_NOTE("Warning: audio.cfg has no entry for beats.");
 				int ret = showAudioEditor( ab );
 
-				if ( ret == LUPPP_RETURN_OK ) {
+				if ( ret == LOOPP_RETURN_OK ) {
 					// flag that we can load this sample OK
 					loadableBuffer = true;
 				} else {
@@ -327,10 +327,10 @@ int DiskReader::loadSample( int track, int scene, string path )
 		} else {
 			// this means there's no audio.cfg file found for the sample: show the user
 			// the file, and ask what the intended beat number is, and load the AudioBuffer
-			LUPPP_WARN("%s %s","Empty or no audio.cfg found at ",base.str().c_str() );
+			LOOPP_WARN("%s %s","Empty or no audio.cfg found at ",base.str().c_str() );
 			int error = showAudioEditor( ab );
-			if ( error == LUPPP_RETURN_ERROR ) {
-				LUPPP_WARN("cancel clicked, deleting audiobuffer" );
+			if ( error == LOOPP_RETURN_ERROR ) {
+				LOOPP_WARN("cancel clicked, deleting audiobuffer" );
 				delete ab;
 			} else {
 				std::string name = path;
@@ -338,7 +338,7 @@ int DiskReader::loadSample( int track, int scene, string path )
 				std::string sub = name.substr( i );
 				ab->setName( sub.c_str() );
 
-				LUPPP_NOTE("AudioBuffer %s set %i beats", ab->getName().c_str(), ab->getBeats() );
+				LOOPP_NOTE("AudioBuffer %s set %i beats", ab->getName().c_str(), ab->getBeats() );
 
 				loadableBuffer = true;
 			}
@@ -358,11 +358,11 @@ int DiskReader::loadSample( int track, int scene, string path )
 			lastLoadedSamplePath = dirname( tmp );
 			free(tmp);
 		} else {
-			LUPPP_NOTE("AudioBuffer not loaded, missing beats info and dialog was Canceled" );
+			LOOPP_NOTE("AudioBuffer not loaded, missing beats info and dialog was Canceled" );
 		}
 	}
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 
 }
 
@@ -377,7 +377,7 @@ int DiskReader::readSession( std::string path )
 	sessionPath = path;
 
 	stringstream s;
-	s << path << "/session.luppp";
+	s << path << "/session.loopp";
 
 	stringstream samplePath;
 	samplePath << path << "/audio/audio.cfg";
@@ -390,8 +390,8 @@ int DiskReader::readSession( std::string path )
 	long file_length = file.tellg();
 	if ( file_length < 0 ) {
 		// empty file / file no exists:
-		LUPPP_ERROR("no session file exists!");
-		return LUPPP_RETURN_ERROR;
+		LOOPP_ERROR("no session file exists!");
+		return LOOPP_RETURN_ERROR;
 	}
 
 	file.seekg(0, std::ios_base::beg);
@@ -402,8 +402,8 @@ int DiskReader::readSession( std::string path )
 	// create cJSON nodes from strings
 	sessionJson = cJSON_Parse( sessionString );
 	if (!sessionJson) {
-		LUPPP_ERROR("%s %s", "Error in Session JSON before: ", cJSON_GetErrorPtr() );
-		return LUPPP_RETURN_ERROR;
+		LOOPP_ERROR("%s %s", "Error in Session JSON before: ", cJSON_GetErrorPtr() );
+		return LOOPP_RETURN_ERROR;
 	}
 
 
@@ -417,7 +417,7 @@ int DiskReader::readSession( std::string path )
 	cJSON_Delete( sessionJson );
 	delete[] sessionString;
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 int DiskReader::readMaster()
@@ -428,7 +428,7 @@ int DiskReader::readMaster()
 		{
 			cJSON* bpm = cJSON_GetObjectItem( master, "bpm");
 			if ( bpm ) {
-				LUPPP_NOTE("%s %i","Session: BPM ",bpm->valueint);
+				LOOPP_NOTE("%s %i","Session: BPM ",bpm->valueint);
 				EventTimeBPM e( bpm->valuedouble );
 				writeToDspRingbuffer( &e );
 			}
@@ -537,11 +537,11 @@ int DiskReader::readMaster()
 		}
 
 	} else {
-		LUPPP_ERROR("%s", "Error getting master from JSON" );
-		return LUPPP_RETURN_ERROR;
+		LOOPP_ERROR("%s", "Error getting master from JSON" );
+		return LOOPP_RETURN_ERROR;
 	}
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 
@@ -559,7 +559,7 @@ int DiskReader::readScenes(int t, cJSON* track)
 				stringstream sampleFilePath;
 				sampleFilePath << sessionPath << "/audio/" << clip->valuestring;
 #ifdef DEBUG_STATE
-				LUPPP_NOTE << "clip t " << t << " s " << s << " path " << sampleFilePath.str() << endl;
+				LOOPP_NOTE << "clip t " << t << " s " << s << " path " << sampleFilePath.str() << endl;
 #endif
 				// load it, checking for sample.cfg, and using metadata if there
 				loadSample( t, s, sampleFilePath.str() );
@@ -572,7 +572,7 @@ int DiskReader::readScenes(int t, cJSON* track)
 		} // nClips loop
 	}
 
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }
 
 int DiskReader::readTracks()
@@ -584,7 +584,7 @@ int DiskReader::readTracks()
 			cJSON* track = cJSON_GetArrayItem( tracks, t );
 
 			if( !track ) {
-				LUPPP_WARN("Track %i has no name track saved.", t);
+				LOOPP_WARN("Track %i has no name track saved.", t);
 			} else {
 				readScenes( t, track );
 
@@ -592,7 +592,7 @@ int DiskReader::readTracks()
 				{
 					cJSON* name = cJSON_GetObjectItem( track, "name");
 					if( !name ) {
-						LUPPP_WARN("Track %i has no name data saved.", t);
+						LOOPP_WARN("Track %i has no name data saved.", t);
 					} else {
 						gui->getTrack(t)->bg.copy_label( name->valuestring );
 					}
@@ -601,7 +601,7 @@ int DiskReader::readTracks()
 				{
 					cJSON* fader = cJSON_GetObjectItem( track, "fader");
 					if( !fader ) {
-						LUPPP_WARN("Track %i has no fader data saved.", t);
+						LOOPP_WARN("Track %i has no fader data saved.", t);
 					} else {
 						EventTrackVol e( t, fader->valuedouble );
 						writeToDspRingbuffer( &e );
@@ -611,11 +611,11 @@ int DiskReader::readTracks()
 				{
 					cJSON* pan = cJSON_GetObjectItem( track, "pan");
 					if( !pan ) {
-						LUPPP_WARN("Track %i has no pan data saved.", t);
+						LOOPP_WARN("Track %i has no pan data saved.", t);
 					} else {
 						EventTrackPan e( t, (pan->valuedouble*2)-1.f );
 						writeToDspRingbuffer( &e );
-						LUPPP_WARN("Track %i has pan %f", pan->valuedouble);
+						LOOPP_WARN("Track %i has pan %f", pan->valuedouble);
 					}
 				}
 				// sends
@@ -627,7 +627,7 @@ int DiskReader::readTracks()
 					cJSON* keyActive  = cJSON_GetObjectItem( track, "keyActive");
 
 					if( !send || !sendActive || !xside || !keyActive ) {
-						LUPPP_WARN("Track %i has no send data saved.", t);
+						LOOPP_WARN("Track %i has no send data saved.", t);
 					} else {
 						EventTrackSendActive e1( t, SEND_POSTFADER, sendActive->valueint );
 						EventTrackSendActive e2( t, SEND_KEY, keyActive ->valueint );
@@ -655,8 +655,8 @@ int DiskReader::readTracks()
 			}// if track
 		} // nTracks loop
 	} else {
-		LUPPP_ERROR("%s", "Error getting clip" );
-		return LUPPP_RETURN_ERROR;
+		LOOPP_ERROR("%s", "Error getting clip" );
+		return LOOPP_RETURN_ERROR;
 	}
-	return LUPPP_RETURN_OK;
+	return LOOPP_RETURN_OK;
 }

@@ -47,9 +47,9 @@ extern Jack* jack;
 #include <FL/Fl_Multiline_Output.H>
 
 // include the header.c file in the planning dir:
-// its the GIMP .c export of the LUPPP header image
+// its the GIMP .c export of the LOOPP header image
 #include "../planning/header.c"
-#include "../planning/luppp.c"
+#include "../planning/loopp.c"
 #include "../planning/bg.c"
 
 using namespace std;
@@ -60,7 +60,7 @@ extern int signalHanlderInt;
 static void signalChecker(void*)
 {
 	if ( signalHanlderInt ) {
-		// Luppp recieved either a SIGTERM or SIGINT: quit gracefully
+		// Loopp recieved either a SIGTERM or SIGINT: quit gracefully
 		gui->quit();
 	} else {
 		Fl::repeat_timeout( 0.1, (Fl_Timeout_Handler)&signalChecker, 0 );
@@ -91,7 +91,7 @@ static void gui_static_nsm_cb(void* inst)
 
 void option_controller_cb(Fl_Widget*,void* data)
 {
-	LUPPP_NOTE("%s","Controller cb");
+	LOOPP_NOTE("%s","Controller cb");
 }
 
 static void gui_header_callback(Fl_Widget *w, void *data)
@@ -166,22 +166,22 @@ static void gui_header_callback(Fl_Widget *w, void *data)
 			*/
 		}
 
-		LUPPP_NOTE( "Loading session from dir %s", tmp.c_str() );
+		LOOPP_NOTE( "Loading session from dir %s", tmp.c_str() );
 
 		// clear the current session: just do a state reset
 		EventStateReset e;
 		writeToDspRingbuffer( &e );
 
 		int sess = gui->getDiskReader()->readSession( tmp );
-		if ( sess != LUPPP_RETURN_OK )
-			LUPPP_ERROR( "Error loading session" );
+		if ( sess != LOOPP_RETURN_OK )
+			LOOPP_ERROR( "Error loading session" );
 
 		return;
 	} else if ( strcmp(m->label(), "Save Session   ") == 0 ) {
 		const char* name = fl_input( "Save session as", gui->getDiskWriter()->getLastSaveName().c_str() );
 		if ( name ) {
 			gui->getDiskWriter()->initialize( gui->getProjectsDir().c_str(), name );
-			LUPPP_NOTE("%s %s","Saving session as ", name );
+			LOOPP_NOTE("%s %s","Saving session as ", name );
 			EventSessionSave e;
 			writeToDspRingbuffer( &e );
 		}
@@ -223,26 +223,26 @@ void Gui::selectLoadController(Fl_Widget* w, void*)
 	if ( strcmp( path.c_str(), "" ) == 0 )
 		return;
 
-	LUPPP_NOTE("%s","ADD Controller cb");
+	LOOPP_NOTE("%s","ADD Controller cb");
 	Controller* c = new GenericMIDI( path );
 
 	if ( c->status() == Controller::CONTROLLER_OK ) {
 		EventControllerInstance e(c);
 		writeToDspRingbuffer( &e );
 	} else {
-		LUPPP_ERROR("Controller initialization failed!");
+		LOOPP_ERROR("Controller initialization failed!");
 	}
 
 }
 
 void Gui::setProjectsDir(string dir)
 {
-	lupppProjectsDir=dir;
+	looppProjectsDir=dir;
 }
 
 string Gui::getProjectsDir()
 {
-	return lupppProjectsDir;
+	return looppProjectsDir;
 }
 
 void Gui::selectSaveSample( int track, int scene )
@@ -322,7 +322,7 @@ static int cb_nsm_open (const char *name,
                         char **out_msg,
                         void *userdata )
 {
-	LUPPP_NOTE("NSM: Open, displayname: %s", display_name );
+	LOOPP_NOTE("NSM: Open, displayname: %s", display_name );
 
 	Jack::setup( client_id );
 
@@ -344,7 +344,7 @@ static int cb_nsm_open (const char *name,
 
 static int cb_nsm_save ( char **out_msg, void *userdata )
 {
-	LUPPP_NOTE("NSM: saving..." );
+	LOOPP_NOTE("NSM: saving..." );
 
 	// disk-writer already initialized to the right directory, so just write!
 	EventSessionSave e;
@@ -367,16 +367,16 @@ Gui::Gui(const char* argZero) :
 	// setup window icon before calling show()
 	fl_open_display();
 	Fl_Pixmap* pixmap = new Fl_Pixmap( icon_xpm );
-	Fl_Offscreen lupppIcon = XCreatePixmap(fl_display, RootWindow(fl_display, fl_screen),
+	Fl_Offscreen looppIcon = XCreatePixmap(fl_display, RootWindow(fl_display, fl_screen),
 	                                       pixmap->w(), pixmap->h(), fl_visual->depth);
-	fl_gc = XCreateGC(fl_display, lupppIcon, 0, 0);
-	fl_begin_offscreen(lupppIcon);
+	fl_gc = XCreateGC(fl_display, looppIcon, 0, 0);
+	fl_begin_offscreen(looppIcon);
 	pixmap->draw(0,0);
 	fl_end_offscreen();
 	delete pixmap;
 	XFreeGC(fl_display, fl_gc);
 
-	window.icon( (void*)lupppIcon );
+	window.icon( (void*)looppIcon );
 
 	// setup callback to signalChecker()
 	Fl::add_timeout( 0.1, (Fl_Timeout_Handler)&signalChecker, 0 );
@@ -385,11 +385,11 @@ Gui::Gui(const char* argZero) :
 	Fl::add_handler( keyboardHandler );
 
 	//window.resize( false );
-	window.xclass("luppp");
-	window.iconlabel("luppp");
+	window.xclass("loopp");
+	window.iconlabel("loopp");
 
 	window.color(FL_BLACK);
-	window.label("Luppp");
+	window.label("Loopp");
 	window.callback( close_cb, 0 );
 	window.size_range( 800, 450 );
 
@@ -403,9 +403,9 @@ Gui::Gui(const char* argZero) :
 			Avtk::Image* bgImage = new Avtk::Image(0,0,1920,36,"bg");
 			bgImage->setPixbuf( bgImg.pixel_data, 4 );
 
-			Avtk::Image* lupppImage = new Avtk::Image(0,0,130,36,"luppp");
-			lupppImage->setPixbuf( lupppImg.pixel_data, 4 );
-			lupppImage->callback( gui_header_callback, this );
+			Avtk::Image* looppImage = new Avtk::Image(0,0,130,36,"loopp");
+			looppImage->setPixbuf( looppImg.pixel_data, 4 );
+			looppImage->callback( gui_header_callback, this );
 
 			Avtk::Image* headerImage = new Avtk::Image( window.w() - 270,0,270,36,"header");
 			headerImage->setPixbuf( header.pixel_data, 4 );
@@ -425,8 +425,8 @@ Gui::Gui(const char* argZero) :
 	}
 	headerImages->end();
 
-	// create a new "Group" with all Luppp GUI contents, for resizing
-	lupppGroup = new Fl_Group( 0, 0, 1110, 700, "Luppp");
+	// create a new "Group" with all Loopp GUI contents, for resizing
+	looppGroup = new Fl_Group( 0, 0, 1110, 700, "Loopp");
 	{
 		int i = 0;
 		for (; i < NTRACKS; i++ ) {
@@ -436,9 +436,9 @@ Gui::Gui(const char* argZero) :
 		}
 		master = new GMasterTrack(8 + i * 118, 40, 150, 650, "Master");
 	}
-	lupppGroup->end();
+	looppGroup->end();
 
-	window.resizable( lupppGroup );
+	window.resizable( looppGroup );
 
 	window.end();
 
@@ -454,10 +454,10 @@ Gui::Gui(const char* argZero) :
 
 	// read settings file using diskreader, and setup controllers etc
 	int prefs = diskReader->loadPreferences();
-	if ( prefs != LUPPP_RETURN_OK ) {
-		LUPPP_WARN("No preferences loaded, using defaults.");
+	if ( prefs != LOOPP_RETURN_OK ) {
+		LOOPP_WARN("No preferences loaded, using defaults.");
 	} else {
-		LUPPP_NOTE("Loaded preferences");
+		LOOPP_NOTE("Loaded preferences");
 	}
 
 	// NSM stuff
@@ -470,8 +470,8 @@ Gui::Gui(const char* argZero) :
 		nsm_set_save_callback( nsm, cb_nsm_save, this );
 
 		if ( nsm_init( nsm, nsm_url ) == 0 ) {
-			nsm_send_announce( nsm, "Luppp", "", argZero );
-			LUPPP_NOTE("Announcing to NSM");
+			nsm_send_announce( nsm, "Loopp", "", argZero );
+			LOOPP_NOTE("Announcing to NSM");
 		} else {
 			nsm_free( nsm );
 			nsm = 0;

@@ -93,7 +93,7 @@ void Logic::trackVolume(int t, float v)
 		jack->getTrackOutput( t )->setMaster( v );
 		jack->getControllerUpdater()->volume( t, v );
 	} else {
-		LUPPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
+		LOOPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
 	}
 }
 
@@ -103,7 +103,7 @@ void Logic::trackRecordArm(int t, bool v)
 		jack->getTrackOutput( t )->recordArm( v );
 		jack->getControllerUpdater()->recordArm( t, v );
 	} else {
-		LUPPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
+		LOOPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
 	}
 }
 
@@ -113,7 +113,7 @@ void Logic::trackSendActive(int t, int s, bool v)
 		jack->getTrackOutput( t )->setSendActive( s, v );
 		jack->getControllerUpdater()->setTrackSendActive( t, s, v );
 	} else {
-		LUPPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
+		LOOPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
 	}
 }
 
@@ -123,7 +123,7 @@ void Logic::trackSend(int t, int send, float v)
 		jack->getTrackOutput( t )->setSend( send, v );
 		jack->getControllerUpdater()->setTrackSend( t, send, v );
 	} else {
-		LUPPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
+		LOOPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
 	}
 }
 
@@ -133,7 +133,7 @@ void Logic::trackJackSendActivate(int t, bool active)
 		jack->getJackSendReturn(t)->activate(active);
 		jack->getControllerUpdater()->setTrackJackSendActive( t, active );
 	} else {
-		LUPPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
+		LOOPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
 	}
 }
 
@@ -143,7 +143,7 @@ void Logic::trackJackSend(int t, float vol)
 		jack->getJackSendReturn(t)->sendVolume(vol);
 		jack->getControllerUpdater()->setTrackJackSend( t, vol );
 	} else {
-		LUPPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
+		LOOPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
 	}
 }
 
@@ -152,7 +152,7 @@ void Logic::looperClipLenght(int t, int s, int l)
 	if ( t >= 0 && t < NTRACKS ) {
 		jack->getLooper( t )->getClip( s )->setBeats(l);
 	} else {
-		LUPPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
+		LOOPP_WARN("invalid track number %i: check controller map has \"track\" field.", t );
 	}
 }
 

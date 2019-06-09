@@ -15,7 +15,7 @@
 
 ## Features:
 
-* Print version number with `luppp --version`
+* Print version number with `loopp --version`
 
 ## Improvements:
 
@@ -69,7 +69,7 @@
 
 # 1.1: Saturday 24th December 2016
 ## Features:
-* Added saveDirectory option to set the save dir for Luppp sessions
+* Added saveDirectory option to set the save dir for Loopp sessions
 * Added possibility to enable metronom on startup and set volume
 * Added possibility to save clips
 * Added per track outputs

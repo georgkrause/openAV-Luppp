@@ -17,13 +17,13 @@
  */
 
 
-#ifndef LUPPP_BINDING_H
-#define LUPPP_BINDING_H
+#ifndef LOOPP_BINDING_H
+#define LOOPP_BINDING_H
 
 #include <map>
 
-/// a LupppAction represents the Event type, as from Event.hxx
-typedef int LupppAction;
+/// a LooppAction represents the Event type, as from Event.hxx
+typedef int LooppAction;
 
 class Binding
 {
@@ -41,7 +41,7 @@ public:
 
 	/// the action this binding relates to: this is an integer based on the
 	/// event.hxx enumeration of event types
-	LupppAction action;
+	LooppAction action;
 
 	/// arguments to the event: track number, scene number etc
 	int active;

@@ -100,7 +100,7 @@ void AudioEditor::show( AudioBuffer* buf, bool modal )
 	ab = buf;
 
 	if ( !ab ) {
-		LUPPP_WARN("called with ab == 0");
+		LOOPP_WARN("called with ab == 0");
 		return;
 	}
 

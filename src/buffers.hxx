@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_BUFFERS_H
-#define LUPPP_BUFFERS_H
+#ifndef LOOPP_BUFFERS_H
+#define LOOPP_BUFFERS_H
 
 #include <cstring>
 #include <jack/transport.h>
@@ -151,5 +151,5 @@ public:
 
 };
 
-#endif // LUPPP_BUFFERS_H
+#endif // LOOPP_BUFFERS_H
 

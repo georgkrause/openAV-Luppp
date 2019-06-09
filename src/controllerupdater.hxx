@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_CONTROLLER_UPDATER_H
-#define LUPPP_CONTROLLER_UPDATER_H
+#ifndef LOOPP_CONTROLLER_UPDATER_H
+#define LOOPP_CONTROLLER_UPDATER_H
 
 #include <vector>
 #include <iostream>
@@ -37,7 +37,7 @@ using namespace std;
  *  This class does no scheduling, it passes the events to the Controllers
  *  immidiatly.
  *
- *  The Logic class is the opposite of this: it takes input and Luppp processes
+ *  The Logic class is the opposite of this: it takes input and Loopp processes
  *  it, pushing the relevant updates in state through ControllerUpdater to each
  *  registered device.
 **/
@@ -91,5 +91,5 @@ private:
 	std::vector<Controller*> c;
 };
 
-#endif // LUPPP_CONTROLLER_UPDATER_H
+#endif // LOOPP_CONTROLLER_UPDATER_H
 

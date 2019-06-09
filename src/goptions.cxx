@@ -41,7 +41,7 @@ static void addControllerUiDsp(OptionsWindow* self, GenericMIDI* c)
 	// store the pointer to the options window: needed to make remove button work
 	self->controllers.back()->optionsWindow = self;
 
-	LUPPP_NOTE("Added controller %s, ID %i", c->getName().c_str(), c->getID() );
+	LOOPP_NOTE("Added controller %s, ID %i", c->getName().c_str(), c->getID() );
 
 	// add widget before "add" button
 	self->tabs->insert( *self->controllers.back()->widget, self->addGroup );
@@ -89,7 +89,7 @@ static void updateLinkCB(Fl_Widget* w, void* data)
 static void writeBindEnable(Fl_Widget* w, void* data)
 {
 	OptionsWindow* o = (OptionsWindow*) data;
-	//LUPPP_NOTE("MIDI bind mode");
+	//LOOPP_NOTE("MIDI bind mode");
 
 	Avtk::LightButton* l = (Avtk::LightButton*)w;
 	l->value( !l->value() );
@@ -110,7 +110,7 @@ static void removeControllerCB(Fl_Widget* w, void* data)
 
 	// FIXME: confirm action here?
 
-	//LUPPP_NOTE("Removing controllerID %i", self->controllerID );
+	//LOOPP_NOTE("Removing controllerID %i", self->controllerID );
 	EventControllerInstanceRemove e( self->controllerID );
 	writeToDspRingbuffer( &e );
 
@@ -120,7 +120,7 @@ static void removeControllerCB(Fl_Widget* w, void* data)
 static void addNewController(Fl_Widget* w, void* ud)
 {
 	OptionsWindow* self = (OptionsWindow*)ud;
-	LUPPP_NOTE("%s","ADD Controller cb");
+	LOOPP_NOTE("%s","ADD Controller cb");
 
 	GenericMIDI* c = 0;
 
@@ -135,7 +135,7 @@ static void addNewController(Fl_Widget* w, void* ud)
 	if ( c->status() == Controller::CONTROLLER_OK ) {
 		addControllerUiDsp( self, c );
 	} else {
-		LUPPP_ERROR("Controller initialization failed!");
+		LOOPP_ERROR("Controller initialization failed!");
 	}
 }
 
@@ -153,7 +153,7 @@ static void selectLoadController(Fl_Widget* w, void* data)
 	fnfc.filter("Controllers\t*.ctlr");
 
 	stringstream s;
-	s << getenv("HOME") << "/.config/openAV/luppp/controllers/";
+	s << getenv("HOME") << "/.config/openAV/loopp/controllers/";
 	fnfc.directory( s.str().c_str() ); // default directory to use
 	// Show native chooser
 	switch ( fnfc.show() ) {
@@ -170,13 +170,13 @@ static void selectLoadController(Fl_Widget* w, void* data)
 	if ( strcmp( path.c_str(), "" ) == 0 )
 		return;
 
-	//LUPPP_NOTE("%s","ADD Controller cb");
+	//LOOPP_NOTE("%s","ADD Controller cb");
 	GenericMIDI* c = new GenericMIDI( path );
 
 	if ( c->status() == Controller::CONTROLLER_OK ) {
 		addControllerUiDsp( self, c );
 	} else {
-		LUPPP_ERROR("Controller initialization failed!");
+		LOOPP_ERROR("Controller initialization failed!");
 	}
 }
 
@@ -186,7 +186,7 @@ static void writeControllerFile(Fl_Widget* w, void* data)
 {
 	ControllerUI* c = (ControllerUI*)data;
 
-	LUPPP_NOTE("Writing controller %li, %s ID %i .ctlr to disk", c, c->name.c_str(), c->controllerID );
+	LOOPP_NOTE("Writing controller %li, %s ID %i .ctlr to disk", c, c->name.c_str(), c->controllerID );
 
 	// Set the Controller details in diskWriter, so it write it pretty
 	gui->getDiskWriter()->writeControllerInfo( CONTROLLER_NAME  , c->name       );
@@ -205,7 +205,7 @@ static void deleteBindingFromController(Fl_Widget* w, void* ud)
 	s << w->label();
 	int tmp;
 	s >> tmp;
-	LUPPP_NOTE("CtlrID %i: Deleting binding with ID %i", self->controllerID, tmp );
+	LOOPP_NOTE("CtlrID %i: Deleting binding with ID %i", self->controllerID, tmp );
 
 	EventControllerBindingRemove e( self->controllerID, tmp );
 	writeToDspRingbuffer( &e );
@@ -261,7 +261,7 @@ ControllerUI::ControllerUI(int x, int y, int w, int h, std::string n, int ID)
 
 	// save the controller ID this ControllerUI represents
 	controllerID = ID;
-	LUPPP_NOTE("Controller %li ID on create %i", this, controllerID );
+	LOOPP_NOTE("Controller %li ID on create %i", this, controllerID );
 
 	//ctlrButton->callback( selectLoadController );
 	bindEnable->callback( writeBindEnable, this );
@@ -309,12 +309,12 @@ void ControllerUI::addBinding( Binding* b )
 		const char* tmp = Event::getPrettyName( b->action );
 		if ( !tmp ) {
 #ifdef DEBUG_MIDI
-			LUPPP_NOTE("new binding, action string returned NULL, action number %i ", b->action  );
+			LOOPP_NOTE("new binding, action string returned NULL, action number %i ", b->action  );
 #endif
 			return;
 		}
 	} else {
-		LUPPP_WARN("new binding, action: ==  EVENT_NULL" );
+		LOOPP_WARN("new binding, action: ==  EVENT_NULL" );
 		return;
 	}
 
@@ -382,7 +382,7 @@ void ControllerUI::addBinding( Binding* b )
 	bindingsPack->redraw();
 	scroll->redraw();
 
-	//LUPPP_NOTE("binding size %i %i", bindingsPack->w(), bindingsPack->h() );
+	//LOOPP_NOTE("binding size %i %i", bindingsPack->w(), bindingsPack->h() );
 }
 
 void ControllerUI::addBindings( GenericMIDI* c )

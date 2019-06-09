@@ -1,5 +1,5 @@
 
-Thanks for looking into packaging Luppp:
+Thanks for looking into packaging Loopp:
 OpenAV couldn't possibly package for every distro,
 your work is apprecatied!
 
@@ -10,10 +10,10 @@ Notes for packaging:
 
 === Controllers directory
 Install controllers directory (and contents) to
-/usr/share/luppp/controllers
+/usr/share/loopp/controllers
 
-Result: dir:    /usr/share/luppp/controllers/
-        files:  /usr/share/luppp/controllers/<filename>.ctlr
+Result: dir:    /usr/share/loopp/controllers/
+        files:  /usr/share/loopp/controllers/<filename>.ctlr
 
 
 === Questions

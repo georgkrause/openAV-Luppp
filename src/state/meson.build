@@ -1,1 +1,1 @@
-luppp_src += files('state.cxx', 'stately.cxx')
+loopp_src += files('state.cxx', 'stately.cxx')

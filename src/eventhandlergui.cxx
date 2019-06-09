@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_EVENT_HANDLER_DSP_H
-#define LUPPP_EVENT_HANDLER_DSP_H
+#ifndef LOOPP_EVENT_HANDLER_DSP_H
+#define LOOPP_EVENT_HANDLER_DSP_H
 
 
 // Library
@@ -57,7 +57,7 @@ void handleGuiEvents()
 				if ( availableRead >= sizeof(EventQuit) ) {
 					EventQuit ev;
 					jack_ringbuffer_read( rbToGui, (char*)&ev, sizeof(EventQuit) );
-					LUPPP_NOTE("%s","GUI QUIT");
+					LOOPP_NOTE("%s","GUI QUIT");
 					gui->quit();
 				}
 				break;
@@ -68,7 +68,7 @@ void handleGuiEvents()
 					EventSamplerate ev;
 					jack_ringbuffer_read( rbToGui, (char*)&ev, sizeof(EventSamplerate) );
 					gui->samplerate = ev.samplerate;
-					//LUPPP_NOTE("Gui Samplerate: %i", gui->samplerate);
+					//LOOPP_NOTE("Gui Samplerate: %i", gui->samplerate);
 				}
 				break;
 			}
@@ -298,7 +298,7 @@ void handleGuiEvents()
 				if ( availableRead >= sizeof(EventGridSelectNewChosen) ) {
 					EventGridSelectNewChosen ev;
 					jack_ringbuffer_read( rbToGui, (char*)&ev, sizeof(EventGridSelectNewChosen) );
-					//LUPPP_NOTE("New special, %i, %i", ev.track, ev.scene);
+					//LOOPP_NOTE("New special, %i, %i", ev.track, ev.scene);
 					for(int i = 0; i < NTRACKS; i++) {
 						gui->getTrack(i)->getClipSelector()->setSpecial( i == ev.track ? ev.scene : -1 );
 					}
@@ -365,7 +365,7 @@ void handleGuiEvents()
 					EventGuiPrint ev;
 					jack_ringbuffer_read( rbToGui, (char*)&ev, sizeof(EventGuiPrint) );
 					//cout << "DSP: " << ev.getMessage() << endl;
-					LUPPP_DSP("%s", ev.getMessage() );
+					LOOPP_DSP("%s", ev.getMessage() );
 				}
 				break;
 			}
@@ -414,7 +414,7 @@ void handleGuiEvents()
 					AudioBuffer* ab = new AudioBuffer(ev.bufferSize);
 
 					if ( ab ) {
-						//LUPPP_NOTE("Save buffer sent with t %i, s %i, ab* %i", ev.track, ev.scene, ab );
+						//LOOPP_NOTE("Save buffer sent with t %i, s %i, ab* %i", ev.track, ev.scene, ab );
 						EventRequestSaveBuffer returnEvent( ev.track, ev.scene, ab);
 						writeToDspRingbuffer( &returnEvent );
 					} else {
@@ -441,7 +441,7 @@ void handleGuiEvents()
 					if ( c )
 						c->setBindEnable( ev.enable );
 					else
-						LUPPP_WARN("ControllerUI %i doesn't exist in the UI", ev.controllerID );
+						LOOPP_WARN("ControllerUI %i doesn't exist in the UI", ev.controllerID );
 				}
 				break;
 			}
@@ -463,7 +463,7 @@ void handleGuiEvents()
 					if ( c )
 						c->addBinding( (Binding*)ev.binding );
 					else
-						LUPPP_WARN("ControllerUI %i doesn't exist in the UI", ev.controllerID );
+						LOOPP_WARN("ControllerUI %i doesn't exist in the UI", ev.controllerID );
 				}
 				break;
 			}
@@ -484,7 +484,7 @@ void handleGuiEvents()
 					jack_ringbuffer_read( rbToGui, (char*)&ev, sizeof(EventControllerInstance) );
 					// remove this controller from use:
 					Controller* c = (Controller*)ev.controller;
-					LUPPP_NOTE("Deleting controller %s", c->getName().c_str() );
+					LOOPP_NOTE("Deleting controller %s", c->getName().c_str() );
 					// delete will call the destructor for the Controller: this should
 					// clean up ports etc, all from the GUI thread as appropriate
 					delete c;
@@ -519,5 +519,5 @@ void writeToGuiRingbuffer(EventBase* e)
 	}
 }
 
-#endif // LUPPP_EVENT_HANDLER_DSP_H
+#endif // LOOPP_EVENT_HANDLER_DSP_H
 

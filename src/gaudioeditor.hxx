@@ -17,8 +17,8 @@
  */
 
 
-#ifndef LUPPP_AUDIO_EDITOR_H
-#define LUPPP_AUDIO_EDITOR_H
+#ifndef LOOPP_AUDIO_EDITOR_H
+#define LOOPP_AUDIO_EDITOR_H
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
@@ -59,5 +59,5 @@ private:
 	AudioBuffer* ab;
 };
 
-#endif // LUPPP_AUDIO_EDITOR_H
+#endif // LOOPP_AUDIO_EDITOR_H
 

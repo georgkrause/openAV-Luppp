@@ -29,14 +29,14 @@ MidiIO::MidiIO() :
 	jackInputPort(0),
 	jackOutputPort(0)
 {
-	//LUPPP_NOTE("MidiIO %i",this);
+	//LOOPP_NOTE("MidiIO %i",this);
 }
 
 MidiIO::~MidiIO()
 {
 	jack->unregisterMidiIO( this );
 
-	//LUPPP_NOTE("~MidiIO unregistring ports");
+	//LOOPP_NOTE("~MidiIO unregistring ports");
 	jack_port_unregister( jack->getJackClientPointer(), jackInputPort );
 	jack_port_unregister( jack->getJackClientPointer(), jackOutputPort );
 }
@@ -61,8 +61,8 @@ void MidiIO::writeMidi( unsigned char* data )
 int MidiIO::registerMidiPorts(std::string name)
 {
 	if( !jack ) {
-		LUPPP_ERROR("Attempted register of controller, JACK not instantiated yet!");
-		return LUPPP_RETURN_ERROR;
+		LOOPP_ERROR("Attempted register of controller, JACK not instantiated yet!");
+		return LOOPP_RETURN_ERROR;
 	}
 
 	jack_client_t* c = jack->getJackClientPointer();
@@ -84,12 +84,12 @@ int MidiIO::registerMidiPorts(std::string name)
 	                                      0 );
 
 	if ( jackInputPort && jackOutputPort ) {
-		//LUPPP_NOTE("%i, %i", jackInputPort, jackOutputPort );
+		//LOOPP_NOTE("%i, %i", jackInputPort, jackOutputPort );
 		portsRegistered = true;
-		return LUPPP_RETURN_OK;
+		return LOOPP_RETURN_OK;
 	} else {
-		LUPPP_ERROR("Error registering JACK ports" );
-		return LUPPP_RETURN_ERROR;
+		LOOPP_ERROR("Error registering JACK ports" );
+		return LOOPP_RETURN_ERROR;
 	}
 }
 

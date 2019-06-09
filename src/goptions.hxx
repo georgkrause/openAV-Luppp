@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_OPTIONS_H
-#define LUPPP_OPTIONS_H
+#ifndef LOOPP_OPTIONS_H
+#define LOOPP_OPTIONS_H
 
 #include "config.hxx"
 
@@ -123,4 +123,4 @@ private:
 	Avtk::Button* loadButton;
 };
 
-#endif // LUPPP_OPTIONS_H
+#endif // LOOPP_OPTIONS_H

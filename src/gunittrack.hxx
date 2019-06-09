@@ -16,8 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LUPPP_G_UNIT_TRACK_H
-#define LUPPP_G_UNIT_TRACK_H
+#ifndef LOOPP_G_UNIT_TRACK_H
+#define LOOPP_G_UNIT_TRACK_H
 
 #include <iostream>
 
@@ -68,5 +68,5 @@ private:
 
 };
 
-#endif // LUPPP_G_UNIT_TRACK_H
+#endif // LOOPP_G_UNIT_TRACK_H
 

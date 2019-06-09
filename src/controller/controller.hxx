@@ -17,15 +17,15 @@
  */
 
 
-#ifndef LUPPP_CONTROLLER_H
-#define LUPPP_CONTROLLER_H
+#ifndef LOOPP_CONTROLLER_H
+#define LOOPP_CONTROLLER_H
 
 #include <string>
 
 #include "../gridlogic.hxx"
 
 /** Controller
- *  This is the base class for any device that interacts with Luppp.
+ *  This is the base class for any device that interacts with Loopp.
  *  Overriding the virtual functions allows the subclass to be notified about
  *  that event type. To provide input, #include gridlogic.hxx and logic.hxx
 **/
@@ -100,5 +100,5 @@ private:
 	int ID;
 };
 
-#endif // LUPPP_CONTROLLER_H
+#endif // LOOPP_CONTROLLER_H
 

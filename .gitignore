@@ -2,7 +2,7 @@
 planning/*
 
 src/*.o
-luppp
+loopp
 
 *.zip
 *.orig
@@ -14,7 +14,7 @@ buildTest/*
 /doc
 /Makefile
 /src/cmake_install.cmake
-/src/liblibluppp.a
+/src/liblibloopp.a
 /src/Makefile
 CMakeFiles/*
 src/CMakeFiles/*

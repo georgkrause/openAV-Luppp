@@ -73,7 +73,7 @@ void TimeManager::queueBpmChange(float bpm)
 {
 	double frames = (double)samplerate * (double)60 / (double)bpm;
 #ifdef DEBUG_TIME
-	LUPPP_NOTE("%s %f","setBpm()",bpm);
+	LOOPP_NOTE("%s %f","setBpm()",bpm);
 	cout << "calculated: " << fixed << setprecision(20) << frames << "\n";
 #endif
 	queueFpbChange( frames );
@@ -125,7 +125,7 @@ void TimeManager::setFpb(double f)
 
 void TimeManager::registerObserver(TimeObserver* o)
 {
-	//LUPPP_NOTE("%s","registerObserver()");
+	//LOOPP_NOTE("%s","registerObserver()");
 	observers.push_back(o);
 	o->setFpb( _fpb );
 
