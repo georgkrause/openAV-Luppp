@@ -236,42 +236,44 @@ static void gmastertrack_freeRecMode_callback(Fl_Widget *w, void *data) {
 	writeToDspRingbuffer(&e);
 }
 
-#define OFST 55
+#define HEIGHT 38
+#define OFST 49
 #define COLUMN_RIGHT x + w * 2 / 4.f - 15
 #define COLUMN_LEFT x + w * 1 / 4.f - 26
 #define ROW y + 436
-GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
-	: Fl_Group(x, y, w, h), title(strdup(l)), bg(x, y, w, h, title),
+GMasterTrack::GMasterTrack ( int x, int y, int w, int h, const char *l )
+	: Fl_Group ( x, y, w, h ), title ( strdup ( l ) ),
+	  bg ( x, y, w, h, title ),
 
 	  // with "true" master flag: launches scenes instead of clips on tracks
-	  clipSel(x + 5, y + 26 + 102, 140, 294, "", true),
+	  clipSel ( x + 5, y + 26 + 102, 140, 294, "", true ),
 
-	  source(x + 5, y + 26, 140, 100, ""),
-	  volBox(x + 5, y + 422, 140, 222, ""),
+	  source ( x + 5, y + 26, 140, 100, "" ),
+	  volBox ( x + 5, y + 422, 140, 222, "" ),
 
-	  freeRec(COLUMN_LEFT, ROW + OFST * 0, 40, 40, "Free"),
-	  transport(COLUMN_LEFT, ROW + OFST * 1, 40, 40, "Stop"),
-	  tapTempo(COLUMN_RIGHT, ROW + OFST * 2, 40, 40, "Tap"),
-	  metronomeButton(COLUMN_RIGHT, ROW + OFST * 1, 40, 40, "Metro"),
-	  autoStopRecButton(COLUMN_RIGHT, ROW + OFST * 0, 40, 40, "∞"),
-	  beatLight(COLUMN_LEFT, ROW + OFST * 2, 40, 40, ""),
+	  freeRec ( COLUMN_LEFT, ROW + OFST * 0, 40, HEIGHT, "Free" ),
+	  transport ( COLUMN_LEFT, ROW + OFST * 1, 40, HEIGHT, "Stop" ),
+	  tapTempo ( COLUMN_RIGHT, ROW + OFST * 2, 40, HEIGHT, "Tap" ),
+	  metronomeButton ( COLUMN_RIGHT, ROW + OFST * 1, 40, HEIGHT, "Metro" ),
+	  autoStopRecButton ( COLUMN_RIGHT, ROW + OFST * 0, 40, HEIGHT, "∞" ),
+	  beatLight ( COLUMN_LEFT, ROW + OFST * 2, 40, HEIGHT, "" ),
 
-	  tempoDial(COLUMN_RIGHT, ROW + OFST * 3, 40, 40, "BPM"),
-	  returnVol(COLUMN_LEFT, ROW + OFST * 3, 40, 40, "Return"),
+	  tempoDial ( COLUMN_RIGHT, ROW + OFST * 3, 40, HEIGHT, "BPM" ),
+	  returnVol ( COLUMN_LEFT, ROW + OFST * 3, 40, HEIGHT, "Return" ),
 
-	  inputVolume(x + 9, y + 26 + 4, w - 18, 30, ""),
+	  inputVolume ( x + 9, y + 26 + 4, w - 18, 30, "" ),
 
-	  inputToSend(x + 10, y + 28 + 68, 40, 26, "Snd"),
-	  inputToSendVol(x + w * 0.2 - 15, y + 28 + 36, 30, 30, ""),
+	  inputToSend ( x + 10, y + 28 + 68, 40, 26, "Snd" ),
+	  inputToSendVol ( x + w * 0.2 - 15, y + 28 + 36, 30, 30, "" ),
 
-	  inputToSidechainKey(x + w * 0.5 - 20, y + 28 + 68, 40, 26, "Key"),
-	  inputToSidechainSignalVol(x + w * 0.5 - 15, y + 28 + 36, 30, 30, ""),
+	  inputToSidechainKey ( x + w * 0.5 - 20, y + 28 + 68, 40, 26, "Key" ),
+	  inputToSidechainSignalVol (
+		  x + w * 0.5 - 15, y + 28 + 36, 30, 30, "" ),
 
-	  inputToMix(x + w * 0.8 - 20, y + 28 + 68, 40, 26, "Mix"),
-	  inputToMixVol(x + w * 0.8 - 15, y + 28 + 36, 30, 30, ""),
+	  inputToMix ( x + w * 0.8 - 20, y + 28 + 68, 40, 26, "Mix" ),
+	  inputToMixVol ( x + w * 0.8 - 15, y + 28 + 36, 30, 30, "" ),
 
-	  volume(x + 106, y + 425, 36, 216, "")
-{
+	  volume ( x + 106, y + 425, 36, 216, "" ) {
 	ID = privateID++;
 
 	bar = 0;
@@ -305,10 +307,10 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	inputToMix.callback   ( gmastertrack_mixButton_callback, 0 );
 	inputToMixVol.callback   ( gmastertrack_mixVol_callback, 0 );
 
-	tempoDial.align( FL_ALIGN_CENTER );
+	tempoDial.align( FL_ALIGN_BOTTOM );
 
 	returnVol.value( 1.f );
-	returnVol.align( FL_ALIGN_CENTER );
+	returnVol.align( FL_ALIGN_BOTTOM );
 	returnVol.callback( gmastertrack_returnVol_callback, 0 );
 
 	beatLightEnable(true);
