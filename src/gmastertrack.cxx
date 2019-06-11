@@ -247,7 +247,7 @@ GMasterTrack::GMasterTrack(int x, int y, int w, int h, const char *l)
 	  clipSel(x + 5, y + 26 + 102, 140, 294, "", true),
 
 	  source(x + 5, y + 26, 140, 100, ""),
-	  volBox(x + 5, y + 422, 140, 232, ""),
+	  volBox(x + 5, y + 422, 140, 222, ""),
 
 	  freeRec(COLUMN_LEFT, ROW + OFST * 0, 40, 40, "Free"),
 	  transport(COLUMN_LEFT, ROW + OFST * 1, 40, 40, "Stop"),
