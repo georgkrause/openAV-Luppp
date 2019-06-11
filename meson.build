@@ -46,4 +46,4 @@ endif
 install_data('resources/metadata/loopp.desktop', install_dir: 'share/applications')
 install_data('resources/metadata/loopp.appdata.xml', install_dir: 'share/appdata')
 install_data('resources/icons/loopp.png', install_dir: 'share/pixmaps')
-install_data('resources/icon/loopp-small.png', install_dir: 'share/icons/hicolor/32x32/apps/loopp.png)
+install_data('resources/icons/loopp-small.png', install_dir: 'share/icons/hicolor/32x32/apps', rename: ['loopp.png'])
