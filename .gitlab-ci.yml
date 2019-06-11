@@ -67,7 +67,7 @@ package-AppImage:
     - build-publish
   script:
     - DESTDIR=./appdir ninja -C buildDir install ; find ./buildDir/appdir
-    - cp resorces/icons/loopp.png buildDir/appdir/loopp.png
+    - cp resources/icons/loopp.png buildDir/appdir/loopp.png
     - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
     - /linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
     - squashfs-root/AppRun buildDir/appdir/usr/share/applications/*.desktop -appimage
