@@ -1,7 +1,8 @@
 version_hxx = vcs_tag(
     input  : 'version.hxx.in',
     output : 'version.hxx',
-    fallback: 'Version info could not be read.')
+    command: ['git', 'describe', '--dirty=+', '--match=release-*', '--tags'],
+    fallback: meson.project_version())
 
 if not get_option('unitTests')
   message('Create build config for publishing')

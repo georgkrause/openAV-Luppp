@@ -1,11 +1,8 @@
 project( 'loopp', ['c','cpp'],
   default_options : [
     'cpp_std=c++11',
-    ])
-
-conf_data = configuration_data()
-conf_data.set('version', '1.2.0')
-
+    ],
+    version: '1.2.1')
 
 if(get_option('tests') == true)
   add_project_arguments('-DBUILD_TESTS', language : 'cpp')
