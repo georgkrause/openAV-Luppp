@@ -57,7 +57,7 @@ DiskWriter::DiskWriter()
 
 	// create .config/soundship/loopp/ directory
 	stringstream dotConfig;
-	dotConfig << getenv("HOME") << "/.config/sounudship/";
+	dotConfig << getenv("HOME") << "/.config/soundship/";
 	int dotConfigDir  = mkdir( dotConfig.str().c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 	if ( errno == EEXIST ) {
 		//LOOPP_NOTE("dotConfigDir exists");
