@@ -82,7 +82,7 @@ int DiskReader::loadPreferences()
 			int nCtlrs = cJSON_GetArraySize( ctlrs );
 			for(int i = 0; i < nCtlrs; i++ ) {
 				cJSON* ctlr = cJSON_GetArrayItem( ctlrs, i );
-				if( ctlr ) {
+				if( ctlr && strcmp(ctlr->valuestring, "") != 0 ) {
 					LOOPP_NOTE("Loading controller %s", ctlr->valuestring);
 					stringstream s;
 					s << getenv("HOME") << "/.config/soundship/loopp/controllers/" << ctlr->valuestring;
