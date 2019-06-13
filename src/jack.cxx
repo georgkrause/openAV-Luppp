@@ -38,6 +38,7 @@
 #include "dsp/dsp_dbmeter.hxx"
 
 #include "looper/audiobuffer.hxx"
+#include "looper/looperfactory.hxx"
 #include "eventhandler.hxx"
 #include "controller/genericmidi.hxx"
 #include "controller/guicontroller.hxx"
@@ -235,7 +236,7 @@ Jack::Jack( std::string name ) :
 		 *  or the track's Looper instance.
 		 * This is an option in loopp.prfs
 		**/
-		loopers.push_back( new Looper(track) );
+		loopers.push_back( LooperFactory::buildLooper(track) );
 
 		tracksendreturns.push_back(new JackSendReturn(track,loopers.back(),client));
 		trackOutputs.push_back( new TrackOutput(track, tracksendreturns.back() ) );

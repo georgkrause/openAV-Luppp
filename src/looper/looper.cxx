@@ -35,7 +35,7 @@
 
 extern Jack* jack;
 
-Looper::Looper(int t) :
+Looper::Looper(int t, LooperClip **c) :
 	AudioProcessor(),
 	TimeObserver(),
 	track(t)
@@ -48,7 +48,7 @@ Looper::Looper(int t) :
 	//memset( tmpRecordBuffer, 0, sizeof(float) * MAX_BUFFER_SIZE );
 
 	for(int i = 0; i < NSCENES; i++ ) {
-		clips[i] = new LooperClip(track, i);
+		clips[i] = c[i];
 	}
 
 	tmpBuffer.resize( MAX_BUFFER_SIZE );

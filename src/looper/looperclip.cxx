@@ -32,13 +32,13 @@
 
 extern Jack* jack;
 
-LooperClip::LooperClip(int t, int s) :
+LooperClip::LooperClip(int t, int s, AudioBuffer *b) :
 	Stately(),
 	track(t),
 	scene(s),
 	TimeObserver()
 {
-	_buffer = new AudioBuffer(LOOPER_SAMPLES_UPDATE_SIZE);
+	_buffer = b;
 	init();
 
 #ifdef DEBUG_BUFFER

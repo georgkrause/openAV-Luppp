@@ -47,7 +47,7 @@ class AudioBuffer;
 class LooperClip : public Stately, public TimeObserver
 {
 public:
-	LooperClip(int track, int scene);
+	LooperClip(int track, int scene, AudioBuffer *b);
 
 	/// Set everything up
 	void init();

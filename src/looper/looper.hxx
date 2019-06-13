@@ -38,7 +38,7 @@ using namespace std;
 class Looper : public AudioProcessor, public TimeObserver
 {
 public:
-	Looper(int t);
+	Looper ( int t, LooperClip **c );
 
 	/// *sets* the new audiobuffer, but the content gets copied to the new buffer.
 	/// Used for infinite lenght recording
