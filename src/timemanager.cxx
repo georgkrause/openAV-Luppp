@@ -206,11 +206,12 @@ void TimeManager::process(Buffers* buffers)
 	//buffers->transportPosition->beats_per_bar = 4;
 	//buffers->transportPosition->beat_type     = 4;
 
+	int nframes = buffers->nframes;
+
 	if ( transportState == TRANSPORT_STOPPED ) {
+		totalFrameCounter += nframes;
 		return;
 	}
-
-	int nframes = buffers->nframes;
 
 
 
