@@ -27,7 +27,7 @@
 #include "gui.hxx"
 #include "logic.hxx"
 #include "config.hxx"
-#include "looper.hxx"
+#include "looper/looper.hxx"
 #include "metronome.hxx"
 #include "gridlogic.hxx"
 #include "trackoutput.hxx"
@@ -37,7 +37,7 @@
 #include "dsp/dsp_reverb.hxx"
 #include "dsp/dsp_dbmeter.hxx"
 
-#include "audiobuffer.hxx"
+#include "looper/audiobuffer.hxx"
 #include "eventhandler.hxx"
 #include "controller/genericmidi.hxx"
 #include "controller/guicontroller.hxx"

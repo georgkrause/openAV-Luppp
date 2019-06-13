@@ -28,7 +28,7 @@
 #include "config.hxx"
 #include "gui.hxx"
 #include "event.hxx"
-#include "audiobuffer.hxx"
+#include "looper/audiobuffer.hxx"
 #include "eventhandler.hxx"
 #include "gmastertrack.hxx"
 

@@ -22,12 +22,12 @@
 #include <vector>
 #include <iostream>
 
-#include "buffers.hxx"
+#include "../buffers.hxx"
 
-#include "audioprocessor.hxx"
+#include "../audioprocessor.hxx"
 
 #include "looperclip.hxx"
-#include "observer/time.hxx"
+#include "../observer/time.hxx"
 
 using namespace std;
 

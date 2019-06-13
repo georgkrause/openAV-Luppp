@@ -38,7 +38,7 @@
 #include "avtk/clipselector.hxx"
 
 #include "config.hxx"
-#include "audiobuffer.hxx"
+#include "looper/audiobuffer.hxx"
 #include "eventhandler.hxx"
 
 using namespace std;

@@ -7,7 +7,6 @@ version_hxx = vcs_tag(
 if not get_option('unitTests')
   message('Create build config for publishing')
   loopp_src = files(
-    'audiobuffer.cxx',
     'controllerupdater.cxx',
     'debug.cxx',
     'diskreader.cxx',
@@ -24,14 +23,13 @@ if not get_option('unitTests')
     'jack.cxx',
     'jacksendreturn.cxx',
     'logic.cxx',
-    'looperclip.cxx',
-    'looper.cxx',
     'main.cxx',
     'metronome.cxx',
     'timemanager.cxx',
     'trackoutput.cxx'
     )
 
+  subdir('looper')
   subdir('cjson')
   subdir('dsp')
   subdir('controller')

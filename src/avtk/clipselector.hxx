@@ -26,9 +26,9 @@
 
 #include "../config.hxx"
 
-#include "../looper.hxx"
+#include "../looper/looper.hxx"
 #include "../gridlogic.hxx"
-#include "../audiobuffer.hxx"
+#include "../looper/audiobuffer.hxx"
 #include "../eventhandler.hxx"
 
 using namespace std;

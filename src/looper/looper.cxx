@@ -19,7 +19,7 @@
 
 #include "looper.hxx"
 
-#include "config.hxx"
+#include "../config.hxx"
 
 #include <cmath>
 
@@ -27,11 +27,11 @@
 	#include <iomanip>
 #endif
 
-#include "jack.hxx"
+#include "../jack.hxx"
 #include "audiobuffer.hxx"
-#include "eventhandler.hxx"
-#include "controllerupdater.hxx"
-#include "timemanager.hxx"
+#include "../eventhandler.hxx"
+#include "../controllerupdater.hxx"
+#include "../timemanager.hxx"
 
 extern Jack* jack;
 

@@ -25,7 +25,7 @@
 #include "gui.hxx"
 extern Gui* gui;
 
-#include "audiobuffer.hxx"
+#include "looper/audiobuffer.hxx"
 
 #include "avtk/waveform.h"
 #include "avtk/avtk_button.h"

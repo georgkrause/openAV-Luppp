@@ -17,7 +17,7 @@
  */
 
 #include "audiobuffer.hxx"
-#include "config.hxx"
+#include "../config.hxx"
 
 #include <stdio.h>
 

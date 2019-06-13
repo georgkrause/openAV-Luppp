@@ -22,8 +22,8 @@
 #include <string>
 
 #include "../jack.hxx"
-#include "../looper.hxx"
-#include "../looperclip.hxx"
+#include "../looper/looper.hxx"
+#include "../looper/looperclip.hxx"
 
 NonSeq::NonSeq() :
 	Controller(),

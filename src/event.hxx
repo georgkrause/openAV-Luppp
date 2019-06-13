@@ -28,7 +28,7 @@
   This file provides declarations for each type of event that the engine uses.
 */
 
-#include "looper.hxx"
+#include "looper/looper.hxx"
 #include "gridlogic.hxx"
 #include "transport.hxx"
 

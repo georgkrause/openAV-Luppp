@@ -29,7 +29,7 @@
 #include "jack.hxx"
 extern Jack* jack;
 
-#include "audiobuffer.hxx"
+#include "looper/audiobuffer.hxx"
 #include "controller/nonseq.hxx"
 #include "controller/genericmidi.hxx"
 

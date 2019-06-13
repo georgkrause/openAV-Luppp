@@ -19,14 +19,14 @@
 #include "looperclip.hxx"
 
 #include <stdio.h>
-#include "config.hxx"
-#include "jack.hxx"
-#include "event.hxx"
-#include "eventhandler.hxx"
+#include "../config.hxx"
+#include "../jack.hxx"
+#include "../event.hxx"
+#include "../eventhandler.hxx"
 #include "audiobuffer.hxx"
 
-#include "controllerupdater.hxx"
-#include "timemanager.hxx"
+#include "../controllerupdater.hxx"
+#include "../timemanager.hxx"
 #include <math.h>
 
 
